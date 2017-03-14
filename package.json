@@ -12,6 +12,7 @@
     "server-dev": ""
   },
   "dependencies": {
+    "body-parser": "^1.17.1",
     "express": "^4.15.0",
     "jquery": "^3.1.1",
     "mongoose": "^4.9.0",
