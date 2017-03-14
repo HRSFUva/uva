@@ -1,0 +1,24 @@
+{
+  "name": "uva",
+  "version": "1.0.0",
+  "description": "",
+  "main": "_.eslintrc.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/burt23/uva.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/burt23/uva/issues"
+  },
+  "homepage": "https://github.com/burt23/uva#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "mongodb": "^2.2.24"
+  }
+}
