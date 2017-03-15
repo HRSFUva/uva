@@ -1,13 +1,14 @@
 # Project Name
 
 > Pithy project description
+Uva
 
 ## Team
 
-  - teamMember
-  - teamMember
-  - teamMember
-  - teamMember
+  - Johnny Chen
+  - Mike Burton
+  - Kevin Huang
+  - Preda Wen
 
 ## Table of Contents
 
@@ -16,20 +17,33 @@
 1. [Development](#development)
     1. [Installing Dependencies](#installing-dependencies)
     1. [Tasks](#tasks)
-1. [Roadmap](#roadmap)
+1. [Key Diagrams](#key-diagrams)
 1. [Contributing](#contributing)
 
 ## Usage
 
 > Some usage instructions
+Please read the key diagrams carefully. They include user stories, wireframe, product roadmap, architecture diagram and sequence diagram.
 
 ## Requirements
 
-- Node 6.4.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
+- body-parser ^1.17.1
+- express ^4.15.0
+- jquery ^3.1.1
+- mongoose ^4.9.0
+- react ^15.4.2
+- react-dom ^15.4.2
+- react-router ^4.0.0
+
+- babel-cli ^6.7.5
+- babel-preset-es2015 ^6.6.0
+- babel-register ^6.7.2
+- chai ^3.5.0
+- eslint-config-hackreactor git//github.com/reactorcore/eslint-config-hackreactor
+- jest ^19.0.2
+- mocha ^3.2.0
+- supertest ^3.0.0
+- webpack ^2.2.1
 
 ## Development
 
@@ -38,14 +52,12 @@
 From within the root directory:
 
 ```sh
-npm install -g bower
 npm install
-bower install
 ```
 
-### Roadmap
+### Key Diagrams
 
-View the project roadmap [here](LINK_TO_DOC)
+View the project key-diagrams [key-diagrams]: https://docs.google.com/document/d/11rlQ7ObttHJCrMt-2ozSt0rVBX9xfzBVlFaQiONIybc/edit?usp=sharing
 
 
 ## Contributing
