@@ -16,14 +16,13 @@ Uva
 1. [Requirements](#requirements)
 1. [Development](#development)
     1. [Installing Dependencies](#installing-dependencies)
-    1. [Tasks](#tasks)
-1. [Key Diagrams](#key-diagrams)
+1. [Key Tasks and Diagrams](#key-tasks-and-diagrams)
 1. [Contributing](#contributing)
 
 ## Usage
 
 > Some usage instructions
-Please read the key diagrams carefully. They include user stories, wireframe, product roadmap, architecture diagram and sequence diagram.
+Please read the Key Tasks and Diagrams file carefully. They include the task board, user stories, wireframe, product roadmap, architecture diagram and sequence diagram.
 
 ## Requirements
 
@@ -55,9 +54,9 @@ From within the root directory:
 npm install
 ```
 
-### Key Diagrams
+### Key Tasks and Diagrams
 
-View the project key-diagrams [key-diagrams]: https://docs.google.com/document/d/11rlQ7ObttHJCrMt-2ozSt0rVBX9xfzBVlFaQiONIybc/edit?usp=sharing
+View the project key-tasks-and-diagrams [key-tasks-and-diagrams]: https://docs.google.com/document/d/11rlQ7ObttHJCrMt-2ozSt0rVBX9xfzBVlFaQiONIybc/edit?usp=sharing
 
 
 ## Contributing
