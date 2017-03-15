@@ -1,6 +1,5 @@
 # Project Name
 
-> Pithy project description
 Uva
 
 ## Team
@@ -21,7 +20,6 @@ Uva
 
 ## Usage
 
-> Some usage instructions
 Please read the Key Tasks and Diagrams file carefully. They include the task board, user stories, wireframe, product roadmap, architecture diagram and sequence diagram.
 
 ## Requirements
