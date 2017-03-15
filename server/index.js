@@ -13,34 +13,39 @@ app.use(bodyParser.json());
 
 //SETTING UP ALL THE ROUTES FOR THE CLIENT REQUEST
 //GET request for top wines
-app.get('/wine', function(req, res) {
-  console.log('GET request to /wine received');
-  res.send('response from app.get /wine');
+
+app.get('/', function(req, res) {
+  res.send('hello world');
 });
 
-//POST request for search
-app.post('/search', function(req, res) {
-  console.log('POST request to /search received');
-  res.send('response from app.post /search');
-});
+// app.get('/wine', function(req, res) {
+//   console.log('GET request to /wine received');
+//   res.send('response from app.get /wine');
+// });
 
-//POST request for signup
-app.post('/signup', function(req, res) {
-  console.log('POST request to /signup received');
-  res.send('response from app.post /signup');
-});
+// //POST request for search
+// app.post('/search', function(req, res) {
+//   console.log('POST request to /search received');
+//   res.send('response from app.post /search');
+// });
 
-//POST request for login
-app.post('/login', function(req, res) {
-  console.log('POST request to /login received');
-  res.send('response from app.post /login');
-});
+// //POST request for signup
+// app.post('/signup', function(req, res) {
+//   console.log('POST request to /signup received');
+//   res.send('response from app.post /signup');
+// });
 
-//POST request for review
-app.post('/review', function(req, res) {
-  console.log('POST request to /review received');
-  res.send('reponse from app.post /review');
-});
+// //POST request for login
+// app.post('/login', function(req, res) {
+//   console.log('POST request to /login received');
+//   res.send('response from app.post /login');
+// });
+
+// //POST request for review
+// app.post('/review', function(req, res) {
+//   console.log('POST request to /review received');
+//   res.send('reponse from app.post /review');
+// });
 
 var port = process.env.PORT;
 
