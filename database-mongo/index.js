@@ -43,6 +43,7 @@ db.once('open', function() {
   var Product = mongoose.model('Product', productSchema);
 
   //TESTING FUNCTIONALITY
+
   // var mike = new User({
   //   name: 'mike',
   //   isOwner: false,
