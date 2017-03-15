@@ -75,7 +75,7 @@
   \************************************/
 /***/ (function(module, exports) {
 
-eval("\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMC5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy8uL3JlYWN0LWNsaWVudC9zcmMvaW5kZXguanN4P2U0ZTciXSwic291cmNlc0NvbnRlbnQiOlsiXG5cblxuXG4vLy8vLy8vLy8vLy8vLy8vLy9cbi8vIFdFQlBBQ0sgRk9PVEVSXG4vLyAuL3JlYWN0LWNsaWVudC9zcmMvaW5kZXguanN4XG4vLyBtb2R1bGUgaWQgPSAwXG4vLyBtb2R1bGUgY2h1bmtzID0gMCJdLCJtYXBwaW5ncyI6IkFBQUE7Iiwic291cmNlUm9vdCI6IiJ9");
+eval("throw new Error(\"Module parse failed: /Users/johnnychen/Desktop/hack_reactor/Greenfield/uva/react-client/src/index.jsx Unexpected token (1:16)\\nYou may need an appropriate loader to handle this file type.\\n| ReactDOM.render(<App />, document.getElementById('app'));\\n| \");//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiMC5qcyIsInNvdXJjZXMiOltdLCJtYXBwaW5ncyI6IiIsInNvdXJjZVJvb3QiOiIifQ==");
 
 /***/ }),
 /* 1 */

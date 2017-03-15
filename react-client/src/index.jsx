@@ -1,1 +1,2 @@
-//testing review app feature
+
+ReactDOM.render(<App />, document.getElementById('app'));
