@@ -41,3 +41,8 @@ app.post('/review', function(req, res) {
   console.log('POST request to /review received');
   res.send('reponse from app.post /review');
 });
+
+
+app.listen(3000, function() {
+  console.log('listening to port 3000');
+});
