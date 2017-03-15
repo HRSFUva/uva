@@ -1,5 +1,5 @@
 var express = require('express');
-var bodyParser = require('bodyParser');
+var bodyParser = require('body-parser');
 var dbUtilities = require('./utilities/dbUtils.js');
 
 //INSTANTIATE APP
@@ -43,6 +43,6 @@ app.post('/review', function(req, res) {
 });
 
 
-app.listen(3000, function() {
+app.listen(process.env.PORT, function() {
   console.log('listening to port 3000');
 });
