@@ -42,7 +42,6 @@ db.once('open', function() {
   var Review = mongoose.model('Review', reviewSchema);
   var Product = mongoose.model('Product', productSchema);
 
-
   //TESTING FUNCTIONALITY
   // var mike = new User({
   //   name: 'mike',
