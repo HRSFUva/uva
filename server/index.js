@@ -1,5 +1,5 @@
 var express = require('express');
-var bodyParser = require('bodyParser');
+var bodyParser = require('body-parser');
 var dbUtilities = require('./utilities/dbUtils.js');
 
 //INSTANTIATE APP
@@ -42,7 +42,8 @@ app.post('/review', function(req, res) {
   res.send('reponse from app.post /review');
 });
 
+var port = process.env.PORT;
 
-app.listen(3000, function() {
-  console.log('listening to port 3000');
+app.listen(process.env.PORT, function() {
+  console.log('listening to port ' + port);
 });
