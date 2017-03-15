@@ -9,7 +9,7 @@ var app = express();
 app.use(bodyParser.json());
 
 //load static files
-// app.use(express.static(__dirname + '../react-client/dist'));
+app.use(express.static(__dirname + '../react-client/dist'));
 
 //SETTING UP ALL THE ROUTES FOR THE CLIENT REQUEST
 //GET request for top wines
@@ -20,6 +20,7 @@ app.get('/', function(req, res) {
 
 app.get('/wine', function(req, res) {
   console.log('GET request to /wine received');
+  res.statusCode = 200;
   res.send('response from app.get /wine');
 });
 
