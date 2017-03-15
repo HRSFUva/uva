@@ -42,7 +42,8 @@ app.post('/review', function(req, res) {
   res.send('reponse from app.post /review');
 });
 
+var port = process.env.PORT;
 
 app.listen(process.env.PORT, function() {
-  console.log('listening to port 3000');
+  console.log('listening to port ' + port);
 });
