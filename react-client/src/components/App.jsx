@@ -82,12 +82,12 @@ class App extends React.Component {
     if(!this.state.userWantsLogin){
       return (
         <div className = 'container'>
-         <span className = 'loginButton'>
-           <button value='login' onClick={this.handleUserWantsLogin}>Login</button>
-         </span>
-         <span className = 'menuButton'>
-           <button value='login'>Menu</button>
-         </span>
+          <span className = 'loginButton'>
+            <button value='login' onClick={this.handleUserWantsLogin}>Login</button>
+          </span>
+          <span className = 'menuButton'>
+            <button value='login'>Menu</button>
+          </span>
 
           <div className = 'heroImageContainer'>
             <span className = 'mainLogo'>
@@ -119,4 +119,3 @@ class App extends React.Component {
 
 export default App;
 //<ReviewList reviews={this.state.reviews} />
-

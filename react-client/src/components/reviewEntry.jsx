@@ -1,9 +1,7 @@
 var reviewEntry = ({review}) => (
   <div>
-    <div>
-      {/* image of user*/}
-      <img></img>
-    </div>
+    {/* insert image of user
+    */}
     <div>
       {review.title}
     </div>
@@ -15,3 +13,5 @@ var reviewEntry = ({review}) => (
     </div>
   </div>
 )
+
+export default reviewEntry;

@@ -1,7 +1,11 @@
+import reviewEntry from './reviewEntry.jsx';
+
 var reviewList = ({reviews}) => (
   <div>
     {reviews.map((review) => {
-      <reviewListEntry />
+      <reviewEntry review={review}/>
     })}
   </div>
 );
+
+export default reviewList;
