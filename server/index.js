@@ -25,6 +25,8 @@ app.get('/wine', function(req, res) {
   res.send('response from app.get /wine');
 });
 
+app.get('/catalog', wineApiUtils.apiRequest);
+
 //POST request for search
 app.post('/search', function(req, res) {
   console.log('POST request to /search received');
@@ -59,9 +61,7 @@ app.listen(process.env.PORT, function() {
 //export PORT=3000
 //nodemon index.js or npm server-dev
 
-// app.get('/top', wineApiUtils.apiRequest);
 
-app.get('/top', wineApiUtils.apiRequest);
 
 
 

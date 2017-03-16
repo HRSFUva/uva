@@ -8,6 +8,13 @@ var options = {
   url: 'http://services.wine.com/api/beta/service.svc/JSON/catalog?filter=categories(490+124)&offset=10&size=5&apikey=' + apiKey,
 };
 
+/*
+http://services.wine.com/api/version/service.svc/format/resource?apikey=key&parameters
+For different wine api data, replace 'resource' with the following:
+  Supported values are: catalog, reference, and catalogmap
+*/
+
+
 var apiRequest = function (req, res) {
   request(options, function(error, response, body) {
     if (!error) {
