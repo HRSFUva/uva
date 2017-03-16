@@ -1,4 +1,3 @@
-import ReactDOM from 'react-dom';
 import React from 'react';
 
 class App extends React.Component {
@@ -6,9 +5,12 @@ class App extends React.Component {
     super(props);
   }
   render () {
-    return
+    return (
       <div>
         hi
-      </div>;
+      </div>
+    )
   }
 }
+
+export default App;
