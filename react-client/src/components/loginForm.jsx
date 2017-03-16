@@ -1,4 +1,5 @@
 import React from 'react';
+import SignupForm from './signupForm.jsx'
 
 class LoginForm extends React.Component {
   constructor(props){
@@ -12,6 +13,7 @@ class LoginForm extends React.Component {
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleUserWantsHome = this.handleUserWantsHome.bind(this);
+    this.handleUserWantsSignUp = this.handleUserWantsSignUp.bind(this);
   }
 
   handleUsernameChange(event) {
@@ -34,32 +36,48 @@ class LoginForm extends React.Component {
   }
 
   handleUserWantsHome(event) {
-    console.log('insidehandlerwants home');
     this.props.handleUserWantsHome();
   }
 
-  render() {
+  handleUserWantsSignUp(event) {
+    console.log('inside signuper')
+    this.setState({
+      userWantsSignUp: !this.state.userWantsSignUp
+    })
+  }
 
-    return (
-      <div className='container'>
-        <span className='loginButton'>
-          <button onClick={this.handleUserWantsHome}>Home</button>
-        </span>
-        <div className="loginFormWrapper">
-          <form onSubmit={this.handleSubmit}>
-            <label>
-              <h4>Username:</h4>
-              <input placeholder='username' type="text" value={this.state.username} onChange={this.handleUsernameChange}/>
-            </label>
-            <label><br/><br/>
-              <h4>Password:</h4>
-              <input placeholder='password' type="password" value={this.state.password} onChange={this.handlePasswordChange}/>
-            </label><br/>
-            <input type="submit" value="Submit"/>
-          </form>
+  render() {
+    if(!this.state.userWantsSignUp){
+      return (
+        <div className='container'>
+          <span className='loginButton'>
+            <button onClick={this.handleUserWantsHome}>Home</button>
+          </span>
+          <div className="loginFormWrapper">
+            <form onSubmit={this.handleSubmit}>
+              <label>
+                <h4>Username:</h4>
+                <input placeholder='username' type="text" value={this.state.username} onChange={this.handleUsernameChange}/>
+              </label>
+              <label><br/><br/>
+                <h4>Password:</h4>
+                <input placeholder='password' type="password" value={this.state.password} onChange={this.handlePasswordChange}/>
+              </label><br/>
+              <input type="submit" value="Submit"/>
+            </form>
+          </div>
+          <div className='signUpButton'>
+            <button onClick={this.handleUserWantsSignUp}>Sign Up</button>
+          </div>
         </div>
-      </div>
-    )
+      )
+    } else {
+      return(
+        <div className='container'>
+          <SignupForm className='signupForm' handleUserWantsSignUp={this.handleUserWantsSignUp} />
+        </div>
+      )
+    }
   }
 }
 
