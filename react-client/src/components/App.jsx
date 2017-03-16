@@ -84,7 +84,7 @@ class App extends React.Component {
       </div>
     )} else {
         return (
-          <div >
+          <div className = 'loginWrapper'>
             <Login className = 'loginForm' />
           </div>
           )
