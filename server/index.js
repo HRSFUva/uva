@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var dbUtilities = require('./utilities/dbUtils.js');
+var wineApiUtils = require('./utilities/wineApiUtils.js');
 
 //INSTANTIATE APP
 var app = express();
@@ -18,8 +19,8 @@ app.get('/', function(req, res) {
   res.send('hello world');
 });
 
-app.get('/wine', function(req, res) {
-  console.log('GET request to /wine received');
+app.get('/wine', wineApiUtils.wineApiUtils);
+
   res.statusCode = 200;
   res.send('response from app.get /wine');
 });
