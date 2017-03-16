@@ -19,8 +19,8 @@ app.get('/', function(req, res) {
   res.send('hello world');
 });
 
-app.get('/wine', wineApiUtils.wineApiUtils);
-
+app.get('/wine', function(req, res) {
+  console.log('GET request to /wine received');
   res.statusCode = 200;
   res.send('response from app.get /wine');
 });
@@ -57,4 +57,13 @@ app.listen(process.env.PORT, function() {
 
 //In terminal
 //export PORT=3000
-//nodemon index.js
+//nodemon index.js or npm server-dev
+
+// app.get('/top', wineApiUtils.apiRequest);
+
+app.get('/top', wineApiUtils.apiRequest);
+
+
+
+
+
