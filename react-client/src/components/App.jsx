@@ -24,7 +24,9 @@ class App extends React.Component {
       ],
       searchQuery: '',
       userHasSearched: false,
-      userWantsLogin: false
+      userWantsLogin: false,
+      userIsLoggedIn: false,
+      userWantsHomePage: true,
     }
     this.search = this.search.bind(this);
     this.handleUserWantsLogin = this.handleUserWantsLogin.bind(this);
@@ -33,6 +35,27 @@ class App extends React.Component {
   handleUserWantsLogin(event) {
     this.setState({
       userWantsLogin: !this.state.userWantsLogin
+    })
+  }
+
+  validateUser (username, password) {
+    console.log('username inside validateUser', username);
+    console.log('password inside validateUser', password);
+
+    $.ajax({
+      url: 'http://localhost:3000/login',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({
+        username: username,
+        password: password
+      }),
+      success: function(data){
+        console.log('success after validateUser', data);
+      },
+      error: function(err){
+        console.log('error after validateUser', err);
+      }
     })
   }
 
