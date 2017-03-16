@@ -30,6 +30,7 @@ class App extends React.Component {
     }
     this.search = this.search.bind(this);
     this.handleUserWantsLogin = this.handleUserWantsLogin.bind(this);
+    this.validateUser = this.validateUser.bind(this);
   }
 
   handleUserWantsLogin(event) {
@@ -39,25 +40,25 @@ class App extends React.Component {
   }
 
   validateUser (username, password) {
-    console.log('username inside validateUser', username);
-    console.log('password inside validateUser', password);
+     console.log('username inside validateUser', username);
+     console.log('password inside validateUser', password);
 
-    $.ajax({
-      url: 'http://localhost:3000/login',
-      type: 'POST',
-      contentType: 'application/json',
-      data: JSON.stringify({
-        username: username,
-        password: password
-      }),
-      success: function(data){
-        console.log('success after validateUser', data);
-      },
-      error: function(err){
-        console.log('error after validateUser', err);
-      }
-    })
-  }
+     $.ajax({
+       url: 'http://localhost:3000/login',
+       type: 'POST',
+       contentType: 'application/json',
+       data: JSON.stringify({
+         username: username,
+         password: password
+       }),
+       success: function(data){
+         console.log('success after validateUser', data);
+       },
+       error: function(err){
+         console.log('error after validateUser', err);
+       }
+     })
+   }
 
   search (query) {
     console.log('query', query);
@@ -82,7 +83,7 @@ class App extends React.Component {
       return (
         <div className = 'container'>
          <span className = 'loginButton'>
-           <button onClick={this.handleUserWantsLogin} value='login'>Login</button>
+           <button value='login' onClick={this.handleUserWantsLogin}>Login</button>
          </span>
          <span className = 'menuButton'>
            <button value='login'>Menu</button>
@@ -108,7 +109,7 @@ class App extends React.Component {
     )} else {
         return (
           <div className = 'loginWrapper'>
-            <Login className = 'loginForm' />
+            <Login validate={this.validateUser} handleUserWantsHome={this.handleUserWantsLogin} userWantsLogin={this.state.userWantsLogin} className = 'loginForm' />
           </div>
           )
         //REVIEW LIST
