@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + '../react-client/dist'));
 
 //SETTING UP ALL THE ROUTES FOR THE CLIENT REQUEST
-//GET request for top wines
+
 
 app.get('/', function(req, res) {
   res.send('hello world');
@@ -25,6 +25,7 @@ app.get('/wine', function(req, res) {
   res.send('response from app.get /wine');
 });
 
+//This route invoke function that requests wine.com api.
 app.get('/catalog', wineApiUtils.apiRequest);
 
 //POST request for search
