@@ -53,3 +53,7 @@ var port = process.env.PORT;
 app.listen(process.env.PORT, function() {
   console.log('listening to port ' + port);
 });
+
+//In terminal
+//export PORT=3000
+//nodemon index.js
