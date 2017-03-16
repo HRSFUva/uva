@@ -72,10 +72,7 @@ class App extends React.Component {
             <TopWine />
           </div>
 
-              <Search className ='SearchBar' />
-            </div>
-          </div>
-        </div>
+      </div>
     )} else {
         return (
           <div>Hello after search</div>
