@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var dbUtilities = require('./utilities/dbUtils.js');
+var wineApiUtils = require('./utilities/wineApiUtils.js');
 
 //INSTANTIATE APP
 var app = express();
@@ -23,6 +24,8 @@ app.get('/wine', function(req, res) {
   res.statusCode = 200;
   res.send('response from app.get /wine');
 });
+
+app.get('/catalog', wineApiUtils.apiRequest);
 
 //POST request for search
 app.post('/search', function(req, res) {
@@ -56,4 +59,11 @@ app.listen(process.env.PORT, function() {
 
 //In terminal
 //export PORT=3000
-//nodemon index.js
+//nodemon index.js or npm server-dev
+
+
+
+
+
+
+
