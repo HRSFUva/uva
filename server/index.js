@@ -10,14 +10,14 @@ var app = express();
 app.use(bodyParser.json());
 
 //load static files
-app.use(express.static(__dirname + '../react-client/dist'));
+app.use(express.static(__dirname + '/../react-client/dist'));
 
 //SETTING UP ALL THE ROUTES FOR THE CLIENT REQUEST
 
 
-app.get('/', function(req, res) {
-  res.send('hello world');
-});
+// app.get('/', function(req, res) {
+//   res.send('hello world');
+// });
 
 app.get('/wine', function(req, res) {
   console.log('GET request to /wine received');
@@ -30,6 +30,8 @@ app.get('/catalog', wineApiUtils.apiRequest);
 
 //POST request for search
 app.post('/search', function(req, res) {
+  var query = req.body.search;
+  console.log('search:', query);
   console.log('POST request to /search received');
   res.send('response from app.post /search');
 });

@@ -13,6 +13,7 @@ class SearchBar extends React.Component {
 
   handleSearchSubmit (event) {
     if(this.state.searchQuery.length){
+      this.props.search(this.state.searchQuery);
       //DO WORK
     }
       event.preventDefault();
