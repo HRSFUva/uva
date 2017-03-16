@@ -1,7 +1,8 @@
 import React from 'react';
 import Search from './searchBar.jsx';
 import TopWine from './topWines.jsx';
-import $ from 'jquery'
+import $ from 'jquery';
+import Login from './loginForm.jsx';
 
 class App extends React.Component {
   constructor (props) {
@@ -22,9 +23,17 @@ class App extends React.Component {
         rating: 6 }
       ],
       searchQuery: '',
-      userHasSearched: false
+      userHasSearched: false,
+      userWantsLogin: false
     }
     this.search = this.search.bind(this);
+    this.handleUserWantsLogin = this.handleUserWantsLogin.bind(this);
+  }
+
+  handleUserWantsLogin(event) {
+    this.setState({
+      userWantsLogin: !this.state.userWantsLogin
+    })
   }
 
   search (query) {
@@ -46,11 +55,11 @@ class App extends React.Component {
   }
 
   render () {
-    if(!this.state.userHasSearched){
+    if(!this.state.userWantsLogin){
       return (
         <div className = 'container'>
          <span className = 'loginButton'>
-           <button value='login'>Login</button>
+           <button onClick={this.handleUserWantsLogin} value='login'>Login</button>
          </span>
          <span className = 'menuButton'>
            <button value='login'>Menu</button>
@@ -75,7 +84,9 @@ class App extends React.Component {
       </div>
     )} else {
         return (
-          <div>Hello after search</div>
+          <div >
+            <Login className = 'loginForm' />
+          </div>
           )
         //REVIEW LIST
       }
