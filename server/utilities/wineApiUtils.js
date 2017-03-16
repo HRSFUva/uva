@@ -19,7 +19,7 @@ var apiRequest = function (req, res) {
   request(options, function(error, response, body) {
     if (!error) {
       // console.log('API response', response);
-      console.log('API body', body);
+      // console.log('API body', body);
       res.send(body);
     } else {
       console.error('Error in API request', error);
