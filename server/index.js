@@ -26,14 +26,23 @@ app.get('/wine', function(req, res) {
 });
 
 //This route invoke function that requests wine.com api.
-app.get('/catalog', wineApiUtils.apiRequest);
+// app.get('/catalog', wineApiUtils.apiRequest);
 
 //POST request for search
 app.post('/search', function(req, res) {
   var query = req.body.search;
   console.log('search:', query);
-  console.log('POST request to /search received');
-  res.send('response from app.post /search');
+
+  wineApiUtils.apiRequest(query, function(error, success, results) {
+    if(error){
+      console.log('Error from server API request', error);
+      res.sendStatus(404).send('not found')
+    } else if (success) {
+      // console.log('results from search post API', results);
+      res.send(results);
+    }
+  })
+
 });
 
 //POST request for signup
