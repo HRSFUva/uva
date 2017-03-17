@@ -74,7 +74,7 @@ class LoginForm extends React.Component {
     } else {
       return(
         <div className='container'>
-          <SignupForm className='signupForm' handleUserWantsSignUp={this.handleUserWantsSignUp} />
+          <SignupForm newUser={this.props.newUser} className='signupForm' handleUserWantsSignUp={this.handleUserWantsSignUp} />
         </div>
       )
     }

@@ -37,6 +37,7 @@ class App extends React.Component {
     this.search = this.search.bind(this);
     this.handleUserWantsLogin = this.handleUserWantsLogin.bind(this);
     this.validateUser = this.validateUser.bind(this);
+    this.newUser = this.newUser.bind(this);
   }
 
   handleUserWantsLogin(event) {
@@ -64,6 +65,26 @@ class App extends React.Component {
          console.log('error after validateUser', err);
        }
      })
+   }
+
+   newUser (username, password) {
+    console.log('username inside app.jsx', username);
+    console.log('password inside app.jsx', password);
+    $.ajax({
+      url: 'http://localhost:3000/login',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({
+        username: username,
+        password: password
+      }),
+      success: function(data) {
+        console.log('added user successfully, i think?', data)
+      },
+      error: function(error) {
+        console.log('error in adding user, dude', error);
+      }
+    })
    }
 
   search (query) {
@@ -119,7 +140,7 @@ class App extends React.Component {
     )} else {
         return (
           <div className = 'loginWrapper'>
-            <Login validate={this.validateUser} handleUserWantsHome={this.handleUserWantsLogin} userWantsLogin={this.state.userWantsLogin} className = 'loginForm' />
+            <Login newUser={this.newUser} validate={this.validateUser} handleUserWantsHome={this.handleUserWantsLogin} userWantsLogin={this.state.userWantsLogin} className = 'loginForm' />
           </div>
           )
         //REVIEW LIST
