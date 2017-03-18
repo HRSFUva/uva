@@ -47,47 +47,47 @@ class SignupForm extends React.Component {
     return (
       <div className='container'>
       <span className = 'menuButton'>
-        <button value='login' onClick={this.props.userWantsHome}>Home</button>
+        <button value='home' onClick={this.props.userWantsHome}>Home</button>
       </span>
-        <div className="signupFormWrapper">
-          <form onSubmit={this.handleSubmit}>
+      <span className = 'loginButton'>
+        <button value='login' onClick={this.props.userWantsHome}>Login</button>
+      </span>
+      <div className="signupFormWrapper">
+        <form onSubmit={this.handleSubmit}>
+          <div className='passwordInputLabel'>
+            <label>
+              <h4>
+                Username:
+              </h4>
+            </label>
+            </div>
+            <div className='passwordInputField'>
+              <input type="text" value={this.state.username} onChange={this.handleUsernameChange}/>
+            </div>
             <div className='passwordInputLabel'>
               <label>
                 <h4>
-                  Username:
+                Password:
                 </h4>
               </label>
-              </div>
-              <div className='passwordInputField'>
-                <input type="text" value={this.state.username} onChange={this.handleUsernameChange}/>
-              </div>
-              <div className='passwordInputLabel'>
-                <label>
-                  <h4>
-                  Password:
-                  </h4>
-                </label>
-              </div>
-              <div className='passwordInputField'>
-                <input type="text" value={this.state.password} onChange={this.handlePasswordChange}/>
-              </div>
-              <div className='passwordInput'>
-                <label>
-                  <h4>
-                    Verify Password:
-                  </h4>
-                </label>
-              </div>
-              <div className='passwordInputField'>
-                <input type="text" value={this.state.passwordVerify} onChange={this.handlePasswordVerifyChange}/>
-              </div>
-              <div className='signUpButton'>
-                <input type="submit" value="Submit"/>
-              </div>
-            </form>
-          </div>
-        <div className='signUpButton'>
-          <button onClick={this.handleUserWantsLogin}>Login</button>
+            </div>
+            <div className='passwordInputField'>
+              <input type="text" value={this.state.password} onChange={this.handlePasswordChange}/>
+            </div>
+            <div className='passwordInput'>
+              <label>
+                <h4>
+                  Verify Password:
+                </h4>
+              </label>
+            </div>
+            <div className='passwordInputField'>
+              <input type="text" value={this.state.passwordVerify} onChange={this.handlePasswordVerifyChange}/>
+            </div>
+            <div className='signUpButton'>
+              <input type="submit" value="Submit"/>
+            </div>
+          </form>
         </div>
       </div>
     )
