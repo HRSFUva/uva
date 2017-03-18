@@ -34,8 +34,26 @@ module.exports = {
       } else {
         console.log('results from add user', results);
         callback(null, true, results);
+      }
+    })
+  },
 
+  validateUser: function(username, password, callback) {
+    console.log('inside validate user', username);
+    console.log('inside validate userpassword', password);
+    db.User.find({name: username, password: password}, function(error, results) {
+      if(error){
+        console.log(error)
+        callback(error, null);
+      } else {
+        console.log('results from validateUser', results);
+        callback(null, results);
       }
     })
   }
+
+
+
+
+
 }

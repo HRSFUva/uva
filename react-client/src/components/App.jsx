@@ -31,8 +31,10 @@ class App extends React.Component {
       searchQuery: '',
       userHasSearched: false,
       userWantsLogin: false,
-      userIsLoggedIn: false,
+      userLoggedIn: false,
       userWantsHomePage: true,
+      username: '',
+      userID: ''
     }
     this.search = this.search.bind(this);
     this.handleUserWantsLogin = this.handleUserWantsLogin.bind(this);
@@ -47,6 +49,7 @@ class App extends React.Component {
   }
 
   validateUser (username, password) {
+    var context = this;
      console.log('username inside validateUser', username);
      console.log('password inside validateUser', password);
 
@@ -59,7 +62,14 @@ class App extends React.Component {
          password: password
        }),
        success: function(data){
-         console.log('success after validateUser', data);
+         console.log('success after validateUserAJAXSUCCESS', typeof data);
+         console.log('success after validateUserAJAXSUCCESS',  data);
+         context.setState({
+          userLoggedIn: !context.state.userLoggedIn,
+          username: data[0].name,
+          userID: data[0]._id,
+          userWantsLogin: !context.state.userWantsLogin
+         })
        },
        error: function(err){
          console.log('error after validateUser', err);
@@ -105,16 +115,17 @@ class App extends React.Component {
     })
   }
 
-  render () {
+  render (){
     if(!this.state.userWantsLogin){
       return (
         <div className = 'container'>
-          <span className = 'loginButton'>
-            <button value='login' onClick={this.handleUserWantsLogin}>Login</button>
-          </span>
-          <span className = 'menuButton'>
-            <button value='login'>Menu</button>
-          </span>
+         </span>
+         <span className = 'loginButton'>
+           <button value='login' onClick={this.handleUserWantsLogin}>Login</button>
+         </span>
+         <span className = 'menuButton'>
+           <button value='login'>Home</button>
+         </span>
 
           <div className = 'heroImageContainer'>
             <span className = 'mainLogo'>

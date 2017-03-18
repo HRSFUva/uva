@@ -50,8 +50,8 @@ app.post('/signup', function(req, res) {
   var user = req.body.username;
   var pass = req.body.password;
   console.log('POST request to /signup received');
-  console.log(user)
-  console.log(pass)
+  console.log('username:', user)
+  console.log('password:', pass)
 
   //check for valid username, i.e. currently not in use
   dbUtilities.checkuserName(user, pass, function(error, valid, results){
@@ -80,8 +80,16 @@ app.post('/signup', function(req, res) {
 
 //POST request for login
 app.post('/login', function(req, res) {
-  console.log('POST request to /login received');
-  res.send('response from app.post /login');
+  var username = req.body.username;
+  var password = req.body.password;
+
+  dbUtilities.validateUser(username, password, function(error, results) {
+    if(error){
+      console.log(error)
+    } else {
+      res.send(results);
+    }
+  })
 });
 
 //POST request for review

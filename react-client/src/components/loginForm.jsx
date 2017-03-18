@@ -50,8 +50,11 @@ class LoginForm extends React.Component {
     if(!this.state.userWantsSignUp){
       return (
         <div className='container'>
-          <span className='loginButton'>
+          <span className='menuButton'>
             <button onClick={this.handleUserWantsHome}>Home</button>
+          </span>
+          <span className = 'loginButton'>
+            <button value='login' onClick={this.handleUserWantsSignUp}>Sign Up</button>
           </span>
           <div className="loginFormWrapper">
             <form onSubmit={this.handleSubmit}>
@@ -66,7 +69,7 @@ class LoginForm extends React.Component {
               <input type="submit" value="Submit"/>
             </form>
           </div>
-          <div className='signUpButton'>
+          <div className='submitButton'>
             <button onClick={this.handleUserWantsSignUp}>Sign Up</button>
           </div>
         </div>
@@ -74,7 +77,7 @@ class LoginForm extends React.Component {
     } else {
       return(
         <div className='container'>
-          <SignupForm newUser={this.props.newUser} className='signupForm' handleUserWantsSignUp={this.handleUserWantsSignUp} />
+          <SignupForm userWantsHome={this.handleUserWantsHome} newUser={this.props.newUser} className='signupForm' handleUserWantsSignUp={this.handleUserWantsSignUp} />
         </div>
       )
     }

@@ -29,30 +29,26 @@ class SignupForm extends React.Component {
 
   handleSubmit(event){
     //make post request to server with username and password
-    var pass = this.state.username;
-    var verify = this.state.verify;
     var user = this.state.username;
-    console.log('inside handlesubmit form USER', user);
-    console.log('inside handlesubmit form USER', pass);
-    console.log('inside handlesubmit form USER', verify);
+    var pass = this.state.password;
+    var verify = this.state.verify;
 
-    console.log('inside handlesubmit form signupform')
-    if ( user.length > 0){
-      console.log('submit inside signupform,');
+    if (user.length > 0){
       this.props.newUser(user, pass);
-
     }
-      event.preventDefault()
+    event.preventDefault()
   }
 
   handleUserWantsLogin(event){
-    console.log('wants login page');
     this.props.handleUserWantsSignUp();
   }
 
   render() {
     return (
       <div className='container'>
+      <span className = 'menuButton'>
+        <button value='login' onClick={this.props.userWantsHome}>Home</button>
+      </span>
         <div className="signupFormWrapper">
           <form onSubmit={this.handleSubmit}>
             <div className='passwordInputLabel'>
