@@ -71,7 +71,7 @@ class App extends React.Component {
     console.log('username inside app.jsx', username);
     console.log('password inside app.jsx', password);
     $.ajax({
-      url: 'http://localhost:3000/login',
+      url: 'http://localhost:3000/signup',
       type: 'POST',
       contentType: 'application/json',
       data: JSON.stringify({

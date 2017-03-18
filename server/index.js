@@ -47,8 +47,35 @@ app.post('/search', function(req, res) {
 
 //POST request for signup
 app.post('/signup', function(req, res) {
+  var user = req.body.username;
+  var pass = req.body.password;
   console.log('POST request to /signup received');
-  res.send('response from app.post /signup');
+  console.log(user)
+  console.log(pass)
+
+  //check for valid username, i.e. currently not in use
+  dbUtilities.checkuserName(user, pass, function(error, valid, results){
+    if(error){
+      console.log('error inside dbutils', error)
+      res.send('error inside checkuserName index');
+    } else if (!valid) {
+      console.log('not valid?');
+      res.send('duplicate username')
+    } else if (valid) {
+      console.log('results in dbUtilities', results)
+      dbUtilities.addUser(user, pass, function(error, success, results){
+        if(error) {
+          console.log('error inside addUser');
+          res.send('error inside addUser index.js');
+        } else if (success) {
+          console.log('successfully added user', results);
+          res.send('response from app.post /signup');
+
+        }
+      })
+    }
+  })
+
 });
 
 //POST request for login
