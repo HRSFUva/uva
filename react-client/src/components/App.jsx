@@ -34,17 +34,30 @@ class App extends React.Component {
       userLoggedIn: false,
       userWantsHomePage: true,
       username: '',
-      userID: ''
+      userID: '',
+      invalidPasswordAttempt: false,
+      invalidUsername: false
     }
     this.search = this.search.bind(this);
     this.handleUserWantsLogin = this.handleUserWantsLogin.bind(this);
     this.validateUser = this.validateUser.bind(this);
     this.newUser = this.newUser.bind(this);
+    this.handleUserWantsLogout = this.handleUserWantsLogout.bind(this);
+    this.checkUsername = this.checkUsername.bind(this);
   }
 
   handleUserWantsLogin(event) {
     this.setState({
-      userWantsLogin: !this.state.userWantsLogin
+      userWantsLogin: !this.state.userWantsLogin,
+      invalidPasswordAttempt: false
+    })
+  }
+
+  handleUserWantsLogout(event) {
+    this.setState({
+      userLoggedIn: false,
+      username: '',
+      userID: ''
     })
   }
 
@@ -64,17 +77,50 @@ class App extends React.Component {
        success: function(data){
          console.log('success after validateUserAJAXSUCCESS', typeof data);
          console.log('success after validateUserAJAXSUCCESS',  data);
-         context.setState({
-          userLoggedIn: !context.state.userLoggedIn,
-          username: data[0].name,
-          userID: data[0]._id,
-          userWantsLogin: !context.state.userWantsLogin
-         })
+         if(data.length===0){
+          console.log('zeroData');
+          context.setState({
+            invalidPasswordAttempt: true
+          })
+         } else {
+           context.setState({
+            userLoggedIn: !context.state.userLoggedIn,
+            username: data[0].name,
+            userID: data[0]._id,
+            userWantsLogin: !context.state.userWantsLogin,
+            invalidPasswordAttempt: false
+           });
+
+         }
+
        },
        error: function(err){
          console.log('error after validateUser', err);
        }
      })
+   }
+
+   checkUsername (username) {
+    var context = this;
+    $.ajax({
+      url: 'http://localhost:3000/users/username',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({
+        username: username
+      }),
+      success: function(data){
+        if(data.length > 0) {
+          context.setState({
+            invalidUsername: true
+          })
+        } else {
+          context.setState({
+            invalidUsername: false
+          })
+        }
+      }
+    })
    }
 
    newUser (username, password) {
@@ -119,12 +165,17 @@ class App extends React.Component {
     if(!this.state.userWantsLogin){
       return (
         <div className = 'container'>
-         </span>
+         {!this.state.userLoggedIn ? (
          <span className = 'loginButton'>
            <button value='login' onClick={this.handleUserWantsLogin}>Login</button>
-         </span>
+         </span>) : (
+         <span className = 'loginButton'>
+           <button value='logout' onClick={this.handleUserWantsLogout}>Logout</button>
+         </span> )}
          <span className = 'menuButton'>
            <button value='login'>Home</button>
+           {this.state.userLoggedIn &&
+            <h4> Hi {this.state.username}! </h4>}
          </span>
 
           <div className = 'heroImageContainer'>
@@ -151,7 +202,7 @@ class App extends React.Component {
     )} else {
         return (
           <div className = 'loginWrapper'>
-            <Login newUser={this.newUser} validate={this.validateUser} handleUserWantsHome={this.handleUserWantsLogin} userWantsLogin={this.state.userWantsLogin} className = 'loginForm' />
+            <Login checkUsername = {this.checkUsername} invalidUsername = {this.state.invalidUsername} newUser={this.newUser} invalidPasswordAttempt={this.state.invalidPasswordAttempt} validate={this.validateUser} handleUserWantsHome={this.handleUserWantsLogin} userWantsLogin={this.state.userWantsLogin} className = 'loginForm' />
           </div>
           )
         //REVIEW LIST

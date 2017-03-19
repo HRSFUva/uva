@@ -6,7 +6,9 @@ class SignupForm extends React.Component {
     this.state = {
       username: '',
       password: '',
-      passwordVerify: ''
+      passwordVerify: '',
+      validUsername: null,
+      passwordsMatch: true
     }
 
     this.handleUserWantsLogin = this.handleUserWantsLogin.bind(this);
@@ -14,11 +16,19 @@ class SignupForm extends React.Component {
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handlePasswordVerifyChange = this.handlePasswordVerifyChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.ajaxCheckUsername = this.ajaxCheckUsername.bind(this);
+    this.checkPasswordMatch = this.checkPasswordMatch.bind(this);
   }
+  // var context = this;
+
+  ajaxCheckUsername(){
+    this.props.checkUsername(this.state.username);
+    }
 
   handleUsernameChange(event) {
-    this.setState({username: event.target.value})
+    this.setState({username: event.target.value}, this.ajaxCheckUsername);
   }
+
   handlePasswordChange(event) {
     this.setState({password: event.target.value})
   }
@@ -27,13 +37,27 @@ class SignupForm extends React.Component {
     this.setState({passwordVerify: event.target.value})
   }
 
+  checkPasswordMatch(){
+    if(this.state.password !== this.state.passwordVerify){
+      this.setState({
+        passwordsMatch: false
+      })
+    } else {
+      this.setState({
+        passwordsMatch: true
+      })
+    }
+  }
+
   handleSubmit(event){
     //make post request to server with username and password
     var user = this.state.username;
     var pass = this.state.password;
     var verify = this.state.verify;
 
-    if (user.length > 0){
+    this.checkPasswordMatch();
+
+    if (user.length > 0 && this.state.passwordsMatch){
       this.props.newUser(user, pass);
     }
     event.preventDefault()
@@ -63,6 +87,10 @@ class SignupForm extends React.Component {
             </div>
             <div className='passwordInputField'>
               <input type="text" value={this.state.username} onChange={this.handleUsernameChange}/>
+              <div className ='invalidUsername'>
+              { !this.props.invalidUsername ?
+                (<span><h4> </h4></span>) : (<span><h4>Try another name</h4></span>) }
+              </div>
             </div>
             <div className='passwordInputLabel'>
               <label>
@@ -72,7 +100,7 @@ class SignupForm extends React.Component {
               </label>
             </div>
             <div className='passwordInputField'>
-              <input type="text" value={this.state.password} onChange={this.handlePasswordChange}/>
+              <input type="password" value={this.state.password} onChange={this.handlePasswordChange}/>
             </div>
             <div className='passwordInput'>
               <label>
@@ -82,7 +110,10 @@ class SignupForm extends React.Component {
               </label>
             </div>
             <div className='passwordInputField'>
-              <input type="text" value={this.state.passwordVerify} onChange={this.handlePasswordVerifyChange}/>
+              <input type="password" value={this.state.passwordVerify} onChange={this.handlePasswordVerifyChange}/>
+              <div className='invalidPassword'>
+              { this.state.passwordsMatch ? '' : <span><h4>Passwords must match</h4></span>}
+              </div>
             </div>
             <div className='signUpButton'>
               <input type="submit" value="Submit"/>

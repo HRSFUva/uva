@@ -199,12 +199,10 @@ button:hover {
 }
 
 .signupFormWrapper {
-  border-color: pink;
   top: 50%;
   position: relative;
   transform: translateY(-50%);
   border-color: red;
-  border-width: 2px;
   background-color: rgba(181, 181, 222, 0.61);
   width: 30%;
   margin: auto;

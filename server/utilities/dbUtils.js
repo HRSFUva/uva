@@ -4,10 +4,9 @@ var db = require('../../database-mongo/index.js');
 
 module.exports = {
 
-  checkuserName: function(username, password, callback){
+  checkuserName: function(username, callback){
     console.log('inside checkusername')
     console.log(username)
-    console.log(password)
     db.User.find({name: username}, function(err, results) {
       if(err){
         console.log('error inside checkuserName', error)

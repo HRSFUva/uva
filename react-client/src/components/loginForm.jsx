@@ -42,7 +42,8 @@ class LoginForm extends React.Component {
   handleUserWantsSignUp(event) {
     console.log('inside signuper')
     this.setState({
-      userWantsSignUp: !this.state.userWantsSignUp
+      userWantsSignUp: !this.state.userWantsSignUp,
+      invalidPasswordAttempt: false
     })
   }
 
@@ -68,6 +69,8 @@ class LoginForm extends React.Component {
                 <input placeholder='password' type="password" value={this.state.password} onChange={this.handlePasswordChange}/>
               </label><br/>
               <input type="submit" value="Submit"/>
+              {this.props.invalidPasswordAttempt &&
+                <span><h4>Try Again</h4></span> }
             </form>
           </div>
         </div>
@@ -75,7 +78,7 @@ class LoginForm extends React.Component {
     } else {
       return(
         <div className='container'>
-          <SignupForm userWantsHome={this.handleUserWantsHome} newUser={this.props.newUser} className='signupForm' handleUserWantsSignUp={this.handleUserWantsSignUp} />
+          <SignupForm invalidUsername={this.props.invalidUsername} checkUsername={this.props.checkUsername} userWantsHome={this.handleUserWantsHome} newUser={this.props.newUser} className='signupForm' handleUserWantsSignUp={this.handleUserWantsSignUp} />
         </div>
       )
     }

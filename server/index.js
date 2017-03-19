@@ -54,7 +54,7 @@ app.post('/signup', function(req, res) {
   console.log('password:', pass)
 
   //check for valid username, i.e. currently not in use
-  dbUtilities.checkuserName(user, pass, function(error, valid, results){
+  dbUtilities.checkuserName(user, function(error, valid, results){
     if(error){
       console.log('error inside dbutils', error)
       res.send('error inside checkuserName index');
@@ -70,13 +70,25 @@ app.post('/signup', function(req, res) {
         } else if (success) {
           console.log('successfully added user', results);
           res.send('response from app.post /signup');
-
         }
       })
     }
   })
-
 });
+
+app.post('/users/username/', function(req, res) {
+  var username = req.body.username;
+
+  dbUtilities.checkuserName(username, function(error, valid, results){
+    if(error){
+      console.error(error)
+      res.send(error);
+    } else {
+      console.log('results from checkuserName', results);
+      res.send(results);
+    }
+  })
+})
 
 //POST request for login
 app.post('/login', function(req, res) {
