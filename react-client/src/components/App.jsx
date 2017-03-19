@@ -161,27 +161,45 @@ class App extends React.Component {
     })
   }
 
+          // <div className = 'flexContainer'>
+          //   <div className ='flexItem flexEdge'>
+          //     <span className = 'menuButton flexItem flexEdge'>
+          //       <button className ='flexItem flexEdge' value='login'>Home</button>
+          //       {this.state.userLoggedIn &&
+          //        <h4> Hi {this.state.username}! </h4>}
+          //     </span>
+          //   </div>
+          //   <div className ='flexItem flexCenter'>
+          //     <span className = 'mainLogo flexItem flexCenter'>
+          //       <h2 className ='flexItem flexCenter'>Uva</h2>
+          //     </span>
+          //   </div>
+          //   <div className ='flexItem flexEdge'>
+          //    {!this.state.userLoggedIn ? (
+          //     <span className = 'loginButton'>
+          //       <button value='login' onClick={this.handleUserWantsLogin}>Login</button>
+          //     </span>) : (
+          //     <span className = 'loginButton'>
+          //       <button value='logout' onClick={this.handleUserWantsLogout}>Logout</button>
+          //     </span> )}
+          //   </div>
+          // </div>
+
   render (){
     if(!this.state.userWantsLogin){
       return (
         <div className = 'container'>
-         {!this.state.userLoggedIn ? (
-         <span className = 'loginButton'>
-           <button value='login' onClick={this.handleUserWantsLogin}>Login</button>
-         </span>) : (
-         <span className = 'loginButton'>
-           <button value='logout' onClick={this.handleUserWantsLogout}>Logout</button>
-         </span> )}
-         <span className = 'menuButton'>
-           <button value='login'>Home</button>
-           {this.state.userLoggedIn &&
-            <h4> Hi {this.state.username}! </h4>}
-         </span>
+          <div className='flexContainer'>
+            <button className='flexItem flexEdge' value='login'>Home</button>
+            {this.state.userLoggedIn &&
+            <h4> Hi {this.state.username}! </h4> }
+            <h2 className='flexItem flexCenter mainLogo'>Uva</h2>
+            {!this.state.userLoggedIn ?
+            (<button className='flexItem flexEdge' onClick={this.handleUserWantsLogin} value='login'>Login</button>) :
+            (<button className='flexItem flexEdge' onClick={this.handleUserWantsLogout} value='logout'>Logout</button>)}
 
+          </div>
           <div className = 'heroImageContainer'>
-            <span className = 'mainLogo'>
-              <h2>Uva</h2>
-            </span>
             <div className = 'heroContentWrapper'>
               <h2>Unbiased wine reviews</h2>
               <Search className ='SearchBar' search = {this.search}/>
