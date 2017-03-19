@@ -42,6 +42,18 @@ db.once('open', function() {
   var Review = mongoose.model('Review', reviewSchema);
   var Product = mongoose.model('Product', productSchema);
 
+var checkUsername = function(req, res, callback){
+  User.find({}, function(err,items)  {
+    if(err) {
+      callback(err, null);
+    } else {
+      callback(null, items);
+    }
+  });
+}
+
+module.exports.checkUsername = checkUsername;
+
   //TESTING FUNCTIONALITY
 
   // var mike = new User({
