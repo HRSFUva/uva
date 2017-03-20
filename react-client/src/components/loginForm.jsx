@@ -40,7 +40,6 @@ class LoginForm extends React.Component {
   }
 
   handleUserWantsSignUp(event) {
-    console.log('inside signuper')
     this.setState({
       userWantsSignUp: !this.state.userWantsSignUp,
       invalidPasswordAttempt: false

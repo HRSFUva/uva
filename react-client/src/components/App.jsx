@@ -63,8 +63,6 @@ class App extends React.Component {
 
   validateUser (username, password) {
     var context = this;
-     console.log('username inside validateUser', username);
-     console.log('password inside validateUser', password);
 
      $.ajax({
        url: 'http://localhost:3000/login',
@@ -75,8 +73,6 @@ class App extends React.Component {
          password: password
        }),
        success: function(data){
-         console.log('success after validateUserAJAXSUCCESS', typeof data);
-         console.log('success after validateUserAJAXSUCCESS',  data);
          if(data.length===0){
           console.log('zeroData');
           context.setState({
@@ -90,9 +86,7 @@ class App extends React.Component {
             userWantsLogin: !context.state.userWantsLogin,
             invalidPasswordAttempt: false
            });
-
          }
-
        },
        error: function(err){
          console.log('error after validateUser', err);
@@ -124,8 +118,7 @@ class App extends React.Component {
    }
 
    newUser (username, password) {
-    console.log('username inside app.jsx', username);
-    console.log('password inside app.jsx', password);
+    var context = this;
     $.ajax({
       url: 'http://localhost:3000/signup',
       type: 'POST',
@@ -135,16 +128,16 @@ class App extends React.Component {
         password: password
       }),
       success: function(data) {
-        console.log('added user successfully, i think?', data)
+        console.log('success response from newUserAJAX', data)
       },
       error: function(error) {
-        console.log('error in adding user, dude', error);
+        console.log('error in adding user', error);
       }
     })
    }
 
   search (query) {
-    console.log('query', query);
+    var context = this;
     $.ajax({
       url: 'http://localhost:3000/search',
       type: 'POST',
@@ -153,7 +146,7 @@ class App extends React.Component {
         search: query
       }),
       success: function(data) {
-        console.log(data)
+        console.log('success res from searchAJAX', data)
       },
       error: function(err) {
         console.log(err)
@@ -161,34 +154,11 @@ class App extends React.Component {
     })
   }
 
-          // <div className = 'flexContainer'>
-          //   <div className ='flexItem flexEdge'>
-          //     <span className = 'menuButton flexItem flexEdge'>
-          //       <button className ='flexItem flexEdge' value='login'>Home</button>
-          //       {this.state.userLoggedIn &&
-          //        <h4> Hi {this.state.username}! </h4>}
-          //     </span>
-          //   </div>
-          //   <div className ='flexItem flexCenter'>
-          //     <span className = 'mainLogo flexItem flexCenter'>
-          //       <h2 className ='flexItem flexCenter'>Uva</h2>
-          //     </span>
-          //   </div>
-          //   <div className ='flexItem flexEdge'>
-          //    {!this.state.userLoggedIn ? (
-          //     <span className = 'loginButton'>
-          //       <button value='login' onClick={this.handleUserWantsLogin}>Login</button>
-          //     </span>) : (
-          //     <span className = 'loginButton'>
-          //       <button value='logout' onClick={this.handleUserWantsLogout}>Logout</button>
-          //     </span> )}
-          //   </div>
-          // </div>
-
   render (){
     if(!this.state.userWantsLogin){
       return (
         <div className = 'container'>
+
           <div className='flexContainer'>
             <button className='flexItem flexEdge' value='login'>Home</button>
             {this.state.userLoggedIn &&
@@ -197,8 +167,8 @@ class App extends React.Component {
             {!this.state.userLoggedIn ?
             (<button className='flexItem flexEdge' onClick={this.handleUserWantsLogin} value='login'>Login</button>) :
             (<button className='flexItem flexEdge' onClick={this.handleUserWantsLogout} value='logout'>Logout</button>)}
-
           </div>
+
           <div className = 'heroImageContainer'>
             <div className = 'heroContentWrapper'>
               <h2>Unbiased wine reviews</h2>
@@ -223,10 +193,8 @@ class App extends React.Component {
             <Login checkUsername = {this.checkUsername} invalidUsername = {this.state.invalidUsername} newUser={this.newUser} invalidPasswordAttempt={this.state.invalidPasswordAttempt} validate={this.validateUser} handleUserWantsHome={this.handleUserWantsLogin} userWantsLogin={this.state.userWantsLogin} className = 'loginForm' />
           </div>
           )
-        //REVIEW LIST
       }
   }
 }
 
 export default App;
-//<ReviewList reviews={this.state.reviews} />
