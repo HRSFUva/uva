@@ -11,7 +11,7 @@
     "start": "nodemon server/index.js",
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon server/index.js",
-    "heroku-postbuild": "webpack -p --config ./webpack.prod.config.js --progress"
+    "postinstall": "webpack -p --config ./webpack.prod.config.js --progress"
   },
   "dependencies": {
     "body-parser": "^1.17.1",
