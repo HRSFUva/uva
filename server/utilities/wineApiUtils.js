@@ -8,7 +8,7 @@ module.exports = {
   apiRequest: function(search, callback){
     var options = {
       method: 'GET',
-      url: 'http://services.wine.com/api/beta/service.svc/JSON/catalog?filter=categories(490+124)&offset=10&size=5&apikey=' + key.apikey,
+      url: 'http://services.wine.com/api/beta/service.svc/JSON/catalog?filter=categories(490+124)&offset=10&size=5&apikey=' + key.apiKey,
       qs: 
        { filter: 'categories(490 124)',
          offset: '10',
@@ -17,7 +17,7 @@ module.exports = {
       headers: 
        { 'cache-control': 'no-cache' },
        json: true
-       };
+    };
 
     request(options, function(error, response, fields) {
       if (error) {
@@ -26,7 +26,7 @@ module.exports = {
         callback(error, false, null)
         // res.send(body);
       } else {
-        console.log('API body', response);
+        // console.log('API body', response);
         callback(null, true, response) 
       }
     });
