@@ -1,22 +1,16 @@
 import React from 'react';
-import productEntry from './productEntry.jsx';
+import ProductEntry from './ProductEntry.jsx';
 
-class productList extends React.Component {
-  constructor (props) {
-    super(props);
-    this.state = {
-      products: []
-    }
-  }
+import reviewEntry from './reviewEntry.jsx';
 
-  render () {
-    return (
-      {this.state.products.map((product) => {
-        <productEntry product={product}/>
-      })}
-    )
-  }
+var ProductList = ({products}) => (
+  <div>
+    <ul>
+      {products.map(product =>
+        <li key={product.id}><ProductEntry product={product}/></li>
+      )}
+        </ul>
+  </div>
+);
 
-};
-
-export default productList;
+export default ProductList;

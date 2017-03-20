@@ -3,11 +3,17 @@ import Search from './searchBar.jsx';
 import TopWine from './topWines.jsx';
 import $ from 'jquery';
 import Login from './loginForm.jsx';
+import ProductList from './ProductList.jsx'
 
 class App extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
+      products: [
+        {id:1, Name: 'greatWine', Rating: '10', Description: 'This is a great wine!'},
+        {id:2, Name: 'goodWine', Rating: '8.5', Description: 'This is a good wine!'},
+        {id:3, Name: 'averageWine', Rating: '7', Description: 'This is an average wine.'}
+      ],
       reviews: [
       { title: 'speedy',
         context: 'it was great',
@@ -103,6 +109,10 @@ class App extends React.Component {
             <TopWine />
             <TopWine />
             <TopWine />
+          </div>
+
+          <div>
+            <ProductList products={this.state.products}/>
           </div>
 
       </div>

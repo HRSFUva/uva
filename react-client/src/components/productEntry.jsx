@@ -1,19 +1,17 @@
 import React from 'react';
-import productOverview from './productOverview.jsx';
-import reviewList from './reviewList.jsx';
+// import productOverview from './productOverview.jsx';
+// import reviewList from './reviewList.jsx';
 
 
-var productEntry = ({product}) => (
-  <div>
+var ProductEntry = ({product}) => (
+  <div className="productEntry">
     {/* insert image of product
     */}
-    <div>{product.name}</div>
-    <div>{product.rating}</div>
-    <div>{product.description}</div>
+    <div className="productName">{product.Name}</div>
+    <div className="productRating">{product.Rating}</div>
+    <div className="productDescription">{product.Description}</div>
+    {/* hello */}
   </div>
 );
 
-export default productOverview;
-
-
-export default productEntry;
+export default ProductEntry;
