@@ -9,7 +9,7 @@ var ProductList = ({products}) => (
       {products.map(product =>
         <li key={product.id}><ProductEntry product={product}/></li>
       )}
-        </ul>
+    </ul>
   </div>
 );
 
