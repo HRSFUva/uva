@@ -5,54 +5,46 @@ var db = require('../../database-mongo/index.js');
 module.exports = {
 
   checkuserName: function(username, callback){
-    console.log('inside checkusername')
-    console.log(username)
     db.User.find({name: username}, function(err, results) {
       if(err){
-        console.log('error inside checkuserName', error)
         callback(error, false, null);
       }
       else if( results.length === 0 ) {
-        console.log('dumb', results);
         callback(null, true, results);
 
       } else {
-        console.log('results length', results.length);
-        console.log('results from checkuserName', results);
         callback(null, false, results);
       }
     })
   },
 
   addUser: function(username, password, callback) {
-    console.log('inside add user');
     db.User.create({name:username, password: password}, function(error, results) {
       if(error){
-        console.log('error inside adduser', error)
         callback(error, false, null)
       } else {
-        console.log('results from add user', results);
         callback(null, true, results);
       }
     })
   },
 
   validateUser: function(username, password, callback) {
-    console.log('inside validate user', username);
-    console.log('inside validate userpassword', password);
     db.User.find({name: username, password: password}, function(error, results) {
       if(error){
-        console.log(error)
         callback(error, null);
       } else {
-        console.log('results from validateUser', results);
+        callback(null, results);
+      }
+    })
+  },
+
+  addWine: function(wine, callback) {
+    db.Product.create({wine: wine}, function(error, results){
+      if(error){
+        callback(error, null)
+      } else {
         callback(null, results);
       }
     })
   }
-
-
-
-
-
 }

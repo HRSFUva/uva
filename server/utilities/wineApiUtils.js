@@ -1,5 +1,7 @@
 var request = require('request');
 var key = require('./apikey.js');
+var bodyParser = require('body-parser');
+
 
 
 
@@ -9,25 +11,23 @@ module.exports = {
     var options = {
       method: 'GET',
       url: 'http://services.wine.com/api/beta/service.svc/JSON/catalog?filter=categories(490+124)&offset=10&size=5&apikey=' + key.apiKey,
-      qs: 
+      qs:
        { filter: 'categories(490 124)',
          offset: '10',
          size: '5',
        },
-      headers: 
+      headers:
        { 'cache-control': 'no-cache' },
        json: true
     };
 
     request(options, function(error, response, fields) {
       if (error) {
-        // console.log('API response', response);
         console.error('Error in API request', error);
         callback(error, false, null)
-        // res.send(body);
       } else {
-        // console.log('API body', response);
-        callback(null, true, response) 
+        console.log('API body', response);
+        callback(null, true, response)
       }
     });
   },
@@ -36,12 +36,12 @@ module.exports = {
     var options = {
       method: 'GET',
       url: 'http://services.wine.com/api/beta/service.svc/JSON/catalog?filter=categories(490+124)&offset=10&size=5&apikey=' + key.apikey,
-      qs: 
+      qs:
       { filter: 'categories(490 124)',
       offset: '10',
       size: '5',
       },
-        headers: 
+        headers:
       { 'cache-control': 'no-cache' },
       json: true
     };
@@ -62,12 +62,12 @@ module.exports = {
     var options = {
       method: 'GET',
       url: 'http://services.wine.com/api/beta/service.svc/JSON/catalog?filter=categories(490+124)&offset=10&size=5&apikey=' + key.apikey,
-      qs: 
+      qs:
         { filter: 'categories(490 124)',
       offset: '10',
       size: '5',
       },
-      headers: 
+      headers:
       { 'cache-control': 'no-cache' },
       json: true
     }
@@ -87,12 +87,12 @@ module.exports = {
     var options = {
       method: 'GET',
       url: 'http://services.wine.com/api/beta/service.svc/JSON/catalog?filter=categories(490+124)&offset=10&size=5&apikey=' + key.apikey,
-      qs: 
+      qs:
         { filter: 'categories(490 124)',
       offset: '10',
       size: '5',
       },
-      headers: 
+      headers:
       { 'cache-control': 'no-cache' },
       json: true
     }
@@ -105,48 +105,44 @@ module.exports = {
         console.log('Response from topRed function');
         callback(error, true, response);
       }
-      
+
     })
   }
 
+var options = {
+  method: 'GET',
+  url: 'http://services.wine.com/api/beta/service.svc/JSON/catalog?filter=categories(490+124)&offset=10&size=5&apikey=' + apiKey,
+  size: 25,
 };
 
+var pricePoints = [0, 10, 20, 30, 40, 50]
 
+var varietals = [];
 
-// var options = {
-//   method: 'GET',
-//   url: 'http://services.wine.com/api/beta/service.svc/JSON/catalog?filter=categories(490+124)&offset=10&size=5&apikey=' + apiKey,
-//   // qs: 
-//   //  { filter: 'categories(490 124)',
-//   //    offset: '10',
-//   //    size: '5',
-//   //    apikey: '7e30469636811cfa7dd0aef5dffcddbd' },
-//   // headers: 
-//   //  { 'postman-token': 'b781b801-612b-f6aa-3cef-f08dd927b9fc',
-//   //    'cache-control': 'no-cache' },
-//   // body: 'pa87901'
-// };
+var forcedRequest = function (callback) {
+ var forcedOptions = { method: 'GET',
+   url: 'http://services.wine.com/api/beta/service.svc/JSON/catalog',
+   qs:
+    { offset: '10',
+      size: '100',
+      apikey: '7e30469636811cfa7dd0aef5dffcddbd',
+      rating: '85|100',
+      price: '10|20',
+      format: 'JSON'
+    },
+   headers:
+    { 'cache-control': 'no-cache' }
+    };
+  request(forcedOptions, function(error, response, fields) {
+    if(error){
+      callback(error, response)
+    } else {
+      callback(null, response)
+    }
+  })
+}
 
-/*
-http://services.wine.com/api/version/service.svc/format/resource?apikey=key&parameters
-For different wine api data, replace 'resource' with the following:
-  Supported values are: catalog, reference, and catalogmap
-*/
-
-
-// var apiRequest = function (req, res) {
-//   request(options, function(error, response, body) {
-//     if (!error) {
-//       // console.log('API response', response);
-//       console.log('API body', JSON.parse(body));
-//       res.send(body);
-//     } else {
-//       console.error('Error in API request', error);
-//     }
-//   });
-// };
-
-
-// module.exports = {
-//   apiRequest: apiRequest
-// };
+module.exports = {
+  apiRequest: apiRequest,
+  forcedRequest: forcedRequest
+};
