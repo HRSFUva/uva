@@ -8,22 +8,10 @@ var bodyParser = require('body-parser');
 module.exports = {
 
   apiRequest: function(search, callback){
-    // var options = {
-    //   method: 'GET',
-    //   url: 'http://services.wine.com/api/beta/service.svc/JSON/catalog?filter=categories(490+124)&offset=10&size=5&apikey=' + key.apiKey,
-    //   qs:
-    //    { filter: 'categories(490 124)',
-    //      offset: '10',
-    //      size: '10',
-    //    },
-    //   headers:
-    //    { 'cache-control': 'no-cache' },
-    //    json: true
-    // };
 
     var options = {
       method: 'GET',
-      url: 'http://services.wine.com/api/beta/service.svc/JSON/catalog?size=10&search=' + search + '&price=10|20&sort=rating&apikey=' + key.apiKey,
+      url: 'http://services.wine.com/api/beta/service.svc/JSON/catalog?size=50&search=' + search + '&price=10|20&sort=rating&apikey=' + key.apiKey,
       headers:
        { 'cache-control': 'no-cache' },
        json: true
