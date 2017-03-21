@@ -3,7 +3,8 @@ import Search from './searchBar.jsx';
 import TopWine from './topWines.jsx';
 import $ from 'jquery';
 import Login from './loginForm.jsx';
-import ProductList from './ProductList.jsx'
+import ProductList from './ProductList.jsx';
+import TopBar from './TopBar.jsx';
 
 class App extends React.Component {
   constructor (props) {
@@ -154,20 +155,13 @@ class App extends React.Component {
     })
   }
 
+
   render (){
     if(!this.state.userWantsLogin){
       return (
         <div className = 'container'>
 
-          <div className='flexContainer'>
-            <button className='flexItem flexEdge' value='login'>Home</button>
-            {this.state.userLoggedIn &&
-            <h4> Hi {this.state.username}! </h4> }
-            <h2 className='flexItem flexCenter mainLogo'>Uva</h2>
-            {!this.state.userLoggedIn ?
-            (<button className='flexItem flexEdge' onClick={this.handleUserWantsLogin} value='login'>Login</button>) :
-            (<button className='flexItem flexEdge' onClick={this.handleUserWantsLogout} value='logout'>Logout</button>)}
-          </div>
+          <TopBar userLoggedIn={this.state.userLoggedIn} handleUserWantsLogin={this.handleUserWantsLogin} handleUserWantsLogout={this.handleUserWantsLogout}/>
 
           <div className = 'heroImageContainer'>
             <div className = 'heroContentWrapper'>
