@@ -134,7 +134,12 @@ form input {
 form input:hover {
   color:  rgb(255, 255, 255);
   background-color: rgba(157, 82, 193, 0.38);
+}
 
+
+form input:focus {
+  background-color: rgba(157, 82, 193, 0.38);
+  color: white;
 }
 
 form button {

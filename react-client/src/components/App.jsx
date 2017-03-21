@@ -37,7 +37,8 @@ class App extends React.Component {
       username: '',
       userID: '',
       invalidPasswordAttempt: false,
-      invalidUsername: false
+      invalidUsername: false,
+      userWantsSignUp: false
     }
     this.search = this.search.bind(this);
     this.handleUserWantsLogin = this.handleUserWantsLogin.bind(this);
@@ -202,8 +203,10 @@ class App extends React.Component {
     )} else if (this.state.userWantsLogin && !this.state.userHasSearched) {
         //To do: refactor handleUserWantsHome
         return (
-          <div className = 'loginWrapper'>
-            <Login checkUsername = {this.checkUsername} invalidUsername = {this.state.invalidUsername} newUser={this.newUser} invalidPasswordAttempt={this.state.invalidPasswordAttempt} validate={this.validateUser} handleUserWantsHome={this.handleUserWantsLogin} userWantsLogin={this.state.userWantsLogin} className = 'loginForm' />
+          <div className = 'container'>
+            <div className = 'loginWrapper'>
+              <Login checkUsername = {this.checkUsername} invalidUsername = {this.state.invalidUsername} newUser={this.newUser} invalidPasswordAttempt={this.state.invalidPasswordAttempt} validate={this.validateUser} handleUserWantsHome={this.handleUserWantsLogin} userWantsLogin={this.state.userWantsLogin} userWantsSignUp={this.state.userWantsSignUp} className = 'loginForm' />
+            </div>
           </div>
           )
       } else if (this.state.userHasSearched) {

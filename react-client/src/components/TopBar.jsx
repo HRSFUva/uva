@@ -14,7 +14,7 @@ class TopBar extends React.Component {
       <h4> Hi {this.props.username}! </h4> }
       <h2 className='flexItem flexCenter mainLogo'>Uva</h2>
       {!this.props.userLoggedIn ?
-      (<button className='flexItem flexEdge' onClick={this.props.handleUserWantsLogin} value='login'>Login</button>) :
+      !this.props.userWantsSignUp ? (<button className='flexItem flexEdge' onClick={this.props.handleUserWantsLogin} value='login'>Login</button>) : (<button className='flexItem flexEdge' onClick={this.props.handleUserWantsSignUp} value='signup'>Sign Up</button>) :
       (<button className='flexItem flexEdge' onClick={this.props.handleUserWantsLogout} value='logout'>Logout</button>)}
     </div>
     )

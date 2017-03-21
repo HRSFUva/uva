@@ -1,5 +1,6 @@
 import React from 'react';
 import ProductEntry from './ProductEntry.jsx';
+import ProductOverview from './ProductOverview.jsx';
 
 import reviewEntry from './reviewEntry.jsx';
 
@@ -9,15 +10,33 @@ class ProductList extends React.Component {
     this.state = {
       currentPage: 1,
       totalPages: '',
-      currentRange: []
+      currentRange: [],
+      currentWine: '',
+      userClickedEntry: false,
+      userHasSearched: true
     }
     this.updateCurrentPageList = this.updateCurrentPageList.bind(this);
     this.handleUserWantsBack = this.handleUserWantsBack.bind(this);
     this.handleUserWantsNext = this.handleUserWantsNext.bind(this);
+    this.handleClickedProductEntry = this.handleClickedProductEntry.bind(this);
+
+  }
+
+  componentWillReceiveProps(){
+    this.setState({
+      userHasSearched: !this.userHasSearched
+    }, this.updateCurrentPageList);
   }
 
   componentDidMount(){
     this.updateCurrentPageList()
+  }
+
+  handleClickedProductEntry(wine) {
+    this.setState({
+      userClickedEntry: true,
+      currentWine: wine
+    })
   }
 
   handleUserWantsNext(event){
@@ -36,6 +55,7 @@ class ProductList extends React.Component {
     }
 
   updateCurrentPageList(event){
+    console.log('INSIDE currentPageLIST')
     var products = this.props.products;
     var total = Math.floor(products.length/10);
     var firstIndex = (this.state.currentPage - 1) * 10;
@@ -49,6 +69,8 @@ class ProductList extends React.Component {
   }
 
   render () {
+    if(!this.state.userClickedEntry){
+
     return (
       <div className="productListContainer">
 
@@ -59,14 +81,18 @@ class ProductList extends React.Component {
       </div>
 
       <ul>
-      {
-        this.state.currentRange.map(product =>
-        <li key={product.id}><ProductEntry product={product}/></li>
-
-        )}
+        { this.state.currentRange.map(product =>
+        <li key={product.id}><ProductEntry handleClickedProductEntry={this.handleClickedProductEntry} product={product}/></li> )}
       </ul>
       </div>
       )
+    } else {
+      return(
+        <div>
+          <ProductOverview product={this.state.currentWine}/>
+        </div>
+      )
+    }
   }
 }
 
