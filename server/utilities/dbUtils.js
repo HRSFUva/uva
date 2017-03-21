@@ -40,8 +40,8 @@ module.exports = {
     })
   },
 
-  addWine: function(wine, callback) { //refactor addwine function
-    db.Product.create({wine: wine}, function(error, results){
+  addWine: function(wine, callback) {
+    db.Product.create(wine, function(error, results){
       if(error){
         callback(error, null)
       } else {
@@ -57,7 +57,7 @@ module.exports = {
   top10Whites: function() { //TODO: test against populated database once forcedRequest is up, or against dummy data
     return db.Product.findAsync({redORwhite:white}).sort({rating: -1}).limit(10)
   },
-  
+
   top10Rated: function() { //TODO: test against populated database once forcedRequest is up, or against dummy data
     return db.Product.findAsync({}).sort({rating:-1}).limit(10)
   }

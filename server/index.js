@@ -110,6 +110,28 @@ app.listen(process.env.PORT, function() {
 //nodemon index.js or npm server-dev
 
 
+// example data format for wine product from API request
+// { Id: 167706,
+// Name: 'CVNE Crianza 2013',
+// Url: 'http://www.wine.com/v6/CVNE-Crianza-2013/wine/167706/Detail.aspx',
+// Appellation: [Object],
+// Labels: [Object],
+// Type: 'Wine',
+// Varietal: [Object],
+// Vineyard: [Object],
+// Vintage: '2013',
+// Community: [Object],
+// Description: '',
+// GeoLocation: [Object],
+// PriceMax: 15.99,
+// PriceMin: 12.99,
+// PriceRetail: 15,
+// ProductAttributes: [Object],
+// Ratings: [Object],
+// Retail: null,
+// Vintages: [Object] }
+
+
 wineApiUtils.forcedRequest(function(error, results) {
   if(error){
     console.log('error inside forcedRequest', error);
@@ -117,11 +139,42 @@ wineApiUtils.forcedRequest(function(error, results) {
     console.log('super giant huge massive results', Object.keys(results));
 
     resBody = JSON.parse(results.body);
-    console.log('super giant huge massive resultsDOUBLE TROUBLE', Object.keys(resBody.Products));
+    console.log('super giant huge massive resultsDOUBLE TROUBLE', resBody.Products);
     var wines = resBody.Products.List;
     console.log('winesLength', wines.length)
     wines.forEach(function(wine){
-      dbUtilities.addWine(wine, function(error, results){
+      
+      // //to see how the object is structured  
+      // console.log('VARIETAL', wine.Varietal) 
+      // console.log('VINEYARD', wine.Vineyard)
+      // console.log('VINTAGES', wine.Vintages)
+      // console.log('GEOLOCATION',wine.GeoLocation)
+      // console.log('APPELLATION', wine.Appellation)
+
+      // //where the information we want is located
+      // console.log('NAME', wine.Name) //possibly change
+      // console.log('YEAR', wine.Vintage)
+      // console.log('TYPE', wine.Varietal.Name)
+      // console.log('REDORWHITE', wine.Varietal.WineType.Name)
+      // console.log('ORIGIN', wine.Appellation.Name)
+      // console.log('REGION', wine.Appellation.Region.Name)
+      // console.log('PRICE(MIN-MAX)', wine.PriceMin + '-' + wine.PriceMax)
+      // console.log('APIRATING', wine.Ratings.HighestScore)
+
+      var query = {
+        name: wine.Name,
+        year: wine.Vintage,
+        type: wine.Varietal.Name,
+        redORwhite: wine.Varietal.WineType.Name,
+        origin: wine.Appellation.Name,
+        region: wine.Appellation.Region.Name,
+        priceMin: wine.PriceMin,
+        priceMax: wine.PriceMax,
+        apiRating: wine.Ratings.HighestScore
+      }
+
+
+      dbUtilities.addWine(query, function(error, results){
         if(error){
           console.error(error)
         } else {
