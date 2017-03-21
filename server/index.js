@@ -2,7 +2,6 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var dbUtilities = require('./utilities/dbUtils.js');
 var wineApiUtils = require('./utilities/wineApiUtils.js');
-var db = require('../database-mongo/index.js') //export instance of mongoose connection to server index.js
 
 //INSTANTIATE APP
 var app = express();
@@ -11,21 +10,20 @@ var app = express();
 app.use(bodyParser.json());
 
 //load static files
-app.use(express.static(__dirname + '../react-client/dist'));
+app.use(express.static(__dirname + '/../react-client/dist'));
 
 //SETTING UP ALL THE ROUTES FOR THE CLIENT REQUEST
-//GET request for top wines
 
-app.get('/', function(req, res) {
-  res.send('hello world');
-});
+
+// app.get('/', function(req, res) {
+//   res.send('hello world');
+// });
 
 app.get('/wine', function(req, res) {
-  console.log('db', db);
+  console.log('GET request to /wine received');
   res.statusCode = 200;
   res.send('response from app.get /wine');
 });
-
 
 //This route invoke function that requests wine.com api.
 // app.get('/catalog', wineApiUtils.apiRequest);
@@ -43,13 +41,8 @@ app.post('/search', function(req, res) {
       // console.log('results from search post API', results);
       res.send(results);
     }
-  });
-});
+  })
 
-//POST request for search
-app.post('/search', function(req, res) {
-  console.log('POST request to /search received');
-  res.send('response from app.post /search');
 });
 
 //POST request for signup
@@ -61,10 +54,6 @@ app.post('/signup', function(req, res) {
 //POST request for login
 app.post('/login', function(req, res) {
   console.log('POST request to /login received');
-  // db.checkUsername(req, res, function(err, item){
-  //   console.log('error', err);
-  //   console.log('item', item);
-  // });
   res.send('response from app.post /login');
 });
 
