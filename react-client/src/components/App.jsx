@@ -183,7 +183,7 @@ class App extends React.Component {
       return (
         <div className = 'container'>
 
-          <TopBar username={this.state.username} userLoggedIn={this.state.userLoggedIn} handleUserWantsLogin={this.handleUserWantsLogin} handleUserWantsLogout={this.handleUserWantsLogout}/>
+          <TopBar username={this.state.username} userLoggedIn={this.state.userLoggedIn} handleUserWantsLogin={this.handleUserWantsLogin} handleUserWantsHome={this.handleUserWantsHome} handleUserWantsLogout={this.handleUserWantsLogout}/>
 
           <div className = 'heroImageContainer'>
             <div className = 'heroContentWrapper'>
@@ -212,7 +212,7 @@ class App extends React.Component {
       } else if (this.state.userHasSearched) {
         return (
           <div className="container">
-            <TopBar username={this.state.username} userLoggedIn={this.state.userLoggedIn} handleUserWantsHome={this.handleUserWantsHome} handleUserWantsLogout={this.handleUserWantsLogout}/>
+            <TopBar username={this.state.username} userLoggedIn={this.state.userLoggedIn} handleUserWantsHome={this.handleUserWantsHome} handleUserWantsLogout={this.handleUserWantsLogout} handleUserWantsLogin={this.handleUserWantsLogin}/>
             <div className = 'heroImageContainer'>
               <div className = 'heroContentWrapper'>
                 <h2>Unbiased wine reviews</h2>
