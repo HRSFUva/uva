@@ -35,7 +35,7 @@ class SearchBar extends React.Component {
   }
 
   handleSearchSubmit (event) {
-    var price = this.state.price || 10;
+    var price = this.state.price || null;
     var search = this.state.searchQuery;
     console.log('price inside handleSearchSubmit', price)
     if(this.state.searchQuery.length > 0){

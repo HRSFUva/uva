@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Josefin+Sans|Lobster|Fugaz+One');
 
-body, html, h1, h2, h3, h4 {
+body, html, h1, h2, h3, h4, ul, li{
   margin: 0;
   padding: 0;
 }

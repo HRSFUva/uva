@@ -57,7 +57,7 @@ class ProductList extends React.Component {
   updateCurrentPageList(event){
     console.log('INSIDE currentPageLIST')
     var products = this.props.products;
-    var total = Math.floor(products.length/10);
+    var total = Math.ceil(products.length/10);
     var firstIndex = (this.state.currentPage - 1) * 10;
     var lastIndex = (this.state.currentPage * 10);
     var currentRange = products.slice(firstIndex, lastIndex);

@@ -1,7 +1,7 @@
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var Promise = require('bluebird');
-var Mongoose = Promise.promisifyAll(require("mongoose")); 
+var Mongoose = Promise.promisifyAll(require("mongoose"));
 var db = require('../../database-mongo/index.js');
 
 module.exports = {
