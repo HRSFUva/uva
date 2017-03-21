@@ -38,6 +38,8 @@ var productSchema = mongoose.Schema({
   origin: String,
   varietal: String,
   price: Number,
+  rating: Number,
+  apiRating: Number,
   owner_id: Number
 });
 
