@@ -12,9 +12,14 @@ class ProductOverview extends React.Component{
   render(){
     return(
       <div className='container'>
-        <div>{this.props.product.Name}</div>
-        <div>{this.props.product.PriceMin}</div>
-        <div>{this.props.product.Vineyard.name}</div>
+        <div className="productOverviewFlexbox">
+          <h3 className="productOverviewFlexitem">
+            {this.props.product.Name}
+            {this.props.product.PriceMin}
+            {this.props.product.Vineyard.name}
+          </h3>
+          <input type="button" value="Write a review" className="productOverviewFlexitem" />
+        </div>
       </div>
     )
   }

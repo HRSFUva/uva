@@ -272,3 +272,14 @@ button:hover {
   margin: 0 auto;
   text-align: center;
 }
+
+.productOverviewFlexbox {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.productOverviewFlexitem {
+  flex: auto;
+  flex-grow: 1;
+}
