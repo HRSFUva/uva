@@ -69,7 +69,7 @@ class App extends React.Component {
   search (query) {
     console.log('query', query);
     $.ajax({
-      url: 'http://localhost:3000',
+      url: 'http://localhost:3000/search',
       type: 'POST',
       contentType: 'application/json',
       data: JSON.stringify({
