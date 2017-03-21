@@ -34,12 +34,13 @@ var reviewSchema = mongoose.Schema({
 var productSchema = mongoose.Schema({
   name: String,
   year: Number,
-  type: String,
-  redORwhite: String,
-  origin: String,
-  varietal: String, //e.x. cabernet, merlot
-  price: Number,
-  rating: Number,
+  type: String, //e.x. cabernet, merlot
+  redORwhite: String, //red wines or white wines
+  origin: String, //e.x Sonoma County
+  region: String, //e.x California, France
+  priceMin: Number,
+  priceMax: Number,
+  rating: Number, //uva community's average rating
   apiRating: Number,
   owner_id: Number
 });
