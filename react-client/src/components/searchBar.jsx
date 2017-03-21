@@ -5,7 +5,7 @@ class SearchBar extends React.Component {
     super(props);
     this.state = {
       searchQuery: '',
-      pricePoint: ''
+      price: ''
     }
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
@@ -14,14 +14,32 @@ class SearchBar extends React.Component {
 
 
   handlePriceClick(event) {
+
+    var price = 10;
+
+    if(event.target.value === '$'){
+      price = 10;
+    } else if (event.target.value === '$$'){
+      price = 20;
+    }else if (event.target.value === '$$$'){
+      price = 30;
+    }else if (event.target.value === '$$$$'){
+      price = 40;
+    }
+
     this.setState({
-      pricePoint: event.target.value
+      price: price
     })
+
+    event.preventDefault()
   }
 
   handleSearchSubmit (event) {
-    if(this.state.searchQuery.length){
-      this.props.search(this.state.searchQuery, this.state.pricePoint);
+    var price = this.state.price || 10;
+    var search = this.state.searchQuery;
+    console.log('price inside handleSearchSubmit', price)
+    if(this.state.searchQuery.length > 0){
+      this.props.search(search, price);
       this.setState({
         searchQuery: '',
       })
@@ -41,10 +59,10 @@ render(){
     <form className = 'searchBarForm' onSubmit={this.handleSearchSubmit}>
       <input className = 'mainSearchBar' onChange={this.handleSearchChange} placeholder = 'Drink Great Wine' value={this.state.searchQuery} />
       <div className="priceButtons">
-        <button value='10' onClick={this.handlePriceClick}>$</button>
-        <button value='20'>$$</button>
-        <button value='30'>$$$</button>
-        <button value='50'>$$$$</button>
+        <input type='button' value='$' onClick={this.handlePriceClick}></input>
+        <input type='button' value='$$' onClick={this.handlePriceClick}></input>
+        <input type='button' value='$$$' onClick={this.handlePriceClick}></input>
+        <input type='button' value='$$$$' onClick={this.handlePriceClick}></input>
       </div>
 
       <div className='submitButton'>
