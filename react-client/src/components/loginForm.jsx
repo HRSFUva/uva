@@ -40,20 +40,24 @@ class LoginForm extends React.Component {
   }
 
   handleUserWantsSignUp(event) {
-    console.log('inside signuper')
     this.setState({
-      userWantsSignUp: !this.state.userWantsSignUp
+      userWantsSignUp: !this.state.userWantsSignUp,
+      invalidPasswordAttempt: false
     })
   }
+
 
   render() {
     if(!this.state.userWantsSignUp){
       return (
         <div className='container'>
-          <span className='loginButton'>
+          <span className='menuButton'>
             <button onClick={this.handleUserWantsHome}>Home</button>
           </span>
-          <div className="loginFormWrapper">
+          <span className = 'loginButton'>
+            <button value='login' onClick={this.handleUserWantsSignUp}>Sign Up</button>
+          </span>
+          <div className="signupFormWrapper">
             <form onSubmit={this.handleSubmit}>
               <label>
                 <h4>Username:</h4>
@@ -64,17 +68,16 @@ class LoginForm extends React.Component {
                 <input placeholder='password' type="password" value={this.state.password} onChange={this.handlePasswordChange}/>
               </label><br/>
               <input type="submit" value="Submit"/>
+              {this.props.invalidPasswordAttempt &&
+                <span><h4>Try Again</h4></span> }
             </form>
-          </div>
-          <div className='signUpButton'>
-            <button onClick={this.handleUserWantsSignUp}>Sign Up</button>
           </div>
         </div>
       )
     } else {
       return(
         <div className='container'>
-          <SignupForm className='signupForm' handleUserWantsSignUp={this.handleUserWantsSignUp} />
+          <SignupForm invalidUsername={this.props.invalidUsername} checkUsername={this.props.checkUsername} userWantsHome={this.handleUserWantsHome} newUser={this.props.newUser} className='signupForm' handleUserWantsSignUp={this.handleUserWantsSignUp} />
         </div>
       )
     }

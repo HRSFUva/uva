@@ -14,11 +14,6 @@ app.use(express.static(__dirname + '/../react-client/dist'));
 
 //SETTING UP ALL THE ROUTES FOR THE CLIENT REQUEST
 
-
-// app.get('/', function(req, res) {
-//   res.send('hello world');
-// });
-
 app.get('/wine', function(req, res) {
   console.log('GET request to /wine received');
   res.statusCode = 200;
@@ -31,6 +26,7 @@ app.get('/wine', function(req, res) {
 //POST request for search
 app.post('/search', function(req, res) {
   var query = req.body.search;
+
   console.log('search:', query);
 
   wineApiUtils.apiRequest(query, function(error, success, results) {
@@ -47,14 +43,53 @@ app.post('/search', function(req, res) {
 
 //POST request for signup
 app.post('/signup', function(req, res) {
-  console.log('POST request to /signup received');
-  res.send('response from app.post /signup');
+  var user = req.body.username;
+  var pass = req.body.password;
+
+  //check for valid username, i.e. currently not in use
+  dbUtilities.checkuserName(user, function(error, valid, results){
+    if(error){
+      res.send('error inside checkuserName index');
+    } else if (!valid) {
+      res.send('duplicate username')
+    } else if (valid) {
+      dbUtilities.addUser(user, pass, function(error, success, results){
+        if(error) {
+          res.send('error inside addUser index.js');
+        } else if (success) {
+          res.send('response from app.post /signup');
+        }
+      })
+    }
+  })
 });
+
+app.post('/users/username/', function(req, res) {
+  var username = req.body.username;
+
+  dbUtilities.checkuserName(username, function(error, valid, results){
+    if(error){
+      console.error(error)
+      res.send(error);
+    } else {
+      console.log('results from checkuserName', results);
+      res.send(results);
+    }
+  })
+})
 
 //POST request for login
 app.post('/login', function(req, res) {
-  console.log('POST request to /login received');
-  res.send('response from app.post /login');
+  var username = req.body.username;
+  var password = req.body.password;
+
+  dbUtilities.validateUser(username, password, function(error, results) {
+    if(error){
+      console.log(error)
+    } else {
+      res.send(results);
+    }
+  })
 });
 
 //POST request for review
@@ -74,6 +109,28 @@ app.listen(process.env.PORT, function() {
 //nodemon index.js or npm server-dev
 
 
+wineApiUtils.forcedRequest(function(error, results) {
+  if(error){
+    console.log('error inside forcedRequest', error);
+  } else {
+    console.log('super giant huge massive results', Object.keys(results));
+
+    resBody = JSON.parse(results.body);
+    console.log('super giant huge massive resultsDOUBLE TROUBLE', Object.keys(resBody.Products));
+    var wines = resBody.Products.List;
+    console.log('winesLength', wines.length)
+    wines.forEach(function(wine){
+      dbUtilities.addWine(wine, function(error, results){
+        if(error){
+          console.error(error)
+        } else {
+          console.log('results from addwine dbUtilities', results)
+        }
+      })
+    })
+
+  }
+})
 
 
 

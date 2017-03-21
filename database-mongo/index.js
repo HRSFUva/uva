@@ -1,46 +1,68 @@
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:uva');
+mongoose.connect('mongodb://localhost/uva');
 
 var db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection errorINSIDE BIND'));
 
 db.once('open', function() {
+  console.log('connected');
 
-  var userSchema = mongoose.Schema({
-    name: String,
-    isOwner: Boolean,
-    isAdmin: Boolean,
-    joined: Date,
-    password: String,
-    salt: String,
-    meta: {
-      reviews: Number,
-      friends: Number
-    }
-  });
 
-  var reviewSchema = mongoose.Schema({
-    content: String,
-    product: String,
-    rating: Number,
-    user_id: Number
-  });
+});
+var userSchema = mongoose.Schema({
+  name: String,
+  isOwner: Boolean,
+  isAdmin: Boolean,
+  joined: Date,
+  password: String,
+  salt: String,
+  meta: {
+    reviews: Number,
+    friends: Number
+  }
+});
 
-  var productSchema = mongoose.Schema({
-    name: String,
-    year: Number,
-    type: String,
-    origin: String,
-    varietal: String,
-    price: Number,
-    owner_id: Number
-  });
+var reviewSchema = mongoose.Schema({
+  content: String,
+  product: String,
+  rating: Number,
+  user_id: Number
+});
 
-  var User = mongoose.model('User', userSchema);
-  var Review = mongoose.model('Review', reviewSchema);
-  var Product = mongoose.model('Product', productSchema);
+var productSchema = mongoose.Schema({
+  name: String,
+  year: Number,
+  type: String,
+  origin: String,
+  varietal: String,
+  price: Number,
+  owner_id: Number
+});
+
+var models = {
+  User: mongoose.model('User', userSchema),
+  Review: mongoose.model('Review', reviewSchema),
+  Product: mongoose.model('Product', productSchema)
+}
+
+module.exports = models;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   //TESTING FUNCTIONALITY
 
@@ -96,19 +118,3 @@ db.once('open', function() {
   //   if(err) console.error(err);
   //   console.log('find results for mike: ', results);
   // })
-
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-

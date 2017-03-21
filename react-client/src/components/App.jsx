@@ -31,23 +31,38 @@ class App extends React.Component {
       searchQuery: '',
       userHasSearched: false,
       userWantsLogin: false,
-      userIsLoggedIn: false,
+      userLoggedIn: false,
       userWantsHomePage: true,
+      username: '',
+      userID: '',
+      invalidPasswordAttempt: false,
+      invalidUsername: false
     }
     this.search = this.search.bind(this);
     this.handleUserWantsLogin = this.handleUserWantsLogin.bind(this);
     this.validateUser = this.validateUser.bind(this);
+    this.newUser = this.newUser.bind(this);
+    this.handleUserWantsLogout = this.handleUserWantsLogout.bind(this);
+    this.checkUsername = this.checkUsername.bind(this);
   }
 
   handleUserWantsLogin(event) {
     this.setState({
-      userWantsLogin: !this.state.userWantsLogin
+      userWantsLogin: !this.state.userWantsLogin,
+      invalidPasswordAttempt: false
+    })
+  }
+
+  handleUserWantsLogout(event) {
+    this.setState({
+      userLoggedIn: false,
+      username: '',
+      userID: ''
     })
   }
 
   validateUser (username, password) {
-     console.log('username inside validateUser', username);
-     console.log('password inside validateUser', password);
+    var context = this;
 
      $.ajax({
        url: 'http://localhost:3000/login',
@@ -58,7 +73,20 @@ class App extends React.Component {
          password: password
        }),
        success: function(data){
-         console.log('success after validateUser', data);
+         if(data.length===0){
+          console.log('zeroData');
+          context.setState({
+            invalidPasswordAttempt: true
+          })
+         } else {
+           context.setState({
+            userLoggedIn: !context.state.userLoggedIn,
+            username: data[0].name,
+            userID: data[0]._id,
+            userWantsLogin: !context.state.userWantsLogin,
+            invalidPasswordAttempt: false
+           });
+         }
        },
        error: function(err){
          console.log('error after validateUser', err);
@@ -66,8 +94,50 @@ class App extends React.Component {
      })
    }
 
+   checkUsername (username) {
+    var context = this;
+    $.ajax({
+      url: 'http://localhost:3000/users/username',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({
+        username: username
+      }),
+      success: function(data){
+        if(data.length > 0) {
+          context.setState({
+            invalidUsername: true
+          })
+        } else {
+          context.setState({
+            invalidUsername: false
+          })
+        }
+      }
+    })
+   }
+
+   newUser (username, password) {
+    var context = this;
+    $.ajax({
+      url: 'http://localhost:3000/signup',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({
+        username: username,
+        password: password
+      }),
+      success: function(data) {
+        console.log('success response from newUserAJAX', data)
+      },
+      error: function(error) {
+        console.log('error in adding user', error);
+      }
+    })
+   }
+
   search (query) {
-    console.log('query', query);
+    var context = this;
     $.ajax({
       url: 'http://localhost:3000/search',
       type: 'POST',
@@ -76,7 +146,7 @@ class App extends React.Component {
         search: query
       }),
       success: function(data) {
-        console.log(data)
+        console.log('success res from searchAJAX', data)
       },
       error: function(err) {
         console.log(err)
@@ -84,21 +154,22 @@ class App extends React.Component {
     })
   }
 
-  render () {
+  render (){
     if(!this.state.userWantsLogin){
       return (
         <div className = 'container'>
-          <span className = 'loginButton'>
-            <button value='login' onClick={this.handleUserWantsLogin}>Login</button>
-          </span>
-          <span className = 'menuButton'>
-            <button value='login'>Menu</button>
-          </span>
+
+          <div className='flexContainer'>
+            <button className='flexItem flexEdge' value='login'>Home</button>
+            {this.state.userLoggedIn &&
+            <h4> Hi {this.state.username}! </h4> }
+            <h2 className='flexItem flexCenter mainLogo'>Uva</h2>
+            {!this.state.userLoggedIn ?
+            (<button className='flexItem flexEdge' onClick={this.handleUserWantsLogin} value='login'>Login</button>) :
+            (<button className='flexItem flexEdge' onClick={this.handleUserWantsLogout} value='logout'>Logout</button>)}
+          </div>
 
           <div className = 'heroImageContainer'>
-            <span className = 'mainLogo'>
-              <h2>Uva</h2>
-            </span>
             <div className = 'heroContentWrapper'>
               <h2>Unbiased wine reviews</h2>
               <Search className ='SearchBar' search = {this.search}/>
@@ -111,21 +182,19 @@ class App extends React.Component {
             <TopWine />
           </div>
 
-          <div>
-            <ProductList products={this.state.products}/>
-          </div>
 
       </div>
     )} else {
         return (
           <div className = 'loginWrapper'>
-            <Login validate={this.validateUser} handleUserWantsHome={this.handleUserWantsLogin} userWantsLogin={this.state.userWantsLogin} className = 'loginForm' />
+            <Login checkUsername = {this.checkUsername} invalidUsername = {this.state.invalidUsername} newUser={this.newUser} invalidPasswordAttempt={this.state.invalidPasswordAttempt} validate={this.validateUser} handleUserWantsHome={this.handleUserWantsLogin} userWantsLogin={this.state.userWantsLogin} className = 'loginForm' />
           </div>
           )
-        //REVIEW LIST
       }
   }
 }
 
 export default App;
-//<ReviewList reviews={this.state.reviews} />
+          // <div>
+          //   <ProductList products={this.state.products}/>
+          // </div>
