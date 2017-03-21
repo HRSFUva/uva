@@ -182,9 +182,6 @@ class App extends React.Component {
             <TopWine />
           </div>
 
-          <div>
-            <ProductList products={this.state.products}/>
-          </div>
 
       </div>
     )} else {
@@ -198,3 +195,6 @@ class App extends React.Component {
 }
 
 export default App;
+          // <div>
+          //   <ProductList products={this.state.products}/>
+          // </div>

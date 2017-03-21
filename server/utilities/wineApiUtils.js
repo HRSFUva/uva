@@ -25,7 +25,7 @@ module.exports = {
       if (error) {
         console.error('Error in API request', error);
         callback(error, false, null)
-      } else {
+     } else {
         console.log('API body', response);
         callback(null, true, response)
       }
@@ -55,7 +55,6 @@ module.exports = {
         callback(error, true, response);
       }
     })
-
   },
 
   topWhite: function(price, callback) {
@@ -95,7 +94,7 @@ module.exports = {
       headers:
       { 'cache-control': 'no-cache' },
       json: true
-    }
+    };
 
     request(options, function(error, response, fields) {
       if (error) {
@@ -105,13 +104,37 @@ module.exports = {
         console.log('Response from topRed function');
         callback(error, true, response);
       }
+    })
+  },
 
+  forcedRequest: function (callback) {
+   var forcedOptions = { method: 'GET',
+     url: 'http://services.wine.com/api/beta/service.svc/JSON/catalog',
+     qs:
+      { offset: '10',
+        size: '100',
+        apikey: '7e30469636811cfa7dd0aef5dffcddbd',
+        rating: '85|100',
+        price: '10|20',
+        format: 'JSON'
+      },
+     headers:
+      { 'cache-control': 'no-cache' }
+      };
+    request(forcedOptions, function(error, response, fields) {
+      if(error){
+        callback(error, response)
+      } else {
+        callback(null, response)
+      }
     })
   }
 
+}
+
 var options = {
   method: 'GET',
-  url: 'http://services.wine.com/api/beta/service.svc/JSON/catalog?filter=categories(490+124)&offset=10&size=5&apikey=' + apiKey,
+  url: 'http://services.wine.com/api/beta/service.svc/JSON/catalog?filter=categories(490+124)&offset=10&size=5&apikey=' + key.apiKey,
   size: 25,
 };
 
@@ -119,30 +142,4 @@ var pricePoints = [0, 10, 20, 30, 40, 50]
 
 var varietals = [];
 
-var forcedRequest = function (callback) {
- var forcedOptions = { method: 'GET',
-   url: 'http://services.wine.com/api/beta/service.svc/JSON/catalog',
-   qs:
-    { offset: '10',
-      size: '100',
-      apikey: '7e30469636811cfa7dd0aef5dffcddbd',
-      rating: '85|100',
-      price: '10|20',
-      format: 'JSON'
-    },
-   headers:
-    { 'cache-control': 'no-cache' }
-    };
-  request(forcedOptions, function(error, response, fields) {
-    if(error){
-      callback(error, response)
-    } else {
-      callback(null, response)
-    }
-  })
-}
 
-module.exports = {
-  apiRequest: apiRequest,
-  forcedRequest: forcedRequest
-};
