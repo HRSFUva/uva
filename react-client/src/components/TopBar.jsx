@@ -9,7 +9,7 @@ class TopBar extends React.Component {
   render(){
     return(
     <div className='flexContainer'>
-      <button className='flexItem flexEdge' value='login'>Home</button>
+      <button onClick={this.props.handleUserWantsHome} className='flexItem flexEdge' value='login'>Home</button>
       {this.props.userLoggedIn &&
       <h4> Hi {this.props.username}! </h4> }
       <h2 className='flexItem flexCenter mainLogo'>Uva</h2>

@@ -246,3 +246,19 @@ button:hover {
 .productEntry {
   border: 1px solid black;
 }
+
+.productEntryFlexbox {
+  display: inline-flex;
+  width: 80%;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.productEntryFlexItem .productEntryFlexItemCenter {
+  flex-grow: 2;
+
+}
+.productEntryFlexItem {
+  flex: auto;
+  flex-grow: 1;
+}

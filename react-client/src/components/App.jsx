@@ -45,12 +45,23 @@ class App extends React.Component {
     this.newUser = this.newUser.bind(this);
     this.handleUserWantsLogout = this.handleUserWantsLogout.bind(this);
     this.checkUsername = this.checkUsername.bind(this);
+    this.handleUserWantsHome = this.handleUserWantsHome.bind(this);
+  }
+
+  handleUserWantsHome(event) {
+    this.setState({
+      userWantsHomePage: true,
+      userHasSearched: false,
+      userWantsLogin: false
+    })
   }
 
   handleUserWantsLogin(event) {
     this.setState({
       userWantsLogin: !this.state.userWantsLogin,
-      invalidPasswordAttempt: false
+      invalidPasswordAttempt: false,
+      userWantsHomePage: false,
+      userHasSearched: false
     })
   }
 
@@ -186,6 +197,7 @@ class App extends React.Component {
 
       </div>
     )} else if (this.state.userWantsLogin && !this.state.userHasSearched) {
+        //To do: refactor handleUserWantsHome
         return (
           <div className = 'loginWrapper'>
             <Login checkUsername = {this.checkUsername} invalidUsername = {this.state.invalidUsername} newUser={this.newUser} invalidPasswordAttempt={this.state.invalidPasswordAttempt} validate={this.validateUser} handleUserWantsHome={this.handleUserWantsLogin} userWantsLogin={this.state.userWantsLogin} className = 'loginForm' />
@@ -194,7 +206,7 @@ class App extends React.Component {
       } else if (this.state.userHasSearched) {
         return (
           <div className="container">
-            <TopBar username={this.state.username} userLoggedIn={this.state.userLoggedIn} handleUserWantsLogin={this.handleUserWantsLogin} handleUserWantsLogout={this.handleUserWantsLogout}/>
+            <TopBar username={this.state.username} userLoggedIn={this.state.userLoggedIn} handleUserWantsHome={this.handleUserWantsHome} handleUserWantsLogout={this.handleUserWantsLogout}/>
             <div className = 'heroImageContainer'>
               <div className = 'heroContentWrapper'>
                 <h2>Unbiased wine reviews</h2>
