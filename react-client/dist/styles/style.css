@@ -262,3 +262,8 @@ button:hover {
   flex: auto;
   flex-grow: 1;
 }
+
+.productListHeader {
+  margin: 0 auto;
+  text-align: center;
+}

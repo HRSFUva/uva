@@ -7,11 +7,11 @@ var bodyParser = require('body-parser');
 
 module.exports = {
 
-  apiRequest: function(search, callback){
+  apiRequest: function(search, price, callback){
 
     var options = {
       method: 'GET',
-      url: 'http://services.wine.com/api/beta/service.svc/JSON/catalog?size=50&search=' + search + '&price=10|20&sort=rating&apikey=' + key.apiKey,
+      url: 'http://services.wine.com/api/beta/service.svc/JSON/catalog?size=50&search=' + search + '&price=' + price + '|' + (price * (price/10 + 1)) + '&sort=rating&apikey=' + key.apiKey,
       headers:
        { 'cache-control': 'no-cache' },
        json: true

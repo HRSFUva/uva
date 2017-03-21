@@ -52,7 +52,7 @@ class ProductList extends React.Component {
     return (
       <div className="productListContainer">
 
-      <div className="ProductListHeader">
+      <div className="productListHeader">
         <h4>Page: {this.state.currentPage} of {this.state.totalPages} </h4>
         <button onClick={this.handleUserWantsBack}>Back</button>
         <button onClick={this.handleUserWantsNext}>Next</button>

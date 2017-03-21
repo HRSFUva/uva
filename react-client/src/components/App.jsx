@@ -148,14 +148,15 @@ class App extends React.Component {
     })
    }
 
-  search (query) {
+  search (query, pricePoint) {
     var context = this;
     $.ajax({
       url: 'http://localhost:3000/search',
       type: 'POST',
       contentType: 'application/json',
       data: JSON.stringify({
-        search: query
+        search: query,
+        price: pricePoint
       }),
       success: function(data) {
         console.log('success res from searchAJAX', data);
