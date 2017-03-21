@@ -35,8 +35,9 @@ var productSchema = mongoose.Schema({
   name: String,
   year: Number,
   type: String,
+  redORwhite: String,
   origin: String,
-  varietal: String,
+  varietal: String, //e.x. cabernet, merlot
   price: Number,
   rating: Number,
   apiRating: Number,

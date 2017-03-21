@@ -1,5 +1,7 @@
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
+var Promise = require('bluebird');
+var Mongoose = Promise.promisifyAll(require("mongoose")); 
 var db = require('../../database-mongo/index.js');
 
 module.exports = {
@@ -38,7 +40,7 @@ module.exports = {
     })
   },
 
-  addWine: function(wine, callback) {
+  addWine: function(wine, callback) { //refactor addwine function
     db.Product.create({wine: wine}, function(error, results){
       if(error){
         callback(error, null)
@@ -46,5 +48,17 @@ module.exports = {
         callback(null, results);
       }
     })
+  },
+
+  top10Reds: function() { //TODO: test against populated database once forcedRequest is up, or against dummy data
+    return db.Product.findAsync({redORwhite:red}).sort({rating: -1}).limit(10)
+  },
+
+  top10Whites: function() { //TODO: test against populated database once forcedRequest is up, or against dummy data
+    return db.Product.findAsync({redORwhite:white}).sort({rating: -1}).limit(10)
+  },
+  
+  top10Rated: function() { //TODO: test against populated database once forcedRequest is up, or against dummy data
+    return db.Product.findAsync({}).sort({rating:-1}).limit(10)
   }
 }
