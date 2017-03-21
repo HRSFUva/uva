@@ -28,3 +28,6 @@ react-client/dist/bundle.js
 
 node_modules/
 bower_components/
+
+# Wine API key
+server/utilities/apikey.js
