@@ -238,4 +238,11 @@ button:hover {
   flex: auto;
 }
 
-
+.productListWrapper {
+  display: block;
+  position: relative;
+  border: 2px blue solid;
+}
+.productEntry {
+  border: 1px solid black;
+}

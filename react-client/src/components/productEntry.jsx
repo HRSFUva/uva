@@ -5,12 +5,15 @@ import React from 'react';
 
 var ProductEntry = ({product}) => (
   <div className="productEntry">
-    {/* insert image of product
-    */}
-    <div className="productName">{product.Name}</div>
-    <div className="productRating">{product.Rating}</div>
-    <div className="productDescription">{product.Description}</div>
-    {/* hello */}
+    <h4>
+      <span className="productName">{product.Name}</span>
+    </h4>
+    <p>
+      <span className="productDescription">{product.Description}</span>
+    </p>
+    <h4>
+      <span className="productRating">{product.Rating}</span>
+    </h4>
   </div>
 );
 

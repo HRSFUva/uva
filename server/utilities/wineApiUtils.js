@@ -14,7 +14,7 @@ module.exports = {
       qs:
        { filter: 'categories(490 124)',
          offset: '10',
-         size: '5',
+         size: '10',
        },
       headers:
        { 'cache-control': 'no-cache' },
@@ -26,8 +26,8 @@ module.exports = {
         console.error('Error in API request', error);
         callback(error, false, null)
      } else {
-        console.log('API body', response);
-        callback(null, true, response)
+        console.log('API body', response.body.Products.List.length);
+        callback(null, true, response.body.Products.List);
       }
     });
   },
