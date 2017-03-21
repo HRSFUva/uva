@@ -3,11 +3,17 @@ import Search from './searchBar.jsx';
 import TopWine from './topWines.jsx';
 import $ from 'jquery';
 import Login from './loginForm.jsx';
+import ProductList from './ProductList.jsx'
 
 class App extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
+      products: [
+        {id:1, Name: 'greatWine', Rating: '10', Description: 'This is a great wine!'},
+        {id:2, Name: 'goodWine', Rating: '8.5', Description: 'This is a good wine!'},
+        {id:3, Name: 'averageWine', Rating: '7', Description: 'This is an average wine.'}
+      ],
       reviews: [
       { title: 'speedy',
         context: 'it was great',
@@ -82,12 +88,12 @@ class App extends React.Component {
     if(!this.state.userWantsLogin){
       return (
         <div className = 'container'>
-         <span className = 'loginButton'>
-           <button value='login' onClick={this.handleUserWantsLogin}>Login</button>
-         </span>
-         <span className = 'menuButton'>
-           <button value='login'>Menu</button>
-         </span>
+          <span className = 'loginButton'>
+            <button value='login' onClick={this.handleUserWantsLogin}>Login</button>
+          </span>
+          <span className = 'menuButton'>
+            <button value='login'>Menu</button>
+          </span>
 
           <div className = 'heroImageContainer'>
             <span className = 'mainLogo'>
@@ -105,6 +111,10 @@ class App extends React.Component {
             <TopWine />
           </div>
 
+          <div>
+            <ProductList products={this.state.products}/>
+          </div>
+
       </div>
     )} else {
         return (
@@ -119,4 +129,3 @@ class App extends React.Component {
 
 export default App;
 //<ReviewList reviews={this.state.reviews} />
-
