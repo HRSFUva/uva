@@ -43,7 +43,8 @@ app.post('/search', function(req, res) {
       // console.log('results from search post API', results);
       res.send(results);
     }
-  })
+  });
+});
 
 //POST request for search
 app.post('/search', function(req, res) {
