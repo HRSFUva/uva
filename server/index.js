@@ -26,10 +26,11 @@ app.get('/wine', function(req, res) {
 //POST request for search
 app.post('/search', function(req, res) {
   var query = req.body.search;
+  var price = req.body.price || 10;
 
   console.log('search:', query);
 
-  wineApiUtils.apiRequest(query, function(error, success, results) {
+  wineApiUtils.apiRequest(query, price, function(error, success, results) {
     if(error){
       console.log('Error from server API request', error);
       res.sendStatus(404).send('not found')

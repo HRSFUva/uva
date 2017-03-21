@@ -45,12 +45,23 @@ class App extends React.Component {
     this.newUser = this.newUser.bind(this);
     this.handleUserWantsLogout = this.handleUserWantsLogout.bind(this);
     this.checkUsername = this.checkUsername.bind(this);
+    this.handleUserWantsHome = this.handleUserWantsHome.bind(this);
+  }
+
+  handleUserWantsHome(event) {
+    this.setState({
+      userWantsHomePage: true,
+      userHasSearched: false,
+      userWantsLogin: false
+    })
   }
 
   handleUserWantsLogin(event) {
     this.setState({
       userWantsLogin: !this.state.userWantsLogin,
-      invalidPasswordAttempt: false
+      invalidPasswordAttempt: false,
+      userWantsHomePage: false,
+      userHasSearched: false
     })
   }
 
@@ -137,17 +148,27 @@ class App extends React.Component {
     })
    }
 
-  search (query) {
+  search (query, price) {
     var context = this;
+    console.log('query inside search', query);
+    console.log('price inside search', price);
     $.ajax({
       url: 'http://localhost:3000/search',
       type: 'POST',
       contentType: 'application/json',
       data: JSON.stringify({
-        search: query
+        search: query,
+        price: price
       }),
       success: function(data) {
-        console.log('success res from searchAJAX', data)
+        console.log('success res from searchAJAX', data);
+        if (data.length > 0) {
+          console.log('Inside search function');
+          context.setState({
+            products: data,
+            userHasSearched: true
+          })
+        }
       },
       error: function(err) {
         console.log(err)
@@ -157,11 +178,11 @@ class App extends React.Component {
 
 
   render (){
-    if(!this.state.userWantsLogin){
+    if(!this.state.userWantsLogin && !this.state.userHasSearched){
       return (
         <div className = 'container'>
 
-          <TopBar userLoggedIn={this.state.userLoggedIn} handleUserWantsLogin={this.handleUserWantsLogin} handleUserWantsLogout={this.handleUserWantsLogout}/>
+          <TopBar username={this.state.username} userLoggedIn={this.state.userLoggedIn} handleUserWantsLogin={this.handleUserWantsLogin} handleUserWantsLogout={this.handleUserWantsLogout}/>
 
           <div className = 'heroImageContainer'>
             <div className = 'heroContentWrapper'>
@@ -178,10 +199,25 @@ class App extends React.Component {
 
 
       </div>
-    )} else {
+    )} else if (this.state.userWantsLogin && !this.state.userHasSearched) {
+        //To do: refactor handleUserWantsHome
         return (
           <div className = 'loginWrapper'>
             <Login checkUsername = {this.checkUsername} invalidUsername = {this.state.invalidUsername} newUser={this.newUser} invalidPasswordAttempt={this.state.invalidPasswordAttempt} validate={this.validateUser} handleUserWantsHome={this.handleUserWantsLogin} userWantsLogin={this.state.userWantsLogin} className = 'loginForm' />
+          </div>
+          )
+      } else if (this.state.userHasSearched) {
+        return (
+          <div className="container">
+            <TopBar username={this.state.username} userLoggedIn={this.state.userLoggedIn} handleUserWantsHome={this.handleUserWantsHome} handleUserWantsLogout={this.handleUserWantsLogout}/>
+            <div className = 'heroImageContainer'>
+              <div className = 'heroContentWrapper'>
+                <h2>Unbiased wine reviews</h2>
+                <Search className ='SearchBar' search = {this.search}/>
+              </div>
+            </div>
+
+            <ProductList products={this.state.products}/>
           </div>
           )
       }

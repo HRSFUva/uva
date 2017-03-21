@@ -7,15 +7,11 @@ var bodyParser = require('body-parser');
 
 module.exports = {
 
-  apiRequest: function(search, callback){
+  apiRequest: function(search, price, callback){
+
     var options = {
       method: 'GET',
-      url: 'http://services.wine.com/api/beta/service.svc/JSON/catalog?filter=categories(490+124)&offset=10&size=5&apikey=' + key.apiKey,
-      qs:
-       { filter: 'categories(490 124)',
-         offset: '10',
-         size: '5',
-       },
+      url: 'http://services.wine.com/api/beta/service.svc/JSON/catalog?size=50&search=' + search + '&price=' + price + '|' + (price * (price/10 + 1)) + '&sort=rating&apikey=' + key.apiKey,
       headers:
        { 'cache-control': 'no-cache' },
        json: true
@@ -26,8 +22,8 @@ module.exports = {
         console.error('Error in API request', error);
         callback(error, false, null)
      } else {
-        console.log('API body', response);
-        callback(null, true, response)
+        console.log('API body', response.body.Products.List.length);
+        callback(null, true, response.body.Products.List);
       }
     });
   },
