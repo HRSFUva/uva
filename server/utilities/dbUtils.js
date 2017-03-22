@@ -63,6 +63,18 @@ module.exports = {
     })
   },
 
+  getReviews: function(product, callback){
+    console.log('inside getReviews', product);
+    db.Review.find({product: product}, function(error, results){
+      if(error){
+        console.log(error);
+        callback(error, null);
+      } else {
+        callback(null, results);
+      }
+    })
+  },
+
   top10Reds: function() { //TODO: test against populated database once forcedRequest is up, or against dummy data
     return db.Product.findAsync({redORwhite:red}).sort({rating: -1}).limit(10)
   },

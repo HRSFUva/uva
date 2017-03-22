@@ -1,11 +1,14 @@
-import reviewEntry from './reviewEntry.jsx';
+import React from 'react';
+import ReviewEntry from './reviewEntry.jsx';
 
-var reviewList = ({reviews}) => (
+var ReviewList = ({reviews}) => (
   <div>
-    {reviews.map((review) => {
-      <reviewEntry review={review}/>
-    })}
+    <ul className="reviewList">
+    {reviews.map((review) =>
+      <li key={review.id}><ReviewEntry review={review}/></li>
+    )}
+    </ul>
   </div>
 );
 
-export default reviewList;
+export default ReviewList;
