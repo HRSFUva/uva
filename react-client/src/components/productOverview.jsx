@@ -48,8 +48,6 @@ class ProductOverview extends React.Component{
     event.preventDefault();
   }
 
-
-
   render(){
     if(!this.state.userWantsReview) {
 
@@ -57,28 +55,29 @@ class ProductOverview extends React.Component{
         <div className='container'>
 
           {/* high level product overview flexbox, description on left, calls to action on right */}
-          <div className="productOverviewFlexbox">
-            <h3 className="productOverviewFlexitem">
-              {this.props.product.Name}<br/>
-              {this.props.product.PriceMin}
-            </h3>
-            <input type="button" value="Write a review" onClick={this.handleUserWantsReview} className="productOverviewFlexitem" />
-          </div>
+          <div className='productOverviewWrapper'>
+            <div className="productOverviewFlexbox">
+              <h3 className="productOverviewFlexitem">
+                {this.props.product.Name}<br/>
+                {this.props.product.PriceMin}
+              </h3>
+              <input type="button" value="Write a review" onClick={this.handleUserWantsReview} className="productOverviewFlexitem" />
+            </div>
 
-          {/* mid level product desc on left, dynamically generated user content on right */}
-          <div className='productOverviewMidFlexbox'>
-            <h1 className='productOverviewMidFlexitem'>
-              {this.props.product.Vineyard.Name}<br/>
-              {this.props.product.Appellation.Name}<br/>
-              {this.props.product.Appellation.Region.Name}
-            </h1>
-            <h1 className='productOverviewMidFlexitem'>
-              dynamically generated user content <br/>
-              dynamically generated user content <br/>
-              dynamically generated user content
-            </h1>
+            {/* mid level product desc on left, dynamically generated user content on right */}
+            <div className='productOverviewMidFlexbox'>
+              <h1 className='productOverviewMidFlexitem'>
+                Vineyard: {this.props.product.Vineyard.Name}<br/>
+                Appellation: {this.props.product.Appellation.Name}<br/>
+                Region: {this.props.product.Appellation.Region.Name}
+              </h1>
+              <h1 className='productOverviewMidFlexitem'>
+                dynamically generated user content <br/>
+                dynamically generated user content <br/>
+                dynamically generated user content
+              </h1>
+            </div>
           </div>
-
 
         </div>
       )
@@ -102,9 +101,8 @@ class ProductOverview extends React.Component{
 
           </form>
         </div>
-
         </div>
-        )
+      )
     }
   }
 }

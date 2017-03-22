@@ -19,11 +19,21 @@ class ProductEntry extends React.Component {
     return(
       <div className="productEntry">
         <div className="productEntryFlexbox">
-          <img className="productEntryFlexItem" src={this.props.product.Labels[0].Url} />
-          <h4 onClick={this.handlePassBackClickedWine} className="productEntryFlexItem productEntryFlexItemCenter" >{this.props.product.Name} MSRP: {this.props.product.PriceRetail}, Low Price: {this.props.product.PriceMin}
+
+        <div className="productEntryFlexItem">
+          <img  src={this.props.product.Labels[0].Url} />
+        </div>
+
+        <div className="productEntryFlexItem productEntryFlexItemCenter">
+          <h4 onClick={this.handlePassBackClickedWine}  >{this.props.product.Name} </h4>
+          <h4>MSRP: {this.props.product.PriceRetail}</h4><h4> Low Price: {this.props.product.PriceMin}
           </h4>
-          <h3 className="productEntryFlexItem" >{this.props.product.Vineyard.Name}
+        </div>
+
+        <div className="productEntryFlexItem">
+          <h3>{this.props.product.Vineyard.Name}
           </h3>
+        </div>
         </div>
       </div>
     )
@@ -33,14 +43,3 @@ class ProductEntry extends React.Component {
 
 
 export default ProductEntry;
-  // <div className="productEntry">
-  //   <h4>
-  //     <span className="productName">{product.Name}</span>
-  //   </h4>
-  //   <p>
-  //     <span className="productDescription">{product.Description}</span>
-  //   </p>
-  //   <h4>
-  //     <span className="productRating">{product.Rating}</span>
-  //   </h4>
-  // </div>

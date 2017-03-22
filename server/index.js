@@ -95,7 +95,6 @@ app.post('/login', function(req, res) {
 
 //POST request for review
 app.post('/review', function(req, res) {
-  console.log('POST request to /review received');
   var content = req.body.review;
   var rating = req.body.rating;
   var product = req.body.productID;
@@ -107,13 +106,6 @@ app.post('/review', function(req, res) {
     product: product
   }
 
-  console.log('review', review);
-  console.log('rating', rating);
-  console.log('productId', product);
-  console.log('this.state.userID', user_id);
-
-
-
   dbUtilities.addReview(review, function(error, results){
     if(error){
       console.log('error inside dbUtils addReview', error);
@@ -122,9 +114,6 @@ app.post('/review', function(req, res) {
       res.send(results)
     }
   })
-
-
-  // res.send('reponse from app.post /review');
 });
 
 var port = process.env.PORT;
