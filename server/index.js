@@ -96,6 +96,14 @@ app.post('/login', function(req, res) {
 //POST request for review
 app.post('/review', function(req, res) {
   console.log('POST request to /review received');
+  var review = req.body.review;
+  var rating = req.body.rating;
+  var productID = req.body.productID;
+  var userID = req.body.userID;
+  console.log('review', review);
+  console.log('rating', rating);
+  console.log('productId', productID);
+  console.log('this.state.userID', userID);
   res.send('reponse from app.post /review');
 });
 
@@ -143,9 +151,9 @@ wineApiUtils.forcedRequest(function(error, results) {
     var wines = resBody.Products.List;
     console.log('winesLength', wines.length)
     wines.forEach(function(wine){
-      
-      // //to see how the object is structured  
-      // console.log('VARIETAL', wine.Varietal) 
+
+      // //to see how the object is structured
+      // console.log('VARIETAL', wine.Varietal)
       // console.log('VINEYARD', wine.Vineyard)
       // console.log('VINTAGES', wine.Vintages)
       // console.log('GEOLOCATION',wine.GeoLocation)

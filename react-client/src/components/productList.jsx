@@ -89,7 +89,7 @@ class ProductList extends React.Component {
     } else {
       return(
         <div>
-          <ProductOverview product={this.state.currentWine}/>
+          <ProductOverview product={this.state.currentWine} submitReview={this.props.submitReview}/>
         </div>
       )
     }

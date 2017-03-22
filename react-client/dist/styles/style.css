@@ -23,6 +23,8 @@ h2 {
 
 h3 {
   font-size: 1.5em;
+  font-family: 'Josefin Sans', sans-serif;
+
 }
 
 h4 {
@@ -261,8 +263,8 @@ button:hover {
 
 .productEntryFlexItem .productEntryFlexItemCenter {
   flex-grow: 2;
-
 }
+
 .productEntryFlexItem {
   flex: auto;
   flex-grow: 1;
@@ -282,4 +284,34 @@ button:hover {
 .productOverviewFlexitem {
   flex: auto;
   flex-grow: 1;
+}
+
+.productOverviewMidFlexbox {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 20%;
+  border: 1px solid black;
+}
+
+.productOverviewMidFlexitem {
+  flex: auto;
+  flex-grow: 1;
+}
+input.reviewFormField::-webkit-input-placeholder {
+  text-align: center;
+  font-family: 'Fugaz One', cursive;
+  white-space: pre-line;
+}
+
+
+input.reviewFormField {
+  height: 8em;
+  width: 100%;
+}
+
+.reviewWrapper {
+  width: 70%;
+  margin: 0 auto;
+  text-align: center;
 }

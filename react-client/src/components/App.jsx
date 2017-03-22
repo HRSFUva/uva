@@ -47,6 +47,7 @@ class App extends React.Component {
     this.handleUserWantsLogout = this.handleUserWantsLogout.bind(this);
     this.checkUsername = this.checkUsername.bind(this);
     this.handleUserWantsHome = this.handleUserWantsHome.bind(this);
+    this.submitReview = this.submitReview.bind(this);
   }
 
   handleUserWantsHome(event) {
@@ -71,6 +72,33 @@ class App extends React.Component {
       userLoggedIn: false,
       username: '',
       userID: ''
+    })
+  }
+
+
+  submitReview (review, rating, productID) {
+    var context = this;
+    console.log('review', review);
+    console.log('rating', rating);
+    console.log('productId', productID);
+    console.log('this.state.userID', this.state.userID);
+
+    $.ajax({
+      url: 'http://localhost:3000/review',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({
+        review: review,
+        rating: rating,
+        productID: productID,
+        userID: this.state.userID
+      }),
+      success: function(data) {
+        console.log('Received success submitReview AJAX', data)
+      },
+      error: function(error) {
+        console.log('Error submitReview AJAX', error)
+      }
     })
   }
 
@@ -220,7 +248,7 @@ class App extends React.Component {
               </div>
             </div>
 
-            <ProductList products={this.state.products}/>
+            <ProductList products={this.state.products} submitReview={this.submitReview}/>
           </div>
           )
       }
