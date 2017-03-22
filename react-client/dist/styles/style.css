@@ -87,13 +87,21 @@ input:hover::-webkit-input-placeholder {
   color: white;
 }
 
-.topCategory {
+.trendingCategory {
   width: 33%;
   postion: relative;
   display: block;
   float: left;
   text-align: center;
 }
+
+/*.bestValueCategory {
+  width: 33%;
+  postion: relative;
+  display: block;
+  float: right;
+  text-align: center;
+}*/
 
 ul li{
   list-style: none;

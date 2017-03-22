@@ -5,6 +5,8 @@ import $ from 'jquery';
 import Login from './loginForm.jsx';
 import ProductList from './ProductList.jsx';
 import TopBar from './TopBar.jsx';
+import TrendingWineList from './trendingWineList.jsx';
+import BestValueWineList from './bestValueWineList.jsx';
 
 class App extends React.Component {
   constructor (props) {
@@ -216,11 +218,23 @@ class App extends React.Component {
             </div>
           </div>
 
-          <div className='topWineWrapper'>
+          {/* <div className='topWineWrapper'>
             <TopWine />
             <TopWine />
             <TopWine />
+          </div> */}
+
+          <div className='trendingWineListWrapper'>
+            <TrendingWineList />
           </div>
+
+          <div className='bestValueWineListWrapper'>
+            <BestValueWineList />
+          </div>
+
+          {/* <div className='UvasChoiceWineListWrapper'>
+            <UvasChoiceWineList />
+          </div> */}
 
 
       </div>
