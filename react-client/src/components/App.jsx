@@ -78,10 +78,6 @@ class App extends React.Component {
 
   submitReview (review, rating, productID) {
     var context = this;
-    console.log('review', review);
-    console.log('rating', rating);
-    console.log('productId', productID);
-    console.log('this.state.userID', this.state.userID);
 
     $.ajax({
       url: 'http://localhost:3000/review',
@@ -256,6 +252,3 @@ class App extends React.Component {
 }
 
 export default App;
-          // <div>
-          //   <ProductList products={this.state.products}/>
-          // </div>

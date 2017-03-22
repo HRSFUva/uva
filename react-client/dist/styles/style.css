@@ -14,6 +14,8 @@ html {
 
 h1 {
   font-size: 2.3em;
+  font-family: 'Josefin Sans', sans-serif;
+
 }
 
 h2 {
@@ -314,4 +316,23 @@ input.reviewFormField {
   width: 70%;
   margin: 0 auto;
   text-align: center;
+}
+
+.productOverviewWrapper {
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+input.productOverviewFlexitem {
+  background-color: rgba(0, 136, 245, 0.71);
+  border-radius: 8%;
+  font-size: 1.3em;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+input.productOverviewFlexitem:hover {
+  background-color: white;
+  color: rgba(0, 136, 245, 0.71);
+  border-radius: 8%;
 }

@@ -19,7 +19,6 @@ class ProductList extends React.Component {
     this.handleUserWantsBack = this.handleUserWantsBack.bind(this);
     this.handleUserWantsNext = this.handleUserWantsNext.bind(this);
     this.handleClickedProductEntry = this.handleClickedProductEntry.bind(this);
-
   }
 
   componentWillReceiveProps(){
@@ -55,7 +54,6 @@ class ProductList extends React.Component {
     }
 
   updateCurrentPageList(event){
-    console.log('INSIDE currentPageLIST')
     var products = this.props.products;
     var total = Math.ceil(products.length/10);
     var firstIndex = (this.state.currentPage - 1) * 10;
