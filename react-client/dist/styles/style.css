@@ -87,13 +87,14 @@ input:hover::-webkit-input-placeholder {
   color: white;
 }
 
-.topCategory {
+.bestCategory {
   width: 33%;
   postion: relative;
-  display: block;
+  display: inline-block;
   float: left;
   text-align: center;
 }
+
 
 ul li{
   list-style: none;

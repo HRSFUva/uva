@@ -4,7 +4,7 @@ class ProductOverview extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      userWantsReview: false,
+      userWantsWriteReview: false,
       userReview: '',
       userRating: '',
       successfulReview: false
@@ -17,7 +17,7 @@ class ProductOverview extends React.Component{
 
   handleUserWantsReview(event){
     this.setState({
-      userWantsReview: !this.state.userWantsReview
+      userWantsWriteReview: !this.state.userWantsWriteReview
     })
   }
 
@@ -41,7 +41,7 @@ class ProductOverview extends React.Component{
       this.setState({
         userReview: '',
         userRating: '',
-        userWantsReview: false,
+        userWantsWriteReview: false,
         successfulReview: true
       })
     }
@@ -49,7 +49,7 @@ class ProductOverview extends React.Component{
   }
 
   render(){
-    if(!this.state.userWantsReview) {
+    if(!this.state.userWantsWriteReview) {
 
       return(
         <div className='container'>
@@ -86,18 +86,19 @@ class ProductOverview extends React.Component{
 
       return(
         <div className='container'>
-        <div className='reviewWrapper'>
-        <h3>Write a Review</h3>
-        <h4>{this.props.product.Name}</h4>
-          <form className='reviewForm' onSubmit={this.handleReviewSubmit}>
-            <input className='reviewFormField' type='text' value={this.state.userReview} onChange={this.handleReviewChange} placeholder='Thanks for offering your input for the community! We really appreciate the effort our members make in helping keeping other wine lovers informed and happy. Thanks again for being awesome, and as a gentle reminder, please adhere to the community guidelines in writing your review.'/><br/>
-            <input type='button' value={1} onClick={this.handleRatingChange}/>
-            <input type='button' value={2} onClick={this.handleRatingChange}/>
-            <input type='button' value={3} onClick={this.handleRatingChange}/>
-            <input type='button' value={4} onClick={this.handleRatingChange}/>
-            <input type='button' value={5} onClick={this.handleRatingChange}/>
-            <span></span>
-            <input type='submit' value='Submit' />
+          <div className='reviewWrapper'>
+            <h3>Write a Review</h3>
+            <h4>{this.props.product.Name}</h4>
+            <form className='reviewForm' onSubmit={this.handleReviewSubmit}>
+              <input className='reviewFormField' type='text' value={this.state.userReview} onChange={this.handleReviewChange} placeholder='Thanks for offering your input for the community! We really appreciate the effort our members make in helping keeping other wine lovers informed and happy. Thanks again for being awesome, and as a gentle reminder, please adhere to the community guidelines in writing your review.'/><br/>
+              <h4>Rating: </h4>
+              <input type='button' value={1} onClick={this.handleRatingChange}/>
+              <input type='button' value={2} onClick={this.handleRatingChange}/>
+              <input type='button' value={3} onClick={this.handleRatingChange}/>
+              <input type='button' value={4} onClick={this.handleRatingChange}/>
+              <input type='button' value={5} onClick={this.handleRatingChange}/>
+              <span></span>
+              <input type='submit' value='Submit' />
 
           </form>
         </div>
