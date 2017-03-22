@@ -56,6 +56,8 @@ module.exports = {
       if(error){
         callback(error, null)
       } else {
+
+        console.log('JSON text a;ls778667867868kdfj;laskdjf;laksdjf')
         callback(null, results)
       }
     })

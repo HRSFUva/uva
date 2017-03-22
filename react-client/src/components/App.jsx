@@ -81,7 +81,7 @@ class App extends React.Component {
 
   submitReview (review, rating, productID) {
     var context = this;
-
+    console.log('Inside submitReview func');
     $.ajax({
       url: 'http://localhost:3000/review',
       type: 'POST',

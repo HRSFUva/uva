@@ -105,7 +105,7 @@ app.post('/review', function(req, res) {
     user_id: user_id,
     product: product
   }
-
+  console.log('server receiving request', review);
   dbUtilities.addReview(review, function(error, results){
     if(error){
       console.log('error inside dbUtils addReview', error);
@@ -202,8 +202,3 @@ wineApiUtils.forcedRequest(function(error, results) {
 
   }
 })
-
-
-
-
-
