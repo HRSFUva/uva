@@ -7,6 +7,7 @@ import ProductList from './ProductList.jsx';
 import TopBar from './TopBar.jsx';
 import TrendingWineList from './trendingWineList.jsx';
 import BestValueWineList from './bestValueWineList.jsx';
+import UvasChoiceWineList from './uvasChoiceWineList.jsx';
 
 class App extends React.Component {
   constructor (props) {
@@ -232,9 +233,9 @@ class App extends React.Component {
             <BestValueWineList />
           </div>
 
-          {/* <div className='UvasChoiceWineListWrapper'>
+          <div className='UvasChoiceWineListWrapper'>
             <UvasChoiceWineList />
-          </div> */}
+          </div>
 
 
       </div>

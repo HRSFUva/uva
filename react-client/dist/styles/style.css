@@ -90,18 +90,26 @@ input:hover::-webkit-input-placeholder {
 .trendingCategory {
   width: 33%;
   postion: relative;
-  display: block;
+  display: inline-block;
   float: left;
   text-align: center;
 }
 
-/*.bestValueCategory {
+.bestValueCategory {
   width: 33%;
   postion: relative;
-  display: block;
+  display: inline-block;
+  float: none;
+  text-align: center;
+}
+
+.uvasChoiceCategory {
+  width: 33%;
+  postion: relative;
+  display: inline-block;
   float: right;
   text-align: center;
-}*/
+}
 
 ul li{
   list-style: none;
