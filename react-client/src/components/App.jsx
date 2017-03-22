@@ -81,7 +81,6 @@ class App extends React.Component {
 
   submitReview (review, rating, productID) {
     var context = this;
-    console.log('Inside submitReview func');
     $.ajax({
       url: 'http://localhost:3000/review',
       type: 'POST',
@@ -191,7 +190,6 @@ class App extends React.Component {
       success: function(data) {
         console.log('success res from searchAJAX', data);
         if (data.length > 0) {
-          console.log('Inside search function');
           context.setState({
             products: data,
             userHasSearched: true
@@ -218,12 +216,6 @@ class App extends React.Component {
               <Search className ='SearchBar' search = {this.search}/>
             </div>
           </div>
-
-          {/* <div className='topWineWrapper'>
-            <TopWine />
-            <TopWine />
-            <TopWine />
-          </div> */}
 
           <div className='trendingWineListWrapper'>
             <TrendingWineList />
