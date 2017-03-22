@@ -1,5 +1,6 @@
 import React from 'react';
-import SignupForm from './signupForm.jsx'
+import SignupForm from './signupForm.jsx';
+import TopBar from './TopBar.jsx';
 
 class LoginForm extends React.Component {
   constructor(props){
@@ -51,6 +52,7 @@ class LoginForm extends React.Component {
     if(!this.state.userWantsSignUp){
       return (
         <div className='container'>
+
           <span className='menuButton'>
             <button onClick={this.handleUserWantsHome}>Home</button>
           </span>

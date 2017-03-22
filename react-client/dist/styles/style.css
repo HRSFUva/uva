@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Josefin+Sans|Lobster|Fugaz+One');
 
-body, html, h1, h2, h3, h4 {
+body, html, h1, h2, h3, h4, ul, li{
   margin: 0;
   padding: 0;
 }
@@ -23,6 +23,8 @@ h2 {
 
 h3 {
   font-size: 1.5em;
+  font-family: 'Josefin Sans', sans-serif;
+
 }
 
 h4 {
@@ -134,7 +136,12 @@ form input {
 form input:hover {
   color:  rgb(255, 255, 255);
   background-color: rgba(157, 82, 193, 0.38);
+}
 
+
+form input:focus {
+  background-color: rgba(157, 82, 193, 0.38);
+  color: white;
 }
 
 form button {
@@ -256,14 +263,55 @@ button:hover {
 
 .productEntryFlexItem .productEntryFlexItemCenter {
   flex-grow: 2;
-
 }
+
 .productEntryFlexItem {
   flex: auto;
   flex-grow: 1;
 }
 
 .productListHeader {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.productOverviewFlexbox {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.productOverviewFlexitem {
+  flex: auto;
+  flex-grow: 1;
+}
+
+.productOverviewMidFlexbox {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 20%;
+  border: 1px solid black;
+}
+
+.productOverviewMidFlexitem {
+  flex: auto;
+  flex-grow: 1;
+}
+input.reviewFormField::-webkit-input-placeholder {
+  text-align: center;
+  font-family: 'Fugaz One', cursive;
+  white-space: pre-line;
+}
+
+
+input.reviewFormField {
+  height: 8em;
+  width: 100%;
+}
+
+.reviewWrapper {
+  width: 70%;
   margin: 0 auto;
   text-align: center;
 }

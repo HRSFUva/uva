@@ -96,7 +96,35 @@ app.post('/login', function(req, res) {
 //POST request for review
 app.post('/review', function(req, res) {
   console.log('POST request to /review received');
-  res.send('reponse from app.post /review');
+  var content = req.body.review;
+  var rating = req.body.rating;
+  var product = req.body.productID;
+  var user_id = req.body.userID;
+  var review = {
+    content: content,
+    rating: rating,
+    user_id: user_id,
+    product: product
+  }
+
+  console.log('review', review);
+  console.log('rating', rating);
+  console.log('productId', product);
+  console.log('this.state.userID', user_id);
+
+
+
+  dbUtilities.addReview(review, function(error, results){
+    if(error){
+      console.log('error inside dbUtils addReview', error);
+    } else {
+      console.log('success after add wine review', results);
+      res.send(results)
+    }
+  })
+
+
+  // res.send('reponse from app.post /review');
 });
 
 var port = process.env.PORT;
@@ -143,9 +171,9 @@ wineApiUtils.forcedRequest(function(error, results) {
     var wines = resBody.Products.List;
     console.log('winesLength', wines.length)
     wines.forEach(function(wine){
-      
-      // //to see how the object is structured  
-      // console.log('VARIETAL', wine.Varietal) 
+
+      // //to see how the object is structured
+      // console.log('VARIETAL', wine.Varietal)
       // console.log('VINEYARD', wine.Vineyard)
       // console.log('VINTAGES', wine.Vintages)
       // console.log('GEOLOCATION',wine.GeoLocation)

@@ -37,7 +37,8 @@ class App extends React.Component {
       username: '',
       userID: '',
       invalidPasswordAttempt: false,
-      invalidUsername: false
+      invalidUsername: false,
+      userWantsSignUp: false
     }
     this.search = this.search.bind(this);
     this.handleUserWantsLogin = this.handleUserWantsLogin.bind(this);
@@ -46,6 +47,7 @@ class App extends React.Component {
     this.handleUserWantsLogout = this.handleUserWantsLogout.bind(this);
     this.checkUsername = this.checkUsername.bind(this);
     this.handleUserWantsHome = this.handleUserWantsHome.bind(this);
+    this.submitReview = this.submitReview.bind(this);
   }
 
   handleUserWantsHome(event) {
@@ -70,6 +72,33 @@ class App extends React.Component {
       userLoggedIn: false,
       username: '',
       userID: ''
+    })
+  }
+
+
+  submitReview (review, rating, productID) {
+    var context = this;
+    console.log('review', review);
+    console.log('rating', rating);
+    console.log('productId', productID);
+    console.log('this.state.userID', this.state.userID);
+
+    $.ajax({
+      url: 'http://localhost:3000/review',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({
+        review: review,
+        rating: rating,
+        productID: productID,
+        userID: this.state.userID
+      }),
+      success: function(data) {
+        console.log('Received success submitReview AJAX', data)
+      },
+      error: function(error) {
+        console.log('Error submitReview AJAX', error)
+      }
     })
   }
 
@@ -182,7 +211,7 @@ class App extends React.Component {
       return (
         <div className = 'container'>
 
-          <TopBar username={this.state.username} userLoggedIn={this.state.userLoggedIn} handleUserWantsLogin={this.handleUserWantsLogin} handleUserWantsLogout={this.handleUserWantsLogout}/>
+          <TopBar username={this.state.username} userLoggedIn={this.state.userLoggedIn} handleUserWantsLogin={this.handleUserWantsLogin} handleUserWantsHome={this.handleUserWantsHome} handleUserWantsLogout={this.handleUserWantsLogout}/>
 
           <div className = 'heroImageContainer'>
             <div className = 'heroContentWrapper'>
@@ -202,14 +231,16 @@ class App extends React.Component {
     )} else if (this.state.userWantsLogin && !this.state.userHasSearched) {
         //To do: refactor handleUserWantsHome
         return (
-          <div className = 'loginWrapper'>
-            <Login checkUsername = {this.checkUsername} invalidUsername = {this.state.invalidUsername} newUser={this.newUser} invalidPasswordAttempt={this.state.invalidPasswordAttempt} validate={this.validateUser} handleUserWantsHome={this.handleUserWantsLogin} userWantsLogin={this.state.userWantsLogin} className = 'loginForm' />
+          <div className = 'container'>
+            <div className = 'loginWrapper'>
+              <Login checkUsername = {this.checkUsername} invalidUsername = {this.state.invalidUsername} newUser={this.newUser} invalidPasswordAttempt={this.state.invalidPasswordAttempt} validate={this.validateUser} handleUserWantsHome={this.handleUserWantsLogin} userWantsLogin={this.state.userWantsLogin} userWantsSignUp={this.state.userWantsSignUp} className = 'loginForm' />
+            </div>
           </div>
           )
       } else if (this.state.userHasSearched) {
         return (
           <div className="container">
-            <TopBar username={this.state.username} userLoggedIn={this.state.userLoggedIn} handleUserWantsHome={this.handleUserWantsHome} handleUserWantsLogout={this.handleUserWantsLogout}/>
+            <TopBar username={this.state.username} userLoggedIn={this.state.userLoggedIn} handleUserWantsHome={this.handleUserWantsHome} handleUserWantsLogout={this.handleUserWantsLogout} handleUserWantsLogin={this.handleUserWantsLogin}/>
             <div className = 'heroImageContainer'>
               <div className = 'heroContentWrapper'>
                 <h2>Unbiased wine reviews</h2>
@@ -217,7 +248,7 @@ class App extends React.Component {
               </div>
             </div>
 
-            <ProductList products={this.state.products}/>
+            <ProductList products={this.state.products} submitReview={this.submitReview}/>
           </div>
           )
       }

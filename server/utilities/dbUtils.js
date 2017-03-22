@@ -1,7 +1,7 @@
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var Promise = require('bluebird');
-var Mongoose = Promise.promisifyAll(require("mongoose")); 
+var Mongoose = Promise.promisifyAll(require("mongoose"));
 var db = require('../../database-mongo/index.js');
 
 module.exports = {
@@ -46,6 +46,17 @@ module.exports = {
         callback(error, null)
       } else {
         callback(null, results);
+      }
+    })
+  },
+
+  addReview: function(review, callback){
+    console.log('JSON text a;lskdfj;laskdjf;laksdjf')
+    db.Review.create({content: review.content, rating: review.rating, product: review.product, user_id: review.user_id}, function(error, results){
+      if(error){
+        callback(error, null)
+      } else {
+        callback(null, results)
       }
     })
   },
