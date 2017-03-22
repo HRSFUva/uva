@@ -96,15 +96,35 @@ app.post('/login', function(req, res) {
 //POST request for review
 app.post('/review', function(req, res) {
   console.log('POST request to /review received');
-  var review = req.body.review;
+  var content = req.body.review;
   var rating = req.body.rating;
-  var productID = req.body.productID;
-  var userID = req.body.userID;
+  var product = req.body.productID;
+  var user_id = req.body.userID;
+  var review = {
+    content: content,
+    rating: rating,
+    user_id: user_id,
+    product: product
+  }
+
   console.log('review', review);
   console.log('rating', rating);
-  console.log('productId', productID);
-  console.log('this.state.userID', userID);
-  res.send('reponse from app.post /review');
+  console.log('productId', product);
+  console.log('this.state.userID', user_id);
+
+
+
+  dbUtilities.addReview(review, function(error, results){
+    if(error){
+      console.log('error inside dbUtils addReview', error);
+    } else {
+      console.log('success after add wine review', results);
+      res.send(results)
+    }
+  })
+
+
+  // res.send('reponse from app.post /review');
 });
 
 var port = process.env.PORT;

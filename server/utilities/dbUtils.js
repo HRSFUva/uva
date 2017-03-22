@@ -50,6 +50,17 @@ module.exports = {
     })
   },
 
+  addReview: function(review, callback){
+    console.log('JSON text a;lskdfj;laskdjf;laksdjf')
+    db.Review.create({content: review.content, rating: review.rating, product: review.product, user_id: review.user_id}, function(error, results){
+      if(error){
+        callback(error, null)
+      } else {
+        callback(null, results)
+      }
+    })
+  },
+
   top10Reds: function() { //TODO: test against populated database once forcedRequest is up, or against dummy data
     return db.Product.findAsync({redORwhite:red}).sort({rating: -1}).limit(10)
   },
