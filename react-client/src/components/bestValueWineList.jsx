@@ -42,11 +42,13 @@ class BestValueWineList extends React.Component {
 
   render() {
     return (
-      <div className="bestValueCategory">
+      <div className="bestCategory bestValueCategory">
         <h2>Best Value</h2>
-        {this.state.bestValueWines.map(bestValueWine =>
-          <li key={bestValueWine.id}><BestValueWineEntry bestValueWine={bestValueWine}/></li>
-        )}
+        <ul>
+          {this.state.bestValueWines.map(bestValueWine =>
+            <li key={bestValueWine.id}><BestValueWineEntry bestValueWine={bestValueWine}/></li>
+          )}
+        </ul>
       </div>
     )
   }

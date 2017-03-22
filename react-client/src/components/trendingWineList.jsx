@@ -43,7 +43,7 @@ class TrendingWineList extends React.Component {
 
   render() {
     return (
-      <div className='trendingCategory'>
+      <div className='bestCategory trendingCategory'>
         <h2>
           Trending
         </h2>

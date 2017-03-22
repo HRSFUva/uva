@@ -87,7 +87,7 @@ input:hover::-webkit-input-placeholder {
   color: white;
 }
 
-.trendingCategory {
+.bestCategory {
   width: 33%;
   postion: relative;
   display: inline-block;
@@ -95,21 +95,6 @@ input:hover::-webkit-input-placeholder {
   text-align: center;
 }
 
-.bestValueCategory {
-  width: 33%;
-  postion: relative;
-  display: inline-block;
-  float: none;
-  text-align: center;
-}
-
-.uvasChoiceCategory {
-  width: 33%;
-  postion: relative;
-  display: inline-block;
-  float: right;
-  text-align: center;
-}
 
 ul li{
   list-style: none;

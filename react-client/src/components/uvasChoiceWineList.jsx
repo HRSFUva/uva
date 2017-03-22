@@ -42,11 +42,13 @@ class UvasChoiceWineList extends React.Component {
 
   render () {
     return (
-      <div className="uvasChoiceCategory">
+      <div className="bestCategory uvasChoiceCategory">
         <h2>Uva's Choice</h2>
-        {this.state.uvasChoiceWines.map(uvasChoiceWine =>
-          <li key={uvasChoiceWine.id}><UvasChoiceWineEntry uvasChoiceWine={uvasChoiceWine}/></li>
-        )}
+        <ul>
+          {this.state.uvasChoiceWines.map(uvasChoiceWine =>
+            <li key={uvasChoiceWine.id}><UvasChoiceWineEntry uvasChoiceWine={uvasChoiceWine}/></li>
+          )}
+        </ul>
       </div>
     )
   }
