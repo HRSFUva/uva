@@ -121,10 +121,8 @@ app.post('/reviews', function(req, res) {
 
   dbUtilities.getReviews(product, function(error, reviews){
     if(error){
-      console.log(error)
       res.send(error)
     } else {
-      console.log('reviews', reviews);
       res.send(reviews)
     }
   })

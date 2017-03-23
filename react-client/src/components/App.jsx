@@ -81,7 +81,6 @@ class App extends React.Component {
 
   getReviews(productID){
     var context = this;
-    console.log('al;ksjdfl;kajsdfl;kjasl;fkjas;ldkfjasl;kdfjasl;kdfj')
 
     $.ajax({
       url: 'http://localhost:3000/reviews',
@@ -91,7 +90,6 @@ class App extends React.Component {
         product: productID
       }),
       success: function(reviews){
-        console.log('reviews inside getReviewssucessAJAX', reviews);
         context.setState({
           reviews: reviews
         })
@@ -115,6 +113,7 @@ class App extends React.Component {
         userID: this.state.userID
       }),
       success: function(data) {
+        //TODO: provide user feedback upon successful review
         console.log('Received success submitReview AJAX', data)
       },
       error: function(error) {

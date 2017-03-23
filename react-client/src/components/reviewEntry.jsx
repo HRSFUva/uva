@@ -1,17 +1,16 @@
 import React from 'react';
 
 var ReviewEntry = ({review}) => (
-  <div>
+  <div className='reviewEntryFlexbox'>
     {/* insert image of user
     */}
-    <div>
-      {review.product}
+    <div className='reviewEntryFlexItem'>
+      <h3>{review.product}</h3>
+      <h2>{review.rating} out of 5</h2>
     </div>
-    <div>
-      {review.rating}
-    </div>
-    <div>
-      {review.content}
+    <div className='reviewEntryFlexItem'>
+      <h3>Review:</h3>
+      <p>{review.content}</p>
     </div>
   </div>
 )
