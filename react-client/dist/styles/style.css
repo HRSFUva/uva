@@ -337,3 +337,11 @@ input.productOverviewFlexitem:hover {
   color: rgba(0, 136, 245, 0.71);
   border-radius: 8%;
 }
+
+.reviewEntryFlexbox {
+  display: flex;
+}
+
+.reviewEntryItem {
+  flex: auto;
+}

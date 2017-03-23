@@ -115,6 +115,19 @@ app.post('/review', function(req, res) {
   })
 });
 
+app.post('/reviews', function(req, res) {
+  var product = req.body.product;
+  console.log('product inside reviews GET all', product);
+
+  dbUtilities.getReviews(product, function(error, reviews){
+    if(error){
+      res.send(error)
+    } else {
+      res.send(reviews)
+    }
+  })
+})
+
 var port = process.env.PORT;
 
 app.listen(process.env.PORT, function() {

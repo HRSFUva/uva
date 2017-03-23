@@ -51,14 +51,22 @@ module.exports = {
   },
 
   addReview: function(review, callback){
-    console.log('JSON text a;lskdfj;laskdjf;laksdjf')
     db.Review.create({content: review.content, rating: review.rating, product: review.product, user_id: review.user_id}, function(error, results){
       if(error){
         callback(error, null)
       } else {
-
-        console.log('JSON text a;ls778667867868kdfj;laskdjf;laksdjf')
         callback(null, results)
+      }
+    })
+  },
+
+  getReviews: function(product, callback){
+    console.log('inside getReviews', product);
+    db.Review.find({product: product}, function(error, results){
+      if(error){
+        callback(error, null);
+      } else {
+        callback(null, results);
       }
     })
   },

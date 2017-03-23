@@ -1,4 +1,5 @@
 import React from 'react';
+import ReviewList from './reviewList.jsx'
 
 class ProductOverview extends React.Component{
   constructor(props){
@@ -7,7 +8,27 @@ class ProductOverview extends React.Component{
       userWantsWriteReview: false,
       userReview: '',
       userRating: '',
-      successfulReview: false
+      successfulReview: false,
+      reviews: [
+        {
+          product: 'super wine',
+          rating: 5,
+          content: 'best wine ever!',
+          id: 1
+        },
+        {
+          product: 'super wine',
+          rating: 5,
+          content: 'best wine ever!',
+          id: 2
+        },
+        {
+          product: 'super wine',
+          rating: 5,
+          content: 'best wine ever!',
+          id: 3
+        }
+      ]
     }
     this.handleUserWantsReview = this.handleUserWantsReview.bind(this);
     this.handleReviewChange = this.handleReviewChange.bind(this);
@@ -15,6 +36,9 @@ class ProductOverview extends React.Component{
     this.handleReviewSubmit = this.handleReviewSubmit.bind(this);
   }
 
+  componentDidMount(){
+    this.props.getReviews(this.props.product.Id);
+  }
   handleUserWantsReview(event){
     this.setState({
       userWantsWriteReview: !this.state.userWantsWriteReview
@@ -79,6 +103,8 @@ class ProductOverview extends React.Component{
             </div>
           </div>
 
+          <ReviewList reviews={this.props.reviews}/>
+
         </div>
       )
     } else {
@@ -99,9 +125,8 @@ class ProductOverview extends React.Component{
               <input type='button' value={5} onClick={this.handleRatingChange}/>
               <span></span>
               <input type='submit' value='Submit' />
-
-          </form>
-        </div>
+            </form>
+          </div>
         </div>
       )
     }
