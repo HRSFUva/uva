@@ -33,7 +33,7 @@ var reviewSchema = mongoose.Schema({
 
 var productSchema = mongoose.Schema({
   name: String,
-  year: Number,
+  year: String,
   type: String, //e.x. cabernet, merlot
   redORwhite: String, //red wines or white wines
   origin: String, //e.x Sonoma County

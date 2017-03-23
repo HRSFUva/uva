@@ -193,7 +193,7 @@ wineApiUtils.forcedRequest(function(error, results) {
 
       var query = {
         name: wine.Name,
-        year: wine.Vintage,
+        year: wine.Vintage + '',
         type: wine.Varietal.Name,
         redORwhite: wine.Varietal.WineType.Name,
         origin: wine.Appellation.Name,
