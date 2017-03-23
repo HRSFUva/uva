@@ -4,8 +4,6 @@ var bodyParser = require('body-parser');
 var key = process.env.KEY;
 
 
-
-
 module.exports = {
 
   apiRequest: function(search, price, callback){

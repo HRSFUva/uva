@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
+var MongoClient = require('mongodb').MongoClient;
+var assert = require('assert');
 
-mongoose.connect('mongodb://localhost/uva');
+mongoose.connect('mongodb://' + process.env.MONGO_USER + ':' + process.env.MONGO_PASS + '@ds141490.mlab.com:41490/heroku_92f2g994');
 
 var db = mongoose.connection;
 
