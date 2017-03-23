@@ -98,12 +98,12 @@ app.post('/review', function(req, res) {
   var content = req.body.review;
   var rating = req.body.rating;
   var product = req.body.productID;
-  var user_id = req.body.userID;
+  var username = req.body.username;
   var review = {
     content: content,
     rating: rating,
-    user_id: user_id,
-    product: product
+    product: product,
+    username: username
   }
   dbUtilities.addReview(review, function(error, results){
     if(error){
@@ -120,6 +120,7 @@ app.post('/reviews', function(req, res) {
   console.log('product inside reviews GET all', product);
 
   dbUtilities.getReviews(product, function(error, reviews){
+    console.log('reviews', reviews)
     if(error){
       res.send(error)
     } else {
@@ -165,12 +166,12 @@ wineApiUtils.forcedRequest(function(error, results) {
   if(error){
     console.log('error inside forcedRequest', error);
   } else {
-    console.log('super giant huge massive results', Object.keys(results));
+    // console.log('super giant huge massive results', Object.keys(results));
 
     resBody = JSON.parse(results.body);
-    console.log('super giant huge massive resultsDOUBLE TROUBLE', resBody.Products);
+    // console.log('super giant huge massive resultsDOUBLE TROUBLE', resBody.Products);
     var wines = resBody.Products.List;
-    console.log('winesLength', wines.length)
+    // console.log('winesLength', wines.length)
     wines.forEach(function(wine){
 
       // //to see how the object is structured

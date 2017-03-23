@@ -5,7 +5,7 @@ var ReviewEntry = ({review}) => (
     {/* insert image of user
     */}
     <div className='reviewEntryFlexItem'>
-      <h3>{review.product}</h3>
+      <h3>{(review.username === '') ? 'anonymous' : review.user_id}</h3>
       <h2>{review.rating} out of 5</h2>
     </div>
     <div className='reviewEntryFlexItem'>
