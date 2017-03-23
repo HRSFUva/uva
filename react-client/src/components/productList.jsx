@@ -1,5 +1,5 @@
 import React from 'react';
-import ProductEntry from './ProductEntry.jsx';
+import ProductEntry from './productEntry.jsx';
 import ProductOverview from './ProductOverview.jsx';
 
 import reviewEntry from './reviewEntry.jsx';
