@@ -9,7 +9,6 @@ db.on('error', console.error.bind(console, 'connection errorINSIDE BIND'));
 db.once('open', function() {
   console.log('connected');
 
-
 });
 var userSchema = mongoose.Schema({
   name: String,
@@ -32,8 +31,8 @@ var reviewSchema = mongoose.Schema({
 });
 
 var productSchema = mongoose.Schema({
-  name: String,
-  year: Number,
+  name: {type: String, unique: true},
+  year: String,
   type: String, //e.x. cabernet, merlot
   redORwhite: String, //red wines or white wines
   origin: String, //e.x Sonoma County
