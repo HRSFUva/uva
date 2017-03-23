@@ -281,7 +281,7 @@ button:hover {
 .productOverviewFlexbox {
   display: inline-flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .productOverviewFlexitem {
@@ -340,6 +340,7 @@ input.productOverviewFlexitem:hover {
 
 .reviewEntryFlexbox {
   display: flex;
+  justify-content: space-around;
 }
 
 .reviewEntryItem {
