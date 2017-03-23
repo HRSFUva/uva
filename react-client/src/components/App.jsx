@@ -3,7 +3,7 @@ import Search from './searchBar.jsx';
 import TopWine from './topWines.jsx';
 import $ from 'jquery';
 import Login from './loginForm.jsx';
-import ProductList from './ProductList.jsx';
+import ProductList from './productList.jsx';
 import TopBar from './TopBar.jsx';
 import TrendingWineList from './trendingWineList.jsx';
 import BestValueWineList from './bestValueWineList.jsx';
