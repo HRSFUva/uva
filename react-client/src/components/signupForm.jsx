@@ -23,7 +23,7 @@ class SignupForm extends React.Component {
 
   ajaxCheckUsername(){
     this.props.checkUsername(this.state.username);
-    }
+  }
 
   handleUsernameChange(event) {
     this.setState({username: event.target.value}, this.ajaxCheckUsername);

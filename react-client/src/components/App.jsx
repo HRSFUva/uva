@@ -64,7 +64,7 @@ class App extends React.Component {
 
   handleUserWantsLogin(event) {
     this.setState({
-      userWantsLogin: !this.state.userWantsLogin,
+      userWantsLogin: true,
       invalidPasswordAttempt: false,
       userWantsHomePage: false,
       userHasSearched: false
