@@ -28,12 +28,12 @@ var reviewSchema = mongoose.Schema({
   content: String,
   product: String,
   rating: Number,
-  user_id: String
+  username: String
 });
 
 var productSchema = mongoose.Schema({
   name: String,
-  year: Number,
+  year: String,
   type: String, //e.x. cabernet, merlot
   redORwhite: String, //red wines or white wines
   origin: String, //e.x Sonoma County

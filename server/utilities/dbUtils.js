@@ -51,7 +51,7 @@ module.exports = {
   },
 
   addReview: function(review, callback){
-    db.Review.create({content: review.content, rating: review.rating, product: review.product, user_id: review.user_id}, function(error, results){
+    db.Review.create({content: review.content, rating: review.rating, product: review.product, username: review.username}, function(error, results){
       if(error){
         callback(error, null)
       } else {
