@@ -21,18 +21,23 @@ class App extends React.Component {
       reviews: [
       { title: 'speedy',
         context: 'it was great',
-        rating: 8 },
+        rating: 8,
+        username: 'fred' },
       { title: 'speedy',
         context: 'it was ok',
-        rating: 7 },
+        rating: 7,
+        username: 'beth' },
       { title: 'speedy',
         context: 'it was awesome',
-        rating: 9 },
+        rating: 9,
+        username: 'ted' },
       { title: 'speedy',
         context: 'it was terrible',
-        rating: 6 }
+        rating: 6,
+        username: 'mark' }
       ],
       searchQuery: '',
+      searchHistory: [],
       userHasSearched: false,
       userWantsLogin: false,
       userLoggedIn: false,
@@ -199,6 +204,9 @@ class App extends React.Component {
 
   search (query, price) {
     var context = this;
+    this.setState({
+      searchedHistory: this.state.searchHistory.splice(1, 0, query)
+    })
     console.log('query inside search', query);
     console.log('price inside search', price);
     $.ajax({
@@ -238,7 +246,8 @@ class App extends React.Component {
               <Search className ='SearchBar' search = {this.search}/>
             </div>
           </div>
-          </div>
+        </div>
+        <div className='topItemsWrapper'>
           <div className='trendingWineListWrapper'>
             <TrendingWineList />
           </div>
@@ -250,6 +259,7 @@ class App extends React.Component {
           <div className='UvasChoiceWineListWrapper'>
             <UvasChoiceWineList />
           </div>
+        </div>
 
 
       </div>
@@ -276,7 +286,7 @@ class App extends React.Component {
               </div>
             </div>
             </div>
-            <ProductList reviews={this.state.reviews} getReviews={this.getReviews} products={this.state.products} submitReview={this.submitReview}/>
+            <ProductList searchHistory={this.state.searchHistory} reviews={this.state.reviews} getReviews={this.getReviews} products={this.state.products} submitReview={this.submitReview}/>
           </div>
           )
       }

@@ -74,7 +74,7 @@ p {
 .heroContentWrapper {
   margin: 0 auto;
   text-align: center;
-  padding: 2em;
+  padding: 1em;
   color: white;
 }
 
@@ -257,11 +257,15 @@ button:hover {
 .productListWrapper {
   display: block;
   position: relative;
-  border: 2px blue solid;
 }
 .productEntry {
   border: 1px solid #c7c7c7;
   width: 70%;
+  margin: 0 auto;
+}
+
+.productListContainer li{
+  width: 80%;
   margin: 0 auto;
 }
 
@@ -271,14 +275,15 @@ button:hover {
   flex-direction: row;
   justify-content: space-between;
   align-content: center;
+  padding: 0.5em;
 }
 
-.productEntryFlexItem .productEntryFlexItemCenter {
+/*.productEntryFlexItem .productEntryFlexItemCenter {
   flex-grow: 2;
-}
+}*/
 
 .productEntryFlexItem {
-  flex: auto;
+
   /*flex-grow: 1;*/
 }
 
@@ -288,7 +293,7 @@ button:hover {
 }
 
 .productOverviewFlexbox {
-  display: inline-flex;
+  display: flex;
   flex-direction: row;
   justify-content: space-between;
   padding: 1em;
@@ -296,7 +301,6 @@ button:hover {
 }
 
 .productOverviewFlexitem {
-  flex: auto;
   flex-grow: 1;
 }
 
@@ -309,7 +313,6 @@ button:hover {
 }
 
 .productOverviewMidFlexitem {
-  flex: auto;
   flex-grow: 1;
 }
 input.reviewFormField::-webkit-input-placeholder {
@@ -325,7 +328,8 @@ input.reviewFormField {
 }
 
 .reviewWrapper {
-  width: 70%;
+  width: 80%;
+  padding: 1em;
   margin: 0 auto;
   text-align: center;
 }
@@ -338,10 +342,10 @@ input.reviewFormField {
 
 input.productOverviewFlexitem {
   background-color: rgba(134, 65, 146, 0.55);
-  border-radius: 8%;
   font-size: 1.3em;
   font-family: 'Raleway', sans-serif;
   color: white;
+  padding: 1em;
 }
 
 input.productOverviewFlexitem:hover {
@@ -353,10 +357,10 @@ input.productOverviewFlexitem:hover {
 .reviewEntryFlexbox {
   display: flex;
   justify-content: space-around;
+  padding: 1em;
 }
 
 .reviewEntryItem {
-  flex: auto;
 }
 
 .bestCategory h2 {
@@ -380,15 +384,15 @@ input.productOverviewFlexitem:hover {
   margin: 0;
 
 }
+.entryFlexItemRight{}
 
 .entryFlexItem {
-  flex: auto;
   align-content: space-between;
 
 }
 
-.entryRating {
-  text-align: center;
+.entryFlexItemRight {
+  display:none;
 }
 
 ol li {
@@ -397,4 +401,23 @@ ol li {
 
 .productListHeader {
   padding: 1em;
+}
+
+.topItemsWrapper {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.productName {
+  padding: 1em;
+}
+
+.vineyardInfo {
+  padding: 1em;
+}
+.reviewEntryFlexItem p {
+  display: inline;
+}
+.reviewContext {
+  font-size: 1em;
 }

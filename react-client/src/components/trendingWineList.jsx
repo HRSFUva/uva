@@ -50,7 +50,9 @@ class TrendingWineList extends React.Component {
         <hr/>
         <ol>
           {this.state.trendingWines.map(trendingWine =>
-            <li key={trendingWine.id}><TrendingWineEntry trendingWine={trendingWine}/></li>
+            <li key={trendingWine.id}>
+              <TrendingWineEntry  trendingWine={trendingWine}/>
+            </li>
           )}
         </ol>
       </div>

@@ -1,17 +1,19 @@
 import React from 'react';
 
 var ReviewEntry = ({review}) => (
+
   <div className='reviewEntryFlexbox'>
-    {/* insert image of user
-    */}
+
     <div className='reviewEntryFlexItem'>
-      <h3>{(review.username === '') ? 'anonymous' : review.user_id}</h3>
-      <h2>{review.rating} out of 5</h2>
+      <h4>User:
+        <p className='reviewUsername'>{(review.username === '') ? 'anonymous' : review.username}</p>
+      </h4>
+      <h4>Review:
+        <p className='reviewContext'>{review.context}</p>
+      </h4>
+      <h4>{(review.rating)/2} out of 5</h4>
     </div>
-    <div className='reviewEntryFlexItem'>
-      <h3>Review:</h3>
-      <p>{review.content}</p>
-    </div>
+
   </div>
 )
 
