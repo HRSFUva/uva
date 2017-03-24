@@ -83,7 +83,7 @@ class App extends React.Component {
     var context = this;
 
     $.ajax({
-      url: 'https://localhost:3000/reviews',
+      url: 'http://localhost:3000/reviews',
       type: 'POST',
       contentType: 'application/json',
       data: JSON.stringify({
@@ -103,7 +103,7 @@ class App extends React.Component {
   submitReview (review, rating, productID) {
     var context = this;
     $.ajax({
-      url: 'https://localhost:3000/review',
+      url: 'http://localhost:3000/review',
       type: 'POST',
       contentType: 'application/json',
       data: JSON.stringify({
@@ -126,7 +126,7 @@ class App extends React.Component {
     var context = this;
 
      $.ajax({
-       url: 'https://localhost:3000/login',
+       url: 'http://localhost:3000/login',
        type: 'POST',
        contentType: 'application/json',
        data: JSON.stringify({
@@ -158,7 +158,7 @@ class App extends React.Component {
    checkUsername (username) {
     var context = this;
     $.ajax({
-      url: 'https://localhost:3000/users/username',
+      url: 'http://localhost:3000/users/username',
       type: 'POST',
       contentType: 'application/json',
       data: JSON.stringify({
@@ -181,7 +181,7 @@ class App extends React.Component {
    newUser (username, password) {
     var context = this;
     $.ajax({
-      url: 'https://localhost:3000/signup',
+      url: 'http://localhost:3000/signup',
       type: 'POST',
       contentType: 'application/json',
       data: JSON.stringify({
@@ -202,7 +202,7 @@ class App extends React.Component {
     console.log('query inside search', query);
     console.log('price inside search', price);
     $.ajax({
-      url: 'https://localhost:3000/search',
+      url: 'http://localhost:3000/search',
       type: 'POST',
       contentType: 'application/json',
       data: JSON.stringify({

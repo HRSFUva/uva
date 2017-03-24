@@ -130,7 +130,7 @@ app.post('/reviews', function(req, res) {
 })
 
 app.get('/.well-known/acme-challenge/:content', function(req, res) {
-  res.send('Yjk1xGrHCfot8160HK0_UzcNzfDY1hI3ogIKIW9KBpw')
+  res.send('PW-phkjKRkbF7Oeg1ed8b_EuymzQGBI0leXIYDq5Hyc')
 })
 
 var port = process.env.PORT;
