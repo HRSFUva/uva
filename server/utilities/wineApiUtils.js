@@ -1,7 +1,9 @@
 var request = require('request');
 var bodyParser = require('body-parser');
-// var key = require('./apikey.js');
-var key = process.env.KEY;
+var key = require('./apikey.js');
+// var key = process.env.KEY;
+key = key.apiKey;
+console.log('key', key)
 
 
 module.exports = {

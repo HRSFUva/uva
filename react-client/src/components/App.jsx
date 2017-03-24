@@ -229,7 +229,7 @@ class App extends React.Component {
     if(!this.state.userWantsLogin && !this.state.userHasSearched){
       return (
         <div className = 'container'>
-
+        <div className = 'topBackgroundImageWrapper'>
           <TopBar username={this.state.username} userLoggedIn={this.state.userLoggedIn} handleUserWantsLogin={this.handleUserWantsLogin} handleUserWantsHome={this.handleUserWantsHome} handleUserWantsLogout={this.handleUserWantsLogout}/>
 
           <div className = 'heroImageContainer'>
@@ -238,7 +238,7 @@ class App extends React.Component {
               <Search className ='SearchBar' search = {this.search}/>
             </div>
           </div>
-
+          </div>
           <div className='trendingWineListWrapper'>
             <TrendingWineList />
           </div>
@@ -257,6 +257,7 @@ class App extends React.Component {
         //To do: refactor handleUserWantsHome
         return (
           <div className = 'container'>
+
             <div className = 'loginWrapper'>
               <Login checkUsername = {this.checkUsername} invalidUsername = {this.state.invalidUsername} newUser={this.newUser} invalidPasswordAttempt={this.state.invalidPasswordAttempt} validate={this.validateUser} handleUserWantsHome={this.handleUserWantsLogin} userWantsLogin={this.state.userWantsLogin} userWantsSignUp={this.state.userWantsSignUp} className = 'loginForm' />
             </div>
@@ -265,6 +266,8 @@ class App extends React.Component {
       } else if (this.state.userHasSearched) {
         return (
           <div className="container">
+          <div className = 'topBackgroundImageWrapper'>
+
             <TopBar username={this.state.username} userLoggedIn={this.state.userLoggedIn} handleUserWantsHome={this.handleUserWantsHome} handleUserWantsLogout={this.handleUserWantsLogout} handleUserWantsLogin={this.handleUserWantsLogin}/>
             <div className = 'heroImageContainer'>
               <div className = 'heroContentWrapper'>
@@ -272,7 +275,7 @@ class App extends React.Component {
                 <Search className ='SearchBar' search = {this.search}/>
               </div>
             </div>
-
+            </div>
             <ProductList reviews={this.state.reviews} getReviews={this.getReviews} products={this.state.products} submitReview={this.submitReview}/>
           </div>
           )

@@ -1,10 +1,15 @@
 import React from 'react';
 
 var BestValueWineEntry = ({bestValueWine}) => (
-  <div>
-    <div>{bestValueWine.name}</div>
-    <div>{bestValueWine.year}</div>
-    <div>{bestValueWine.price}</div>
+  <div className='trendingEntry'>
+    <div className='entryFlexItem'>
+      <h4>{bestValueWine.name}</h4>
+      <p>Released: {bestValueWine.year}</p>
+      <p> Best Price: ${bestValueWine.price}</p>
+    </div>
+    <div className='entryFlexItem'>
+      <p>Avg Rating: <h4 className='entryRating'>4.7</h4></p>
+    </div>
   </div>
 );
 

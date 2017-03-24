@@ -90,16 +90,16 @@ class ProductOverview extends React.Component{
 
             {/* mid level product desc on left, dynamically generated user content on right */}
             <div className='productOverviewMidFlexbox'>
-              <h1 className='productOverviewMidFlexitem'>
-                Vineyard: {this.props.product.Vineyard.Name}<br/>
-                Appellation: {this.props.product.Appellation.Name}<br/>
-                Region: {this.props.product.Appellation.Region.Name}
-              </h1>
-              <h1 className='productOverviewMidFlexitem'>
+              <div className='productOverviewMidFlexitem'>
+                <h3> Vineyard:</h3><h4>{this.props.product.Vineyard.Name}</h4>
+                <h4>Appellation:</h4><p> {this.props.product.Appellation.Name}</p>
+                <h4>Region:</h4><p> {this.props.product.Appellation.Region.Name}</p>
+              </div>
+              <div className='productOverviewMidFlexitem'>
                 dynamically generated user content <br/>
                 dynamically generated user content <br/>
                 dynamically generated user content
-              </h1>
+              </div>
             </div>
           </div>
 

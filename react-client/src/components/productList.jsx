@@ -73,15 +73,19 @@ class ProductList extends React.Component {
       <div className="productListContainer">
 
         <div className="productListHeader">
-          <h4>Page: {this.state.currentPage} of {this.state.totalPages} </h4>
-          <button onClick={this.handleUserWantsBack}>Back</button>
-          <button onClick={this.handleUserWantsNext}>Next</button>
+          <h4 id='searchTermResults'>Results for: </h4>
         </div>
+
 
         <ul>
           { this.state.currentRange.map(product =>
             <li key={product.Id}><ProductEntry handleClickedProductEntry={this.handleClickedProductEntry} product={product}/></li> )}
-      </ul>
+        </ul>
+        <div className="productListHeader">
+          <h4>Page: {this.state.currentPage} of {this.state.totalPages} </h4>
+          <button onClick={this.handleUserWantsBack}>Back</button>
+          <button onClick={this.handleUserWantsNext}>Next</button>
+        </div>
       </div>
       )
     } else {
