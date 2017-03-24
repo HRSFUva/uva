@@ -178,19 +178,50 @@ app.get('/.well-known/acme-challenge/:content', function(req, res) {
 // Ratings: [Object],
 // Retail: null,
 // Vintages: [Object] }
+var pricesArray = [0, 10, 20, 30, 40, 50];
+var winesArray = ['red', 'white', 'rose', 'Cabernet Franc', 'cabernet', 'fran', 'cabernet sauvignon', 'gamay', 'grenache', 'garnacha', 'malbec', 'merlot', 'mourvedre', 'mataro', 'nebbiolo', 'pinot', 'pinot noir', 'sango', 'sangiovese', 'shiraz', 'syrah', 'zin', 'zinfandel', 'chenin', 'chenin blanc', 'blanc', 'Gewurztraminer', 'marsanne', 'muscat', 'pinot blanc', 'blanc', 'pinot gris', 'pinot grigio', 'riesling', 'roussanne', 'sauvignon blanc', 'fume blanc', 'semillon', 'viognier', 'gruner veltliner', 'brut']
+
+winesArray.forEach(function(wine){
+
+  pricesArray.forEach(function(price){
+
+    wineApiUtils.forcedRequest(price, wine, function(error, results) {
+      if(error){
+        console.log('error inside forcedRequest', error);
+      } else {
+
+        resBody = JSON.parse(results.body);
+        var wines = resBody.Products.List;
+        wines.forEach(function(wine){
+
+          var query = {
+            name: wine.Name,
+            year: wine.Vintage + '',
+            type: wine.Varietal.Name,
+            redORwhite: wine.Varietal.WineType.Name,
+            origin: wine.Appellation.Name,
+            region: wine.Appellation.Region.Name,
+            priceMin: wine.PriceMin,
+            priceMax: wine.PriceMax,
+            apiRating: wine.Ratings.HighestScore
+          }
+
+          dbUtilities.addWine(query, function(error, results){
+            if(error){
+              console.error(error)
+            } else {
+              console.log('results from addwine dbUtilities', results)
+            }
+          })
+        })
+
+      }
+    })
+
+  })
 
 
-wineApiUtils.forcedRequest(function(error, results) {
-  if(error){
-    console.log('error inside forcedRequest', error);
-  } else {
-    // console.log('super giant huge massive results', Object.keys(results));
-
-    resBody = JSON.parse(results.body);
-    // console.log('super giant huge massive resultsDOUBLE TROUBLE', resBody.Products);
-    var wines = resBody.Products.List;
-    // console.log('winesLength', wines.length)
-    wines.forEach(function(wine){
+})
 
       // //to see how the object is structured
       // console.log('VARIETAL', wine.Varietal)
