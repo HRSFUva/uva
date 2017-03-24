@@ -129,6 +129,10 @@ app.post('/reviews', function(req, res) {
   })
 })
 
+app.get('/.well-known/acme-challenge/:content', function(req, res) {
+  res.send('Yjk1xGrHCfot8160HK0_UzcNzfDY1hI3ogIKIW9KBpw')
+})
+
 var port = process.env.PORT;
 
 app.listen(process.env.PORT, function() {
