@@ -2,12 +2,14 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var dbUtilities = require('./utilities/dbUtils.js');
 var wineApiUtils = require('./utilities/wineApiUtils.js');
+var cors = require('cors');
 
 //INSTANTIATE APP
 var app = express();
 
 //Middleware for parse application/json
 app.use(bodyParser.json());
+app.use(cors())
 
 //load static files
 app.use(express.static(__dirname + '/../react-client/dist'));
