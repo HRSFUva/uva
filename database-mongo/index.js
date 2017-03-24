@@ -27,7 +27,7 @@ var reviewSchema = mongoose.Schema({
   content: String,
   product: String,
   rating: Number,
-  user_id: String
+  username: String
 });
 
 var productSchema = mongoose.Schema({

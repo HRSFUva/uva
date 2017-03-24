@@ -108,7 +108,7 @@ module.exports = {
      url: 'http://services.wine.com/api/beta/service.svc/JSON/catalog',
      qs:
       { offset: '10',
-        size: '100',
+        size: '10',
         apikey: '7e30469636811cfa7dd0aef5dffcddbd',
         rating: '85|100',
         price: '10|20',
