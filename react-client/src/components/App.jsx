@@ -69,7 +69,7 @@ class App extends React.Component {
 
   handleUserWantsLogin(event) {
     this.setState({
-      userWantsLogin: !this.state.userWantsLogin,
+      userWantsLogin: true,
       invalidPasswordAttempt: false,
       userWantsHomePage: false,
       userHasSearched: false
@@ -269,7 +269,7 @@ class App extends React.Component {
           <div className = 'container'>
 
             <div className = 'loginWrapper'>
-              <Login checkUsername = {this.checkUsername} invalidUsername = {this.state.invalidUsername} newUser={this.newUser} invalidPasswordAttempt={this.state.invalidPasswordAttempt} validate={this.validateUser} handleUserWantsHome={this.handleUserWantsLogin} userWantsLogin={this.state.userWantsLogin} userWantsSignUp={this.state.userWantsSignUp} className = 'loginForm' />
+              <Login checkUsername = {this.checkUsername} invalidUsername = {this.state.invalidUsername} newUser={this.newUser} invalidPasswordAttempt={this.state.invalidPasswordAttempt} validate={this.validateUser} handleUserWantsHome={this.handleUserWantsHome} userWantsLogin={this.state.userWantsLogin} className = 'loginForm' />
             </div>
           </div>
           )

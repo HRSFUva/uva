@@ -23,7 +23,7 @@ class SignupForm extends React.Component {
 
   ajaxCheckUsername(){
     this.props.checkUsername(this.state.username);
-    }
+  }
 
   handleUsernameChange(event) {
     this.setState({username: event.target.value}, this.ajaxCheckUsername);
@@ -74,7 +74,7 @@ class SignupForm extends React.Component {
         <button value='home' onClick={this.props.userWantsHome}>Home</button>
       </span>
       <span className = 'loginButton'>
-        <button value='login' onClick={this.props.userWantsHome}>Login</button>
+        <button value='login' onClick={this.handleUserWantsLogin}>Login</button>
       </span>
       <div className="signupFormWrapper">
         <form onSubmit={this.handleSubmit}>
