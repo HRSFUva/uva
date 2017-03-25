@@ -39,7 +39,7 @@ class ProductList extends React.Component {
       currentWine: {
         wine: wine
       }
-    })
+    }, this.props.handleUserWantsProductList)
   }
 
   handleUserWantsNext(event){

@@ -362,7 +362,6 @@ h4+p{
 
 input.reviewFormField::-webkit-input-placeholder {
   text-align: center;
-  font-family: 'Fugaz One', cursive;
   white-space: pre-line;
   color: rgba(157, 82, 193, 0.88);
 }
@@ -374,6 +373,7 @@ input.reviewFormField:hover::-webkit-input-placeholder {
 input.reviewFormField {
   height: 8em;
   width: 100%;
+  font-size: 2em;
 }
 
 .reviewWrapper {
@@ -463,7 +463,7 @@ ol li {
 .reviewEntryFlexbox {
   display: flex;
   justify-content: space-between;
-  padding: 0.5em;
+  padding: 0.5eminp;
 }
 
 .reviewContext {

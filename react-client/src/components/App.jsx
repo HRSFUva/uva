@@ -13,29 +13,8 @@ class App extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      products: [
-        {id:1, Name: 'greatWine', Rating: '10', Description: 'This is a great wine!'},
-        {id:2, Name: 'goodWine', Rating: '8.5', Description: 'This is a good wine!'},
-        {id:3, Name: 'averageWine', Rating: '7', Description: 'This is an average wine.'}
-      ],
-      reviews: [
-      { title: 'speedy',
-        context: 'it was great',
-        rating: 8,
-        username: 'fred' },
-      { title: 'speedy',
-        context: 'it was ok',
-        rating: 7,
-        username: 'beth' },
-      { title: 'speedy',
-        context: 'it was awesome',
-        rating: 9,
-        username: 'ted' },
-      { title: 'speedy',
-        context: 'it was terrible',
-        rating: 6,
-        username: 'mark' }
-      ],
+      products: [],
+      reviews: [],
       topReds: [],
       topWhites: [],
       topRated: [],
@@ -51,7 +30,8 @@ class App extends React.Component {
       userID: '',
       invalidPasswordAttempt: false,
       invalidUsername: false,
-      userWantsSignUp: false
+      userWantsSignUp: false,
+      userWantsProductList: false
     }
     this.search = this.search.bind(this);
     this.handleUserWantsLogin = this.handleUserWantsLogin.bind(this);
@@ -63,6 +43,7 @@ class App extends React.Component {
     this.submitReview = this.submitReview.bind(this);
     this.getReviews = this.getReviews.bind(this);
     this.init = this.init.bind(this);
+    this.handleUserWantsProductList = this.handleUserWantsProductList.bind(this);
   }
 
   componentDidMount(){
@@ -74,7 +55,8 @@ class App extends React.Component {
     this.setState({
       userWantsHomePage: true,
       userHasSearched: false,
-      userWantsLogin: false
+      userWantsLogin: false,
+      userWantsProductList: false
     })
   }
 
@@ -83,7 +65,8 @@ class App extends React.Component {
       userWantsLogin: !this.state.userWantsLogin,
       invalidPasswordAttempt: false,
       userWantsHomePage: false,
-      userHasSearched: false
+      userHasSearched: false,
+      userWantsProductList: false
     })
   }
 
@@ -92,6 +75,12 @@ class App extends React.Component {
       userLoggedIn: false,
       username: '',
       userID: ''
+    })
+  }
+
+  handleUserWantsProductList(event){
+    this.setState({
+      userWantsProductList: !this.handleUserWantsProductList
     })
   }
 
@@ -243,7 +232,10 @@ class App extends React.Component {
   search (query, price) {
     var context = this;
     this.setState({
-      searchedHistory: this.state.searchHistory.splice(1, 0, query)
+      searchHistory: this.state.searchHistory.splice(1, 0, query),
+      userHasSearched: true,
+      userWantsProductList: true,
+      userWantsHomePage: false
     })
     console.log('query inside search', query);
     console.log('price inside search', price);
@@ -287,15 +279,15 @@ class App extends React.Component {
         </div>
         <div className='topItemsWrapper'>
           <div className='trendingWineListWrapper'>
-            <TrendingWineList topReds = {this.state.topReds}/>
+            <TrendingWineList handleUserWantsProductList={this.handleUserWantsProductList} topReds = {this.state.topReds}/>
           </div>
 
           <div className='bestValueWineListWrapper'>
-            <BestValueWineList topWhites={this.state.topWhites}/>
+            <BestValueWineList handleUserWantsProductList={this.handleUserWantsProductList} topWhites={this.state.topWhites}/>
           </div>
 
           <div className='UvasChoiceWineListWrapper'>
-            <UvasChoiceWineList topRated={this.state.topWhites}/>
+            <UvasChoiceWineList handleUserWantsProductList={this.handleUserWantsProductList} topRated={this.state.topWhites}/>
           </div>
         </div>
 
@@ -311,7 +303,7 @@ class App extends React.Component {
             </div>
           </div>
           )
-      } else if (this.state.userHasSearched) {
+      } else if (this.state.userHasSearched && this.state.userWantsProductList) {
         return (
           <div className="container">
           <div className = 'topBackgroundImageWrapper'>
@@ -320,11 +312,11 @@ class App extends React.Component {
             <div className = 'heroImageContainer'>
               <div className = 'heroContentWrapper'>
                 <h2>Unbiased wine reviews</h2>
-                <Search className ='SearchBar' search = {this.search}/>
+                <Search className ='SearchBar' handleUserWantsProductList={this.handleUserWantsProductList} userWantsProductList={this.state.userWantsProductList} search={this.search}/>
               </div>
             </div>
             </div>
-            <ProductList searchHistory={this.state.searchHistory} reviews={this.state.reviews} getReviews={this.getReviews} products={this.state.products} submitReview={this.submitReview}/>
+            <ProductList handleUserWantsProductList={this.handleUserWantsProductList} searchHistory={this.state.searchHistory} reviews={this.state.reviews} getReviews={this.getReviews} products={this.state.products} submitReview={this.submitReview}/>
           </div>
           )
       }

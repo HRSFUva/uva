@@ -8,27 +8,7 @@ class ProductOverview extends React.Component{
       userWantsWriteReview: false,
       userReview: '',
       userRating: '',
-      successfulReview: false,
-      reviews: [
-        {
-          product: 'super wine',
-          rating: 5,
-          content: 'best wine ever!',
-          id: 1
-        },
-        {
-          product: 'super wine',
-          rating: 5,
-          content: 'best wine ever!',
-          id: 2
-        },
-        {
-          product: 'super wine',
-          rating: 5,
-          content: 'best wine ever!',
-          id: 3
-        }
-      ]
+      successfulReview: false
     }
     this.handleUserWantsReview = this.handleUserWantsReview.bind(this);
     this.handleReviewChange = this.handleReviewChange.bind(this);
@@ -37,8 +17,6 @@ class ProductOverview extends React.Component{
   }
 
   componentDidMount(){
-    console.log('trying to get reviews');
-    console.log('key', this.props.currentWine.wine._id);
     this.props.getReviews(this.props.currentWine.wine._id);
   }
   handleUserWantsReview(event){
@@ -61,8 +39,6 @@ class ProductOverview extends React.Component{
 
   handleReviewSubmit(event) {
     if (this.state.userReview.length && this.state.userRating !== '') {
-      console.log('Inside handleReviewSubmit function', this.state.userReview);
-      console.log('Inside handleReviewSubmit function', this.state.userRating);
       this.props.submitReview (this.state.userReview, this.state.userRating, this.props.currentWine.wine);
       this.setState({
         userReview: '',
@@ -94,6 +70,12 @@ class ProductOverview extends React.Component{
             <div className="reviewButton">
               <input type="button" value="Write a review" onClick={this.handleUserWantsReview} className="productOverviewFlexitem" />
             </div>
+            <div>
+              {this.props.reviews.length === 0 &&
+                <h4> Be the first to Review this Wine!</h4>
+                }
+            </div>
+
 
             <div className='productOverviewHighlightWrapper'>
 
