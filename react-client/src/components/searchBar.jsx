@@ -38,6 +38,7 @@ class SearchBar extends React.Component {
     var price = this.state.price || null;
     var search = this.state.searchQuery;
 
+
     if(this.state.searchQuery.length > 0){
       this.props.search(search, price);
       this.setState({
@@ -52,6 +53,8 @@ class SearchBar extends React.Component {
       searchQuery: event.target.value
     });
   }
+
+
 
 
 render(){

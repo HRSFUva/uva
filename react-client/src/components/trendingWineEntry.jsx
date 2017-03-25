@@ -1,14 +1,14 @@
 import React from 'react';
 
-var TrendingWineEntry = ({trendingWine}) => (
+var TrendingWineEntry = ({topRed}) => (
    <div className='productEntryFlexbox'>
     <div className='entryFlexItem' >
-      <h4>{trendingWine.name}</h4>
-      <p>Released: {trendingWine.year}</p>
-      <p> Best Price: ${trendingWine.price}</p>
+      <h4>{topRed.name}</h4>
+      <p>Released: {topRed.year}</p>
+      <p> Best Price: ${topRed.priceMin}</p>
     </div>
-    <div className='entryFlexItem entryFlexItemRight'>
-      <p >Avg Rating: <h4 className='entryRating'>4.7</h4></p>
+    <div className='entryFlexItem flexItemRight'>
+      <p>Avg Rating: <h4 className='entryRating'>{topRed.apiRating/20}</h4></p>
     </div>
    </div>
 

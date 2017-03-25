@@ -13,29 +13,13 @@ class App extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      products: [
-        {id:1, Name: 'greatWine', Rating: '10', Description: 'This is a great wine!'},
-        {id:2, Name: 'goodWine', Rating: '8.5', Description: 'This is a good wine!'},
-        {id:3, Name: 'averageWine', Rating: '7', Description: 'This is an average wine.'}
-      ],
-      reviews: [
-      { title: 'speedy',
-        context: 'it was great',
-        rating: 8,
-        username: 'fred' },
-      { title: 'speedy',
-        context: 'it was ok',
-        rating: 7,
-        username: 'beth' },
-      { title: 'speedy',
-        context: 'it was awesome',
-        rating: 9,
-        username: 'ted' },
-      { title: 'speedy',
-        context: 'it was terrible',
-        rating: 6,
-        username: 'mark' }
-      ],
+      products: [],
+      reviews: [],
+      topReds: [],
+      topWhites: [],
+      topRated: [],
+      uvasChoice: [],
+      trending: [],
       searchQuery: '',
       searchHistory: [],
       userHasSearched: false,
@@ -46,7 +30,8 @@ class App extends React.Component {
       userID: '',
       invalidPasswordAttempt: false,
       invalidUsername: false,
-      userWantsSignUp: false
+      userWantsSignUp: false,
+      userWantsProductList: false
     }
     this.search = this.search.bind(this);
     this.handleUserWantsLogin = this.handleUserWantsLogin.bind(this);
@@ -57,13 +42,21 @@ class App extends React.Component {
     this.handleUserWantsHome = this.handleUserWantsHome.bind(this);
     this.submitReview = this.submitReview.bind(this);
     this.getReviews = this.getReviews.bind(this);
+    this.init = this.init.bind(this);
+    this.handleUserWantsProductList = this.handleUserWantsProductList.bind(this);
+  }
+
+  componentDidMount(){
+    console.log('didmount')
+    this.init();
   }
 
   handleUserWantsHome(event) {
     this.setState({
       userWantsHomePage: true,
       userHasSearched: false,
-      userWantsLogin: false
+      userWantsLogin: false,
+      userWantsProductList: false
     })
   }
 
@@ -72,7 +65,8 @@ class App extends React.Component {
       userWantsLogin: true,
       invalidPasswordAttempt: false,
       userWantsHomePage: false,
-      userHasSearched: false
+      userHasSearched: false,
+      userWantsProductList: false
     })
   }
 
@@ -84,15 +78,43 @@ class App extends React.Component {
     })
   }
 
-  getReviews(productID){
-    var context = this;
+  handleUserWantsProductList(event){
+    this.setState({
+      userWantsProductList: !this.handleUserWantsProductList
+    })
+  }
 
+  init(){
+    var context = this;
+    console.log('boom');
+    $.ajax({
+      url: 'http://localhost:3000/init',
+      contentType: 'application/json',
+      success: function (data) {
+        console.log('successful initial response', data);
+        context.setState({
+          topReds: data.top10Reds,
+          topWhites: data.top10Whites,
+          topRated: data.topRated,
+          trending: data.trending,
+          uvasChoice: data.uvasChoice
+        })
+      },
+      error: function(error) {
+        console.log('error inside init duuudeeee', error)
+      }
+    })
+  }
+
+  getReviews(product_id){
+    var context = this;
+    console.log('this is the key', product_id)
     $.ajax({
       url: 'http://localhost:3000/reviews',
       type: 'POST',
       contentType: 'application/json',
       data: JSON.stringify({
-        product: productID
+        product_id: product_id
       }),
       success: function(reviews){
         context.setState({
@@ -105,8 +127,12 @@ class App extends React.Component {
     })
   }
 
-  submitReview (review, rating, productID) {
+  submitReview (review, rating, wine) {
     var context = this;
+    console.log('wine', wine);
+    var product_id = wine._id;
+    var product = wine.name;
+
     $.ajax({
       url: 'http://localhost:3000/review',
       type: 'POST',
@@ -114,8 +140,9 @@ class App extends React.Component {
       data: JSON.stringify({
         review: review,
         rating: rating,
-        productID: productID,
-        username: this.state.username
+        name: name,
+        username: this.state.username,
+        product_id: product_id
       }),
       success: function(data) {
         //TODO: provide user feedback upon successful review
@@ -205,7 +232,10 @@ class App extends React.Component {
   search (query, price) {
     var context = this;
     this.setState({
-      searchedHistory: this.state.searchHistory.splice(1, 0, query)
+      searchHistory: this.state.searchHistory.splice(1, 0, query),
+      userHasSearched: true,
+      userWantsProductList: true,
+      userWantsHomePage: false
     })
     console.log('query inside search', query);
     console.log('price inside search', price);
@@ -249,15 +279,15 @@ class App extends React.Component {
         </div>
         <div className='topItemsWrapper'>
           <div className='trendingWineListWrapper'>
-            <TrendingWineList />
+            <TrendingWineList handleUserWantsProductList={this.handleUserWantsProductList} topReds = {this.state.topReds}/>
           </div>
 
           <div className='bestValueWineListWrapper'>
-            <BestValueWineList />
+            <BestValueWineList handleUserWantsProductList={this.handleUserWantsProductList} topWhites={this.state.topWhites}/>
           </div>
 
           <div className='UvasChoiceWineListWrapper'>
-            <UvasChoiceWineList />
+            <UvasChoiceWineList handleUserWantsProductList={this.handleUserWantsProductList} topRated={this.state.topWhites}/>
           </div>
         </div>
 
@@ -273,7 +303,7 @@ class App extends React.Component {
             </div>
           </div>
           )
-      } else if (this.state.userHasSearched) {
+      } else if (this.state.userHasSearched && this.state.userWantsProductList) {
         return (
           <div className="container">
           <div className = 'topBackgroundImageWrapper'>
@@ -282,11 +312,11 @@ class App extends React.Component {
             <div className = 'heroImageContainer'>
               <div className = 'heroContentWrapper'>
                 <h2>Unbiased wine reviews</h2>
-                <Search className ='SearchBar' search = {this.search}/>
+                <Search className ='SearchBar' handleUserWantsProductList={this.handleUserWantsProductList} userWantsProductList={this.state.userWantsProductList} search={this.search}/>
               </div>
             </div>
             </div>
-            <ProductList searchHistory={this.state.searchHistory} reviews={this.state.reviews} getReviews={this.getReviews} products={this.state.products} submitReview={this.submitReview}/>
+            <ProductList handleUserWantsProductList={this.handleUserWantsProductList} searchHistory={this.state.searchHistory} reviews={this.state.reviews} getReviews={this.getReviews} products={this.state.products} submitReview={this.submitReview}/>
           </div>
           )
       }

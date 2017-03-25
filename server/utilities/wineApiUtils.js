@@ -104,16 +104,18 @@ module.exports = {
     })
   },
 
-  forcedRequest: function (callback) {
+  forcedRequest: function (price, wine, callback) {
+   var prices = [0, 10, 20, 30, 40, 50];
    var forcedOptions = { method: 'GET',
      url: 'https://services.wine.com/api/beta/service.svc/JSON/catalog',
      qs:
       { offset: '10',
-        size: '10',
+        size: '100',
         apikey: '7e30469636811cfa7dd0aef5dffcddbd',
         rating: '85|100',
-        price: '10|20',
-        format: 'JSON'
+        price: price +'|'+ (price+10),
+        format: 'JSON',
+        search: wine
       },
      headers:
       { 'cache-control': 'no-cache' }

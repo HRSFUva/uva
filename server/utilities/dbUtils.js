@@ -6,6 +6,19 @@ var db = require('../../database-mongo/index.js');
 
 module.exports = {
 
+  searchWines: function(query, price, callback){
+    console.log('searching', query);
+    console.log('searching', price);
+    db.Product.find({ "name": {"$regex": query, "$options": "i"}, "priceMin": {$lt: price, $gt: price-10}}).limit(50).sort({apiRating: -1}).exec(function(error, results){
+      if(error){
+        callback(error, null)
+        } else {
+          console.log('resultss earching', results)
+        callback(null, results);
+      }
+    })
+  },
+
   checkuserName: function(username, callback){
     db.User.find({name: username}, function(err, results) {
       if(err){
@@ -51,7 +64,7 @@ module.exports = {
   },
 
   addReview: function(review, callback){
-    db.Review.create({content: review.content, rating: review.rating, product: review.product, username: review.username}, function(error, results){
+    db.Review.create({content: review.content, rating: review.rating, product: review.product, username: review.username, product_id: review.product_id}, function(error, results){
       if(error){
         callback(error, null)
       } else {
@@ -60,9 +73,9 @@ module.exports = {
     })
   },
 
-  getReviews: function(product, callback){
-    console.log('inside getReviews', product);
-    db.Review.find({product: product}, function(error, results){
+  getReviews: function(product_id, callback){
+    console.log('inside getReviews', product_id);
+    db.Review.find({product_id: product_id}, function(error, results){
       if(error){
         callback(error, null);
       } else {
@@ -71,15 +84,42 @@ module.exports = {
     })
   },
 
-  top10Reds: function() { //TODO: test against populated database once forcedRequest is up, or against dummy data
-    return db.Product.findAsync({redORwhite:red}).sort({rating: -1}).limit(10)
+  top10Reds: function(callback) { //TODO: test against populated database once forcedRequest is up, or against dummy data
+    // return db.Product.find({redORwhite:'Red Wines'}).sort({rating: -1}).limit(10)
+    db.Product.find({redORwhite:'Red Wines'}).limit(10).sort({apiRating: -1}).exec(function(error, results){
+      if(error){
+        console.log('DB FIND TOP 10 ERRROR')
+        callback(error, results)
+      } else {
+        console.log('TOP10RED')
+        callback(error, results)
+      }
+    })
+
   },
 
-  top10Whites: function() { //TODO: test against populated database once forcedRequest is up, or against dummy data
-    return db.Product.findAsync({redORwhite:white}).sort({rating: -1}).limit(10)
+  top10Whites: function(callback) { //TODO: test against populated database once forcedRequest is up, or against dummy data
+
+    // return db.Product.findAsync({redORwhite:'White Wines'}).sort({rating: -1}).limit(10)
+    db.Product.find({redORwhite:'White Wines'}).limit(10).sort({rating: -1}).exec(function(error, results){
+      if(error){
+        callback(error, null)
+      } else {
+        console.log('TOP10WHITE')
+        callback(null, results)
+      }
+    })
   },
 
-  top10Rated: function() { //TODO: test against populated database once forcedRequest is up, or against dummy data
-    return db.Product.findAsync({}).sort({rating:-1}).limit(10)
+  top10Rated: function(callback) { //TODO: test against populated database once forcedRequest is up, or against dummy data
+    // return db.Product.findAsync({}).sort({rating:-1}).limit(10)
+    db.Product.find({}).limit(10).sort({rating:-1}).exec(function(error, results){
+      if(error){
+        callback(error, null)
+      } else {
+        console.log('TOP10')
+        callback(null, results)
+      }
+    })
   }
 }
