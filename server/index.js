@@ -2,16 +2,31 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var dbUtilities = require('./utilities/dbUtils.js');
 var wineApiUtils = require('./utilities/wineApiUtils.js');
+var cors = require('cors');
 
 //INSTANTIATE APP
 var app = express();
 
+// var options = {
+//   key: fs.readFileSync(__dirname + '/key.pem'),
+//   cert: fs.readFileSync(__dirname + '/cert.pem')
+// }
+// console.log('jpioasdfpoijsadpfoi', options);
+
+
 //Middleware for parse application/json
 app.use(bodyParser.json());
+app.use(cors())
 
 //load static files
 app.use(express.static(__dirname + '/../react-client/dist'));
 
+
+// var a = https.createServer(options, function(req, res) {
+//   console.log('insiasjdfjasopdfijasoipdfjSERVER')
+//   res.writeHead(200);
+//   res.send('hello world')
+// })
 //SETTING UP ALL THE ROUTES FOR THE CLIENT REQUEST
 
 app.get('/wine', function(req, res) {
@@ -129,11 +144,14 @@ app.post('/reviews', function(req, res) {
   })
 })
 
-var port = process.env.PORT;
+// app.options('*', function(req, res) {
+//   res.send('awesome')
+// })
 
-app.listen(process.env.PORT, function() {
-  console.log('listening to port ' + port);
-});
+
+app.get('/.well-known/acme-challenge/:content', function(req, res) {
+  res.send('PW-phkjKRkbF7Oeg1ed8b_EuymzQGBI0leXIYDq5Hyc')
+})
 
 //In terminal
 //export PORT=3000
@@ -215,3 +233,12 @@ wineApiUtils.forcedRequest(function(error, results) {
 
   }
 })
+
+// app.listen(3000);
+// httpsServer.listen(3000)
+
+var port = process.env.PORT;
+
+app.listen(process.env.PORT, function() {
+  console.log('listening to port ' + port);
+});

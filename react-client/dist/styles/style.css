@@ -1,15 +1,18 @@
-@import url('https://fonts.googleapis.com/css?family=Josefin+Sans|Lobster|Fugaz+One');
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans|PT+Serif|Lobster|Raleway:200|Fugaz+One');
 
-body, html, h1, h2, h3, h4, ul, li{
+body, html, p, h1, h2, h3, h4, ul, li, ol{
   margin: 0;
   padding: 0;
 }
 
 html {
-  background-image: url('./FullSizeRender.jpg');
-  background-size: cover;
   weight: 100%;
   height: 100%;
+}
+.topBackgroundImageWrapper {
+  background-image: url('./grapes.jpg');
+  background-size: cover;
+
 }
 
 h1 {
@@ -20,24 +23,24 @@ h1 {
 
 h2 {
   font-size: 1.8em;
-  font-family: 'Lobster', cursive;
+  font-family: 'Josefin Sans', sans-serif;
 }
 
 h3 {
   font-size: 1.5em;
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Raleway', sans-serif;
 
 }
 
 h4 {
   font-size: 1.2em;
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Raleway', sans-serif;
 
 }
 
 p {
   font-size: 1em;
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Raleway', sans-serif;
 }
 
 .container {
@@ -63,12 +66,16 @@ p {
   text-align: center;
   font-size: 3em;
   padding: 0em;
+  color: white;
+  font-family: 'Lobster', cursive;
+
 }
 
 .heroContentWrapper {
   margin: 0 auto;
   text-align: center;
-  padding: 2em;
+  padding: 1em;
+  color: white;
 }
 
 .mainSearchBar {
@@ -78,12 +85,12 @@ p {
 
 ::-webkit-input-placeholder {
   text-align: center;
-  font-family: 'Fugaz One', cursive;
+  font-family: 'Josefin Sans', sans-serif;
 }
 
 input:hover::-webkit-input-placeholder {
   text-align: center;
-  font-family: 'Fugaz One', cursive;
+  font-family: 'Josefin Sans', sans-serif;
   color: white;
 }
 
@@ -92,7 +99,6 @@ input:hover::-webkit-input-placeholder {
   postion: relative;
   display: inline-block;
   float: left;
-  text-align: center;
 }
 
 
@@ -149,7 +155,7 @@ form input:focus {
 
 form button {
   color: rgba(157, 82, 193, 0.88);
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Raleway', sans-serif;
   padding: 0.2em 1em;
   background-color: rgb(255, 255, 255);
   font-size: 1em;
@@ -192,19 +198,19 @@ form button:hover {
 }
 
 button {
-  color: rgba(157, 82, 193, 0.88);
-  font-family: 'Josefin Sans', sans-serif;
+  color: white;
+  font-family: 'Raleway', sans-serif;
   padding: 0.2em 1em;
-  background-color: rgb(255, 255, 255);
-  font-size: 1em;
-  border-radius: 5px;
-  border-style: ridge;
-  border-width: 1px;
+  background-color: rgba(162, 102, 181, 0.57);
+  font-size: 1.2em;
+  /*border-radius: 5px;*/
+  /*border-style: ridge;*/
+  /*border-width: 1px;*/
   margin: .1em 0em;
 }
 
 button:hover {
-  color:  rgb(255, 255, 255);
+  color:  white;
   background-color: rgba(157, 82, 193, 0.38);
 }
 
@@ -251,26 +257,34 @@ button:hover {
 .productListWrapper {
   display: block;
   position: relative;
-  border: 2px blue solid;
 }
 .productEntry {
-  border: 1px solid black;
+  border: 1px solid #c7c7c7;
+  width: 70%;
+  margin: 0 auto;
+}
+
+.productListContainer li{
+  width: 80%;
+  margin: 0 auto;
 }
 
 .productEntryFlexbox {
   display: inline-flex;
   width: 80%;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
+  align-content: center;
+  padding: 0.5em;
 }
 
-.productEntryFlexItem .productEntryFlexItemCenter {
+/*.productEntryFlexItem .productEntryFlexItemCenter {
   flex-grow: 2;
-}
+}*/
 
 .productEntryFlexItem {
-  flex: auto;
-  flex-grow: 1;
+
+  /*flex-grow: 1;*/
 }
 
 .productListHeader {
@@ -279,13 +293,14 @@ button:hover {
 }
 
 .productOverviewFlexbox {
-  display: inline-flex;
+  display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
+  padding: 1em;
+  width: 100%;
 }
 
 .productOverviewFlexitem {
-  flex: auto;
   flex-grow: 1;
 }
 
@@ -298,7 +313,6 @@ button:hover {
 }
 
 .productOverviewMidFlexitem {
-  flex: auto;
   flex-grow: 1;
 }
 input.reviewFormField::-webkit-input-placeholder {
@@ -314,7 +328,8 @@ input.reviewFormField {
 }
 
 .reviewWrapper {
-  width: 70%;
+  width: 80%;
+  padding: 1em;
   margin: 0 auto;
   text-align: center;
 }
@@ -326,22 +341,83 @@ input.reviewFormField {
 }
 
 input.productOverviewFlexitem {
-  background-color: rgba(0, 136, 245, 0.71);
-  border-radius: 8%;
+  background-color: rgba(134, 65, 146, 0.55);
   font-size: 1.3em;
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Raleway', sans-serif;
+  color: white;
+  padding: 1em;
 }
 
 input.productOverviewFlexitem:hover {
   background-color: white;
-  color: rgba(0, 136, 245, 0.71);
-  border-radius: 8%;
+  color: rgba(134, 65, 146, 0.55);
+  /*border-radius: 8%;*/
 }
 
 .reviewEntryFlexbox {
   display: flex;
+  justify-content: space-around;
+  padding: 1em;
 }
 
 .reviewEntryItem {
-  flex: auto;
+}
+
+.bestCategory h2 {
+  font-family: 'Raleway', sans-serif;
+  text-transform: uppercase;
+  padding: 1em;
+  text-align: center;
+
+}
+.bestCategory {
+  font-family: 'Raleway', sans-serif;
+  text-transform: capitalize;
+}
+
+.trendingEntry {
+/*  padding: 0.6em;*/
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0;
+  margin: 0;
+
+}
+.entryFlexItemRight{}
+
+.entryFlexItem {
+  align-content: space-between;
+
+}
+
+.entryFlexItemRight {
+  display:none;
+}
+
+ol li {
+  padding: 0;
+}
+
+.productListHeader {
+  padding: 1em;
+}
+
+.topItemsWrapper {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.productName {
+  padding: 1em;
+}
+
+.vineyardInfo {
+  padding: 1em;
+}
+.reviewEntryFlexItem p {
+  display: inline;
+}
+.reviewContext {
+  font-size: 1em;
 }

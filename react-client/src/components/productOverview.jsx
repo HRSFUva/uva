@@ -80,27 +80,28 @@ class ProductOverview extends React.Component{
 
           {/* high level product overview flexbox, description on left, calls to action on right */}
           <div className='productOverviewWrapper'>
-            <div className="productOverviewFlexbox">
-              <h3 className="productOverviewFlexitem">
-                {this.props.product.Name}<br/>
-                {this.props.product.PriceMin}
-              </h3>
+
+            <div className='productName'>
+              <h4>
+                {this.props.product.Name}
+                <p>${this.props.product.PriceMin}</p>
+              </h4>
+            </div>
+
+            <div className="reviewButton">
               <input type="button" value="Write a review" onClick={this.handleUserWantsReview} className="productOverviewFlexitem" />
             </div>
 
-            {/* mid level product desc on left, dynamically generated user content on right */}
-            <div className='productOverviewMidFlexbox'>
-              <h1 className='productOverviewMidFlexitem'>
-                Vineyard: {this.props.product.Vineyard.Name}<br/>
-                Appellation: {this.props.product.Appellation.Name}<br/>
-                Region: {this.props.product.Appellation.Region.Name}
-              </h1>
-              <h1 className='productOverviewMidFlexitem'>
-                dynamically generated user content <br/>
-                dynamically generated user content <br/>
-                dynamically generated user content
-              </h1>
+            <div className='vineyardInfo'>
+              <h4> Vineyard:</h4>
+              <p>{this.props.product.Vineyard.Name}</p>
+              <h4>Appellation:</h4>
+              <p> {this.props.product.Appellation.Name}</p>
+              <h4>Region:</h4>
+              <p> {this.props.product.Appellation.Region.Name}</p>
+
             </div>
+
           </div>
 
           <ReviewList reviews={this.props.reviews}/>

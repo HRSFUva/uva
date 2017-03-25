@@ -57,7 +57,7 @@ class SearchBar extends React.Component {
 render(){
   return(
     <form className = 'searchBarForm' onSubmit={this.handleSearchSubmit}>
-      <input className = 'mainSearchBar' onChange={this.handleSearchChange} placeholder = 'Drink Great Wine' value={this.state.searchQuery} />
+      <input className = 'mainSearchBar' onChange={this.handleSearchChange} placeholder = 'Rose, Zin, Napa Valley, France...' value={this.state.searchQuery} />
       <div className="priceButtons">
         <input type='button' value='$' onClick={this.handlePriceClick}></input>
         <input type='button' value='$$' onClick={this.handlePriceClick}></input>

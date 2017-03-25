@@ -44,11 +44,12 @@ class UvasChoiceWineList extends React.Component {
     return (
       <div className="bestCategory uvasChoiceCategory">
         <h2>Uva's Choice</h2>
-        <ul>
+        <hr/>
+        <ol>
           {this.state.uvasChoiceWines.map(uvasChoiceWine =>
             <li key={uvasChoiceWine.id}><UvasChoiceWineEntry uvasChoiceWine={uvasChoiceWine}/></li>
           )}
-        </ul>
+        </ol>
       </div>
     )
   }

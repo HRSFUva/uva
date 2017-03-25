@@ -17,25 +17,28 @@ class ProductEntry extends React.Component {
 
   render(){
     return(
-      <div className="productEntry">
-        <div className="productEntryFlexbox">
+      // <div className="productEntry">
+
+        <div className="productEntryFlexbox" onClick={this.handlePassBackClickedWine} >
 
         <div className="productEntryFlexItem">
           <img  src={this.props.product.Labels[0].Url} />
         </div>
 
-        <div className="productEntryFlexItem productEntryFlexItemCenter">
-          <h4 onClick={this.handlePassBackClickedWine}  >{this.props.product.Name} </h4>
-          <h4>MSRP: {this.props.product.PriceRetail}</h4><h4> Low Price: {this.props.product.PriceMin}
+        <div className="productEntryFlexItem">
+          <h4  >{this.props.product.Name} </h4>
+          <h4>Best Price: {this.props.product.PriceMin}
           </h4>
         </div>
 
         <div className="productEntryFlexItem">
-          <h3>{this.props.product.Vineyard.Name}
-          </h3>
+          <h4>{this.props.product.Vineyard.Name}Extra
+          </h4>
         </div>
-        </div>
-      </div>
+
+       </div>
+
+     // </div>
     )
   }
 

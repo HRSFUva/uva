@@ -1,6 +1,6 @@
 import React from 'react';
-import ProductEntry from './ProductEntry.jsx';
-import ProductOverview from './ProductOverview.jsx';
+import ProductEntry from './productEntry.jsx';
+import ProductOverview from './productOverview.jsx';
 
 import reviewEntry from './reviewEntry.jsx';
 
@@ -13,7 +13,8 @@ class ProductList extends React.Component {
       currentRange: [],
       currentWine: '',
       userClickedEntry: false,
-      userHasSearched: true
+      userHasSearched: true,
+      lastSearch: ''
     }
     this.updateCurrentPageList = this.updateCurrentPageList.bind(this);
     this.handleUserWantsBack = this.handleUserWantsBack.bind(this);
@@ -63,6 +64,7 @@ class ProductList extends React.Component {
     this.setState({
       totalPages: total,
       currentRange: currentRange,
+      lastSearch: this.props.searchHistory[0]
     })
   }
 
@@ -73,15 +75,19 @@ class ProductList extends React.Component {
       <div className="productListContainer">
 
         <div className="productListHeader">
+          <h4 id='searchTermResults'>Showing results for: '{this.state.lastSearch}'</h4>
+        </div>
+
+        <ol>
+          { this.state.currentRange.map(product =>
+            <li key={product.Id}><ProductEntry handleClickedProductEntry={this.handleClickedProductEntry} product={product}/></li> )}
+        </ol>
+
+        <div className="productListHeader">
           <h4>Page: {this.state.currentPage} of {this.state.totalPages} </h4>
           <button onClick={this.handleUserWantsBack}>Back</button>
           <button onClick={this.handleUserWantsNext}>Next</button>
         </div>
-
-        <ul>
-          { this.state.currentRange.map(product =>
-            <li key={product.Id}><ProductEntry handleClickedProductEntry={this.handleClickedProductEntry} product={product}/></li> )}
-      </ul>
       </div>
       )
     } else {

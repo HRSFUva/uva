@@ -47,11 +47,14 @@ class TrendingWineList extends React.Component {
         <h2>
           Trending
         </h2>
-        <ul>
+        <hr/>
+        <ol>
           {this.state.trendingWines.map(trendingWine =>
-            <li key={trendingWine.id}><TrendingWineEntry trendingWine={trendingWine}/></li>
+            <li key={trendingWine.id}>
+              <TrendingWineEntry  trendingWine={trendingWine}/>
+            </li>
           )}
-        </ul>
+        </ol>
       </div>
     )
   }

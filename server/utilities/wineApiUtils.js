@@ -1,8 +1,9 @@
 var request = require('request');
-var key = require('./apikey.js');
 var bodyParser = require('body-parser');
-
-
+var key = require('./apikey.js');
+// var key = process.env.KEY;
+key = key.apiKey;
+console.log('key', key)
 
 
 module.exports = {
@@ -11,7 +12,7 @@ module.exports = {
 
     var options = {
       method: 'GET',
-      url: 'http://services.wine.com/api/beta/service.svc/JSON/catalog?size=50&search=' + search + '&price=' + price + '|' + (price * (price/10 + 1)) + '&sort=rating&apikey=' + key.apiKey,
+      url: 'https://services.wine.com/api/beta/service.svc/JSON/catalog?size=50&search=' + search + '&price=' + price + '|' + (price * (price/10 + 1)) + '&sort=rating&apikey=' + key,
       headers:
        { 'cache-control': 'no-cache' },
        json: true
@@ -31,7 +32,7 @@ module.exports = {
   topRed: function(price, callback){
     var options = {
       method: 'GET',
-      url: 'http://services.wine.com/api/beta/service.svc/JSON/catalog?filter=categories(490+124)&offset=10&size=5&apikey=' + key.apikey,
+      url: 'https://services.wine.com/api/beta/service.svc/JSON/catalog?filter=categories(490+124)&offset=10&size=5&apikey=' + key,
       qs:
       { filter: 'categories(490 124)',
       offset: '10',
@@ -56,7 +57,7 @@ module.exports = {
   topWhite: function(price, callback) {
     var options = {
       method: 'GET',
-      url: 'http://services.wine.com/api/beta/service.svc/JSON/catalog?filter=categories(490+124)&offset=10&size=5&apikey=' + key.apikey,
+      url: 'https://services.wine.com/api/beta/service.svc/JSON/catalog?filter=categories(490+124)&offset=10&size=5&apikey=' + key,
       qs:
         { filter: 'categories(490 124)',
       offset: '10',
@@ -81,7 +82,7 @@ module.exports = {
   topRated: function(price, callback) {
     var options = {
       method: 'GET',
-      url: 'http://services.wine.com/api/beta/service.svc/JSON/catalog?filter=categories(490+124)&offset=10&size=5&apikey=' + key.apikey,
+      url: 'https://services.wine.com/api/beta/service.svc/JSON/catalog?filter=categories(490+124)&offset=10&size=5&apikey=' + key,
       qs:
         { filter: 'categories(490 124)',
       offset: '10',
@@ -105,7 +106,7 @@ module.exports = {
 
   forcedRequest: function (callback) {
    var forcedOptions = { method: 'GET',
-     url: 'http://services.wine.com/api/beta/service.svc/JSON/catalog',
+     url: 'https://services.wine.com/api/beta/service.svc/JSON/catalog',
      qs:
       { offset: '10',
         size: '10',
@@ -130,7 +131,7 @@ module.exports = {
 
 var options = {
   method: 'GET',
-  url: 'http://services.wine.com/api/beta/service.svc/JSON/catalog?filter=categories(490+124)&offset=10&size=5&apikey=' + key.apiKey,
+  url: 'https://services.wine.com/api/beta/service.svc/JSON/catalog?filter=categories(490+124)&offset=10&size=5&apikey=' + key,
   size: 25,
 };
 
