@@ -84,6 +84,23 @@ module.exports = {
     })
   },
 
+  trending: function (callback) {
+    db.Review.aggregate([{
+      $group: {_id: "$product", count: {"$sum": 1}}
+      }, {
+      $sort: {count: -1}
+      }, {
+      $limit: 3
+      }], function (error, results) {
+        if (error) {
+          callback(error, null);
+        } else {
+          callback(null, results);
+        }
+      }
+    );
+  },
+
   top10Reds: function(callback) { //TODO: test against populated database once forcedRequest is up, or against dummy data
     // return db.Product.find({redORwhite:'Red Wines'}).sort({rating: -1}).limit(10)
     db.Product.find({redORwhite:'Red Wines'}).limit(10).sort({apiRating: -1}).exec(function(error, results){
@@ -95,7 +112,6 @@ module.exports = {
         callback(error, results)
       }
     })
-
   },
 
   top10Whites: function(callback) { //TODO: test against populated database once forcedRequest is up, or against dummy data

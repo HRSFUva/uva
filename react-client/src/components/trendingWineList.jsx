@@ -1,5 +1,7 @@
 import React from 'react';
 import TrendingWineEntry from './trendingWineEntry.jsx';
+import _ from 'lodash';
+import $ from 'jquery';
 
 class TrendingWineList extends React.Component {
   constructor(props) {
@@ -36,9 +38,10 @@ class TrendingWineList extends React.Component {
         year: 2009,
         price: 10
        }
-      ]
+     ],
+    //  wineNumRatings: [{product: 'moscato', rating: 7}, {product: 'skinny', rating: 3}, {product: 'apothic', rating: 10}, {product: 'barefoot', rating: 5}, {product: 'bestWine', rating: 15}, {product: 'vinegar', rating: 0}],
+    //  maxRatingWines: []
     }
-
   }
 
   render() {
@@ -52,11 +55,16 @@ class TrendingWineList extends React.Component {
           {this.props.topReds.map(topRed =>
             <li key={topRed.id}>
               <TrendingWineEntry  topRed={topRed}/>
-            </li>
-          )}
+            </li>)}
         </ol>
       </div>
-    )
+            // {/* <div>{this.state.maxRatingWines}</div> */}
+            // <ul>
+            //   {this.state.trendingWines.map(trendingWine =>
+            //     <li key={trendingWine.id}><TrendingWineEntry trendingWine={trendingWine} onClick={this.handleUserWantsTrendingWine}/></li>
+            //   )}
+            // </ul>
+          )
   }
 }
 

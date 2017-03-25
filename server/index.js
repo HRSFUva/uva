@@ -34,7 +34,8 @@ app.get('/init', function(req, res){
 var wines = {
   top10Reds: [],
   top10Wines: [],
-  topRated: []
+  topRated: [],
+  trending: []
 }
 console.log('wineswineswines', wines);
 
@@ -58,15 +59,22 @@ console.log('wineswineswines', wines);
           res.send(error)
         }else {
           wines.topRated = topRated;
-          console.log('WIIINES())()()()', wines)
-          res.send(wines);
+          var trending = db.trending(function (error, trending) {
+            if (error) {
+              res.send(error);
+            } else {
+              wines.trending = trending;
+              console.log('WIIINES())()()()', wines)
+              res.send(wines.trending);
+            }
+          });
         }
-       })
+      });
       }
-    })
+    });
   }
  });
-})
+});
 
 app.get('/wine', function(req, res) {
   console.log('GET request to /wine received');
@@ -229,6 +237,16 @@ app.post('/reviews', function(req, res) {
 //   })
 // })
 
+// get all reviews
+app.get('/allReviews', function (req, res) {
+  dbUtilities.getAllReviews(function (error, reviews) {
+    if(error){
+      res.send(error);
+    } else {
+      res.send(reviews);
+    }
+  });
+});
 
 var port = process.env.PORT;
 
