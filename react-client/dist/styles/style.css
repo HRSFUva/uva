@@ -94,6 +94,18 @@ input:hover::-webkit-input-placeholder {
   color: white;
 }
 
+/*.reviewForm input::-webkit-input-placeholder {
+  text-align: center;
+  font-family: 'Josefin Sans', sans-serif;
+  color: ;
+}
+
+.reviewForm input:hover::-webkit-input-placeholder {
+  text-align: center;
+  font-family: 'Josefin Sans', sans-serif;
+  color: white;
+}*/
+
 .bestCategory {
   width: 33%;
   postion: relative;
@@ -265,17 +277,25 @@ button:hover {
 }
 
 .productListContainer li{
-  width: 80%;
+  width: 50%;
   margin: 0 auto;
 }
 
 .productEntryFlexbox {
   display: inline-flex;
-  width: 80%;
+  /*width: 80%;*/
   flex-direction: row;
   justify-content: space-between;
   align-content: center;
-  padding: 0.5em;
+  padding: 0.8em;
+  padding-left: 0.1em;
+  padding-right: 1.3em;
+}
+
+.productEntryFlexbox:hover {
+  color: rgb(108, 70, 199);
+  background-color: rgba(108, 70, 199, 0.19);
+  transition: 0.2s ease;
 }
 
 /*.productEntryFlexItem .productEntryFlexItemCenter {
@@ -286,6 +306,30 @@ button:hover {
 
   /*flex-grow: 1;*/
 }
+.productFlexbox {
+  display: flex;
+  justify-content: space-between;
+}
+
+.productFlexbox:hover {
+  color: rgb(108, 70, 199);
+  background-color: rgba(108, 70, 199, 0.19);
+  transition: 0.2s ease;
+}
+
+.productFlexItem h4 p{
+  display: inline;
+}
+
+h4+p{
+  display: inline;
+}
+
+.productFlexbox h4{
+  display: inline;
+}
+
+
 
 .productListHeader {
   margin: 0 auto;
@@ -315,12 +359,17 @@ button:hover {
 .productOverviewMidFlexitem {
   flex-grow: 1;
 }
+
 input.reviewFormField::-webkit-input-placeholder {
   text-align: center;
   font-family: 'Fugaz One', cursive;
   white-space: pre-line;
+  color: rgba(157, 82, 193, 0.88);
 }
 
+input.reviewFormField:hover::-webkit-input-placeholder {
+  color: white;
+}
 
 input.reviewFormField {
   height: 8em;
@@ -352,15 +401,6 @@ input.productOverviewFlexitem:hover {
   background-color: white;
   color: rgba(134, 65, 146, 0.55);
   /*border-radius: 8%;*/
-}
-
-.reviewEntryFlexbox {
-  display: flex;
-  justify-content: space-around;
-  padding: 1em;
-}
-
-.reviewEntryItem {
 }
 
 .bestCategory h2 {
@@ -415,9 +455,34 @@ ol li {
 .vineyardInfo {
   padding: 1em;
 }
-.reviewEntryFlexItem p {
-  display: inline;
+
+.reviewEntryWrapper {
+  width: 60%;
+  margin: 0 auto;
 }
+.reviewEntryFlexbox {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5em;
+}
+
 .reviewContext {
   font-size: 1em;
 }
+
+.entryFlexItem.flexItemRight {
+  text-align:right;
+}
+
+.productOverviewHighlightWrapper {
+  width: 50%;
+  margin: 0 auto;
+  padding: 1.5em;
+}
+
+.submitReview {
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+}
+

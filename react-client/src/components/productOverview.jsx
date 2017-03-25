@@ -37,7 +37,9 @@ class ProductOverview extends React.Component{
   }
 
   componentDidMount(){
-    this.props.getReviews(this.props.product.Id);
+    console.log('trying to get reviews');
+    console.log('key', this.props.currentWine.wine._id);
+    this.props.getReviews(this.props.currentWine.wine._id);
   }
   handleUserWantsReview(event){
     this.setState({
@@ -61,13 +63,14 @@ class ProductOverview extends React.Component{
     if (this.state.userReview.length && this.state.userRating !== '') {
       console.log('Inside handleReviewSubmit function', this.state.userReview);
       console.log('Inside handleReviewSubmit function', this.state.userRating);
-      this.props.submitReview (this.state.userReview, this.state.userRating, this.props.product.Id);
+      this.props.submitReview (this.state.userReview, this.state.userRating, this.props.currentWine.wine);
       this.setState({
         userReview: '',
         userRating: '',
         userWantsWriteReview: false,
         successfulReview: true
       })
+      this.componentDidMount();
     }
     event.preventDefault();
   }
@@ -83,8 +86,8 @@ class ProductOverview extends React.Component{
 
             <div className='productName'>
               <h4>
-                {this.props.product.Name}
-                <p>${this.props.product.PriceMin}</p>
+                {this.props.currentWine.wine.name}
+                <p>${this.props.currentWine.wine.priceMin}</p>
               </h4>
             </div>
 
@@ -92,18 +95,55 @@ class ProductOverview extends React.Component{
               <input type="button" value="Write a review" onClick={this.handleUserWantsReview} className="productOverviewFlexitem" />
             </div>
 
-            <div className='vineyardInfo'>
-              <h4> Vineyard:</h4>
-              <p>{this.props.product.Vineyard.Name}</p>
-              <h4>Appellation:</h4>
-              <p> {this.props.product.Appellation.Name}</p>
-              <h4>Region:</h4>
-              <p> {this.props.product.Appellation.Region.Name}</p>
+            <div className='productOverviewHighlightWrapper'>
+
+              <div className='productFlexbox'>
+
+                <div className='productFlexItem'>
+                <h4>
+                  Name:
+                </h4>
+                <p> {this.props.currentWine.wine.name}</p><br />
+                  <h4>
+                    Region:
+                  </h4>
+                  <p>
+                    {this.props.currentWine.wine.region}
+                  </p><br/>
+                  <h4>
+                    Origin:
+                  </h4>
+                  <p>
+                    {this.props.currentWine.wine.origin}
+                  </p><br/>
+                  <h4>
+                    Category:
+                  </h4>
+                  <p>
+                    {this.props.currentWine.wine.type}
+                  </p><br/>
+                </div>
+
+                <div className='productFlexItem'>
+                  <h4>
+                    Avg Rating:
+                  </h4>
+                  <p>
+                    {this.props.currentWine.wine.apiRating/20}
+                  </p><br/>
+                  <h4>
+                    Best Price:
+                  </h4>
+                  <p>
+                    ${this.props.currentWine.wine.priceMin}
+                  </p>
+                </div>
+
+              </div>
 
             </div>
 
           </div>
-
           <ReviewList reviews={this.props.reviews}/>
 
         </div>
@@ -115,7 +155,7 @@ class ProductOverview extends React.Component{
         <div className='container'>
           <div className='reviewWrapper'>
             <h3>Write a Review</h3>
-            <h4>{this.props.product.Name}</h4>
+            <h4>{this.props.currentWine.wine.name}</h4>
             <form className='reviewForm' onSubmit={this.handleReviewSubmit}>
               <input className='reviewFormField' type='text' value={this.state.userReview} onChange={this.handleReviewChange} placeholder='Thanks for offering your input for the community! We really appreciate the effort our members make in helping keeping other wine lovers informed and happy. Thanks again for being awesome, and as a gentle reminder, please adhere to the community guidelines in writing your review.'/><br/>
               <h4>Rating: </h4>
@@ -125,7 +165,7 @@ class ProductOverview extends React.Component{
               <input type='button' value={4} onClick={this.handleRatingChange}/>
               <input type='button' value={5} onClick={this.handleRatingChange}/>
               <span></span>
-              <input type='submit' value='Submit' />
+              <input className='submitReview' type='submit' value='Submit' />
             </form>
           </div>
         </div>
@@ -135,3 +175,13 @@ class ProductOverview extends React.Component{
 }
 
 export default ProductOverview;
+            {/*
+            <div className='vineyardInfo'>
+              <h4> Vineyard:</h4>
+              <p>{this.props.product.Vineyard.Name}</p>
+              <h4>Appellation:</h4>
+              <p> {this.props.product.Appellation.Name}</p>
+              <h4>Region:</h4>
+              <p> {this.props.product.Appellation.Region.Name}</p>
+
+            </div> */}

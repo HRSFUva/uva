@@ -11,7 +11,7 @@ class ProductList extends React.Component {
       currentPage: 1,
       totalPages: '',
       currentRange: [],
-      currentWine: '',
+      currentWine: {},
       userClickedEntry: false,
       userHasSearched: true,
       lastSearch: ''
@@ -33,9 +33,12 @@ class ProductList extends React.Component {
   }
 
   handleClickedProductEntry(wine) {
+    console.log('inside clicked product entry',wine);
     this.setState({
       userClickedEntry: true,
-      currentWine: wine
+      currentWine: {
+        wine: wine
+      }
     })
   }
 
@@ -80,7 +83,7 @@ class ProductList extends React.Component {
 
         <ol>
           { this.state.currentRange.map(product =>
-            <li key={product.Id}><ProductEntry handleClickedProductEntry={this.handleClickedProductEntry} product={product}/></li> )}
+            <li key={product._id}><ProductEntry handleClickedProductEntry={this.handleClickedProductEntry} product={product}/></li> )}
         </ol>
 
         <div className="productListHeader">
@@ -93,7 +96,7 @@ class ProductList extends React.Component {
     } else {
       return(
         <div>
-          <ProductOverview reviews={this.props.reviews} getReviews={this.props.getReviews} product={this.state.currentWine} submitReview={this.props.submitReview}/>
+          <ProductOverview reviews={this.props.reviews} getReviews={this.props.getReviews} currentWine={this.state.currentWine} submitReview={this.props.submitReview}/>
         </div>
       )
     }

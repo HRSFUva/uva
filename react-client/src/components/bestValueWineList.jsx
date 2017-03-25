@@ -46,8 +46,8 @@ class BestValueWineList extends React.Component {
         <h2>Best Value</h2>
         <hr/>
         <ol>
-          {this.state.bestValueWines.map(bestValueWine =>
-            <li key={bestValueWine.id}><BestValueWineEntry bestValueWine={bestValueWine}/></li>
+          {this.props.topWhites.map(topWhite =>
+            <li key={topWhite.id}><BestValueWineEntry topWhite={topWhite}/></li>
           )}
         </ol>
       </div>

@@ -2,18 +2,16 @@ import React from 'react';
 
 var ReviewEntry = ({review}) => (
 
-  <div className='reviewEntryFlexbox'>
-
-    <div className='reviewEntryFlexItem'>
-      <h4>User:
-        <p className='reviewUsername'>{(review.username === '') ? 'anonymous' : review.username}</p>
-      </h4>
-      <h4>Review:
-        <p className='reviewContext'>{review.context}</p>
-      </h4>
-      <h4>{(review.rating)/2} out of 5</h4>
+  <div className='reviewEntryWrapper'>
+    <div className='reviewEntryFlexbox'>
+      <div className='reviewEntryFlexItem'>
+        <h4>Rated {(review.rating)/2} out of 5 by {(review.username === '') ? 'anonymous' : review.username} {review.time ? 'on {review.time}' : ''}
+        </h4>
+        <p className='reviewContext'>
+          {review.content}
+        </p>
+      </div>
     </div>
-
   </div>
 )
 

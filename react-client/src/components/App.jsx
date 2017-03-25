@@ -36,6 +36,11 @@ class App extends React.Component {
         rating: 6,
         username: 'mark' }
       ],
+      topReds: [],
+      topWhites: [],
+      topRated: [],
+      uvasChoice: [],
+      trending: [],
       searchQuery: '',
       searchHistory: [],
       userHasSearched: false,
@@ -57,6 +62,12 @@ class App extends React.Component {
     this.handleUserWantsHome = this.handleUserWantsHome.bind(this);
     this.submitReview = this.submitReview.bind(this);
     this.getReviews = this.getReviews.bind(this);
+    this.init = this.init.bind(this);
+  }
+
+  componentDidMount(){
+    console.log('didmount')
+    this.init();
   }
 
   handleUserWantsHome(event) {
@@ -84,15 +95,37 @@ class App extends React.Component {
     })
   }
 
-  getReviews(productID){
+  init(){
     var context = this;
+    console.log('boom');
+    $.ajax({
+      url: 'http://localhost:3000/init',
+      contentType: 'application/json',
+      success: function (data) {
+        console.log('successful initial response', data);
+        context.setState({
+          topReds: data.top10Reds,
+          topWhites: data.top10Whites,
+          topRated: data.topRated,
+          trending: data.trending,
+          uvasChoice: data.uvasChoice
+        })
+      },
+      error: function(error) {
+        console.log('error inside init duuudeeee', error)
+      }
+    })
+  }
 
+  getReviews(product_id){
+    var context = this;
+    console.log('this is the key', product_id)
     $.ajax({
       url: 'http://localhost:3000/reviews',
       type: 'POST',
       contentType: 'application/json',
       data: JSON.stringify({
-        product: productID
+        product_id: product_id
       }),
       success: function(reviews){
         context.setState({
@@ -105,8 +138,12 @@ class App extends React.Component {
     })
   }
 
-  submitReview (review, rating, productID) {
+  submitReview (review, rating, wine) {
     var context = this;
+    console.log('wine', wine);
+    var product_id = wine._id;
+    var product = wine.name;
+
     $.ajax({
       url: 'http://localhost:3000/review',
       type: 'POST',
@@ -114,8 +151,9 @@ class App extends React.Component {
       data: JSON.stringify({
         review: review,
         rating: rating,
-        productID: productID,
-        username: this.state.username
+        name: name,
+        username: this.state.username,
+        product_id: product_id
       }),
       success: function(data) {
         //TODO: provide user feedback upon successful review
@@ -249,15 +287,15 @@ class App extends React.Component {
         </div>
         <div className='topItemsWrapper'>
           <div className='trendingWineListWrapper'>
-            <TrendingWineList />
+            <TrendingWineList topReds = {this.state.topReds}/>
           </div>
 
           <div className='bestValueWineListWrapper'>
-            <BestValueWineList />
+            <BestValueWineList topWhites={this.state.topWhites}/>
           </div>
 
           <div className='UvasChoiceWineListWrapper'>
-            <UvasChoiceWineList />
+            <UvasChoiceWineList topRated={this.state.topWhites}/>
           </div>
         </div>
 
