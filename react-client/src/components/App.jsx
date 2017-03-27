@@ -266,12 +266,12 @@ class App extends React.Component {
 
   handleClickedProductEntry(wine) {
     console.log('inside clicked product entry',wine);
-    this.setState({
-      userClickedEntry: true,
-      currentWine: {
-        wine: wine
-      }
-    })
+    if (wine) {
+      this.setState({
+        userClickedEntry: true,
+        currentWine: wine  
+      })
+    }
   }
 
 
