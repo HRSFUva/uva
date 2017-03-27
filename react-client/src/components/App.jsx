@@ -60,7 +60,8 @@ class App extends React.Component {
       userWantsHomePage: true,
       userHasSearched: false,
       userWantsLogin: false,
-      userWantsProductList: false
+      userWantsProductList: false,
+      userClickedEntry: false
     })
   }
 
@@ -269,7 +270,10 @@ class App extends React.Component {
     if (wine) {
       this.setState({
         userClickedEntry: true,
-        currentWine: wine  
+        currentWine: {
+          wine: wine
+        },
+        userWantsHomePage: false
       })
     }
   }
@@ -289,20 +293,20 @@ class App extends React.Component {
               </div>
             </div>
           </div>
-          <div className='topItemsWrapper'>
-            <div className='trendingWineListWrapper'>
-              <TopRedsList handleUserWantsProductList={this.handleUserWantsProductList} topReds = {this.state.topReds}/>
-            </div>
-
-            <div className='bestValueWineListWrapper'>
-              <TopWhitesList handleUserWantsProductList={this.handleUserWantsProductList} topWhites={this.state.topWhites}/>
-            </div>
+        {!this.state.userClickedEntry ?
+        (<div className='topItemsWrapper'>
+          <div className='trendingWineListWrapper'>
+            <TopRedsList handleUserWantsProductList={this.handleUserWantsProductList} topReds = {this.state.topReds}/>
+          </div>
+          <div className='bestValueWineListWrapper'>
+            <TopWhitesList handleUserWantsProductList={this.handleUserWantsProductList} topWhites={this.state.topWhites}/>
+          </div>
 
           <div className='UvasChoiceWineListWrapper'>
             <UvasChoiceWineList handleClickedProductEntry={this.handleClickedProductEntry} topRated={this.state.topWhites}/>
           </div>
-        </div>
-
+        </div>) : (<ProductOverview reviews={this.state.reviews} currentWine={this.state.currentWine} getReviews={this.getReviews} submitReview={this.submitReview}/>)
+        }
 
       </div>
     )} else if (this.state.userWantsLogin && !this.state.userHasSearched) {
@@ -333,8 +337,8 @@ class App extends React.Component {
           )
       } 
       // else if (this.state.userWantsProductOverview) {
-      //   <TopBar/>
-      //   <Search/>
+      // //   <TopBar/>
+      // //   <Search/>
       //   <ProductOverview/>
       // }
 
