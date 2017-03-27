@@ -29,7 +29,7 @@ app.use(express.static(__dirname + '/../react-client/dist'));
 // })
 
 //SETTING UP ALL THE ROUTES FOR THE CLIENT REQUEST
-app.get('https://***.herokuapp.com:443/init', function(req, res){
+app.get('https://*.herokuapp.com:443/init', function(req, res){
 
 var wines = {
   top10Reds: [],
@@ -78,7 +78,7 @@ console.log('wineswineswines', wines);
 // app.get('/catalog', wineApiUtils.apiRequest);
 
 //POST request for search
-app.post('https://***.herokuapp.com:443/search', function(req, res) {
+app.post('https://*.herokuapp.com:443/search', function(req, res) {
   var query = req.body.search;
   var price = req.body.price || 10;
 
@@ -97,7 +97,7 @@ app.post('https://***.herokuapp.com:443/search', function(req, res) {
 });
 
 //POST request for signup
-app.post('https://***.herokuapp.com:443/signup', function(req, res) {
+app.post('https://*.herokuapp.com:443/signup', function(req, res) {
   var user = req.body.username;
   var pass = req.body.password;
 
@@ -119,7 +119,7 @@ app.post('https://***.herokuapp.com:443/signup', function(req, res) {
   })
 });
 
-app.post('https://***.herokuapp.com:443/users/username', function(req, res) {
+app.post('https://*.herokuapp.com:443/users/username', function(req, res) {
   var username = req.body.username;
 
   db.checkuserName(username, function(error, valid, results){
@@ -134,7 +134,7 @@ app.post('https://***.herokuapp.com:443/users/username', function(req, res) {
 })
 
 //POST request for login
-app.post('https://***.herokuapp.com:443/login', function(req, res) {
+app.post('https://*.herokuapp.com:443/login', function(req, res) {
   var username = req.body.username;
   var password = req.body.password;
 
@@ -148,7 +148,7 @@ app.post('https://***.herokuapp.com:443/login', function(req, res) {
 });
 
 //POST request for review
-app.post('https://***.herokuapp.com:443/review', function(req, res) {
+app.post('https://*.herokuapp.com:443/review', function(req, res) {
   var content = req.body.review;
   var rating = req.body.rating;
   var product = req.body.product;
@@ -172,7 +172,7 @@ app.post('https://***.herokuapp.com:443/review', function(req, res) {
 });
 
 //GET ALL REVIEWS FOR RESPECTIVE PRODUCT
-app.post('https://***.herokuapp.com:443/reviews', function(req, res) {
+app.post('https://*.herokuapp.com:443/reviews', function(req, res) {
   var product_id = req.body.product_id;
   console.log('product inside reviews GET all', product_id);
 
