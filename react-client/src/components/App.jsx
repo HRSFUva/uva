@@ -32,8 +32,10 @@ class App extends React.Component {
       invalidUsername: false,
       userWantsSignUp: false,
       userWantsProductList: false,
-      userWantsProductOverview: false
+      userClickedEntry: false,
+      currentWine: null
     }
+
     this.search = this.search.bind(this);
     this.handleUserWantsLogin = this.handleUserWantsLogin.bind(this);
     this.validateUser = this.validateUser.bind(this);
@@ -45,7 +47,7 @@ class App extends React.Component {
     this.getReviews = this.getReviews.bind(this);
     this.init = this.init.bind(this);
     this.handleUserWantsProductList = this.handleUserWantsProductList.bind(this);
-    this.handleUserWantsProductOverview = this.handleUserWantsProductOverview.bind(this);
+    this.handleClickedProductEntry = this.handleClickedProductEntry.bind(this);
   }
 
   componentDidMount(){
@@ -262,8 +264,14 @@ class App extends React.Component {
     })
   }
 
-  handleUserWantsProductOverview() {
-    
+  handleClickedProductEntry(wine) {
+    console.log('inside clicked product entry',wine);
+    this.setState({
+      userClickedEntry: true,
+      currentWine: {
+        wine: wine
+      }
+    })
   }
 
 
@@ -291,7 +299,7 @@ class App extends React.Component {
             </div>
 
           <div className='UvasChoiceWineListWrapper'>
-            <UvasChoiceWineList handleUserWantsProductOverview={this.handleUserWantsProductOverview} topRated={this.state.topWhites}/>
+            <UvasChoiceWineList handleClickedProductEntry={this.handleClickedProductEntry} topRated={this.state.topWhites}/>
           </div>
         </div>
 
