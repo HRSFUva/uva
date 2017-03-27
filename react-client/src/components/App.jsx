@@ -339,19 +339,12 @@ class App extends React.Component {
             {topbar}
             {search}
           </div>
-        <div className='topItemsWrapper'>
-          <div className='trendingWineListWrapper'>
-            <TopRedsList handleUserWantsProductList={this.handleUserWantsProductList} topReds = {this.state.topReds}/>
-          </div>
-          <div className='bestValueWineListWrapper'>
-            <TopWhitesList handleUserWantsProductList={this.handleUserWantsProductList} topWhites={this.state.topWhites}/>
-          </div>
-          <div className='UvasChoiceWineListWrapper'>
-            <UvasChoiceWineList handleUserWantsProductList={this.handleUserWantsProductList} topRated={this.state.topWhites}/>
-          </div>
-        {!this.state.userClickedEntry ?
-          homepageWines : (<ProductOverview reviews={this.state.reviews} currentWine={this.state.currentWine} getReviews={this.getReviews} submitReview={this.submitReview}/>)
-        }
+        <div>
+
+
+          {!this.state.userClickedEntry ?
+            homepageWines : (<ProductOverview reviews={this.state.reviews} currentWine={this.state.currentWine} getReviews={this.getReviews} submitReview={this.submitReview}/>)
+          }
         </div>
       </div>
     )} else if (this.state.userWantsLogin && !this.state.userHasSearched) {
