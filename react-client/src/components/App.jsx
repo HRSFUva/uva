@@ -8,6 +8,7 @@ import TopBar from './TopBar.jsx';
 import TopRedsList from './topRedsList.jsx';
 import TopWhitesList from './topWhitesList.jsx';
 import UvasChoiceWineList from './uvasChoiceWineList.jsx';
+import ProductOverview from './productOverview.jsx';
 
 class App extends React.Component {
   constructor (props) {
@@ -30,8 +31,11 @@ class App extends React.Component {
       invalidPasswordAttempt: false,
       invalidUsername: false,
       userWantsSignUp: false,
-      userWantsProductList: false
+      userWantsProductList: false,
+      userClickedEntry: false,
+      currentWine: null
     }
+
     this.search = this.search.bind(this);
     this.handleUserWantsLogin = this.handleUserWantsLogin.bind(this);
     this.validateUser = this.validateUser.bind(this);
@@ -43,6 +47,7 @@ class App extends React.Component {
     this.getReviews = this.getReviews.bind(this);
     this.init = this.init.bind(this);
     this.handleUserWantsProductList = this.handleUserWantsProductList.bind(this);
+    this.handleClickedProductEntry = this.handleClickedProductEntry.bind(this);
   }
 
   componentDidMount(){
@@ -55,7 +60,8 @@ class App extends React.Component {
       userWantsHomePage: true,
       userHasSearched: false,
       userWantsLogin: false,
-      userWantsProductList: false
+      userWantsProductList: false,
+      userClickedEntry: false
     })
   }
 
@@ -259,36 +265,49 @@ class App extends React.Component {
     })
   }
 
+  handleClickedProductEntry(wine) {
+    console.log('inside clicked product entry',wine);
+    if (wine) {
+      this.setState({
+        userClickedEntry: true,
+        currentWine: {
+          wine: wine
+        },
+        userWantsHomePage: false
+      })
+    }
+  }
+
 
   render (){
+    var homepageWines = (<div className='topItemsWrapper'>
+          <div className='trendingWineListWrapper'>
+            <TopRedsList handleUserWantsProductList={this.handleUserWantsProductList} topReds = {this.state.topReds}/>
+          </div>
+          <div className='bestValueWineListWrapper'>
+            <TopWhitesList handleUserWantsProductList={this.handleUserWantsProductList} topWhites={this.state.topWhites}/>
+          </div>
+
+          <div className='UvasChoiceWineListWrapper'>
+            <UvasChoiceWineList handleClickedProductEntry={this.handleClickedProductEntry} topRated={this.state.topWhites}/>
+          </div>
+        </div>);
+
     if(!this.state.userWantsLogin && !this.state.userHasSearched){
       return (
         <div className = 'container'>
-          <div className = 'topBackgroundImageWrapper'>
-            <TopBar username={this.state.username} userLoggedIn={this.state.userLoggedIn} handleUserWantsLogin={this.handleUserWantsLogin} handleUserWantsHome={this.handleUserWantsHome} handleUserWantsLogout={this.handleUserWantsLogout}/>
-
-            <div className = 'heroImageContainer'>
-              <div className = 'heroContentWrapper'>
-                <h2>Unbiased wine reviews</h2>
-                <Search className ='SearchBar' search = {this.search}/>
-              </div>
+        <div className = 'topBackgroundImageWrapper'>
+          <TopBar username={this.state.username} userLoggedIn={this.state.userLoggedIn} handleUserWantsLogin={this.handleUserWantsLogin} handleUserWantsHome={this.handleUserWantsHome} handleUserWantsLogout={this.handleUserWantsLogout}/>
+          <div className = 'heroImageContainer'>
+            <div className = 'heroContentWrapper'>
+              <h2>Unbiased wine reviews</h2>
+              <Search className ='SearchBar' search = {this.search}/>
             </div>
           </div>
-          <div className='topItemsWrapper'>
-            <div className='trendingWineListWrapper'>
-              <TopRedsList handleUserWantsProductList={this.handleUserWantsProductList} topReds = {this.state.topReds}/>
-            </div>
-
-            <div className='bestValueWineListWrapper'>
-              <TopWhitesList handleUserWantsProductList={this.handleUserWantsProductList} topWhites={this.state.topWhites}/>
-            </div>
-
-            <div className='UvasChoiceWineListWrapper'>
-              <UvasChoiceWineList handleUserWantsProductList={this.handleUserWantsProductList} topRated={this.state.topRated}/>
-          </div>
+        {!this.state.userClickedEntry ?
+          homepageWines : (<ProductOverview reviews={this.state.reviews} currentWine={this.state.currentWine} getReviews={this.getReviews} submitReview={this.submitReview}/>)
+        }
         </div>
-
-
       </div>
     )} else if (this.state.userWantsLogin && !this.state.userHasSearched) {
         //To do: refactor handleUserWantsHome
@@ -316,7 +335,13 @@ class App extends React.Component {
             <ProductList handleUserWantsProductList={this.handleUserWantsProductList} searchHistory={this.state.searchHistory} reviews={this.state.reviews} getReviews={this.getReviews} products={this.state.products} submitReview={this.submitReview}/>
           </div>
           )
-      }
+      } 
+      // else if (this.state.userWantsProductOverview) {
+      // //   <TopBar/>
+      // //   <Search/>
+      //   <ProductOverview/>
+      // }
+
   }
 }
 
