@@ -18,6 +18,11 @@ var app = express();
 //MIDDLEWARE
 app.use(bodyParser.json());
 // app.use(cors())
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 //load static files
 app.use(express.static(__dirname + '/../react-client/dist'));
@@ -29,7 +34,7 @@ app.use(express.static(__dirname + '/../react-client/dist'));
 // })
 
 //SETTING UP ALL THE ROUTES FOR THE CLIENT REQUEST
-app.get('/init', cors(), function(req, res){
+app.get('/init', function(req, res){
 
 var wines = {
   top10Reds: [],
