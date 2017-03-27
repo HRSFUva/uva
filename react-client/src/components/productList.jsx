@@ -23,6 +23,13 @@ class ProductList extends React.Component {
   }
 
   componentWillReceiveProps(){
+    // if(this.props.userWantsProductList === true){
+    //   this.setState({
+    //     userHasSearched = false
+    //   })
+    // }
+
+
     this.setState({
       userHasSearched: !this.userHasSearched
     }, this.updateCurrentPageList);
@@ -32,10 +39,12 @@ class ProductList extends React.Component {
     this.updateCurrentPageList()
   }
 
-  handleClickedProductEntry(wine) {
+  handleClickedProductEntry(wine = this.state.currentWine[0]) {
     console.log('inside clicked product entry',wine);
+
     this.setState({
-      userClickedEntry: true,
+      userClickedEntry: !this.state.userClickedEntry,
+
       currentWine: {
         wine: wine
       }
@@ -67,12 +76,12 @@ class ProductList extends React.Component {
     this.setState({
       totalPages: total,
       currentRange: currentRange,
-      lastSearch: this.props.searchHistory[0]
+      lastSearch: this.props.searchHistory[this.props.searchHistory.length-1]
     })
   }
 
   render () {
-    if(!this.state.userClickedEntry){
+    if(this.props.userWantsProductList){
 
     return (
       <div className="productListContainer">
@@ -96,7 +105,7 @@ class ProductList extends React.Component {
     } else {
       return(
         <div>
-          <ProductOverview reviews={this.props.reviews} getReviews={this.props.getReviews} currentWine={this.state.currentWine} submitReview={this.props.submitReview}/>
+          <ProductOverview handleClickedProductEntry={this.props.handleClickedProductEntry}reviews={this.props.reviews} getReviews={this.props.getReviews} currentWine={this.state.currentWine} submitReview={this.props.submitReview}/>
         </div>
       )
     }

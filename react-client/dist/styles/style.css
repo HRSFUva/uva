@@ -12,8 +12,9 @@ html {
 .topBackgroundImageWrapper {
   background-image: url('./grapes.jpg');
   background-size: cover;
-
 }
+
+
 
 h1 {
   font-size: 2.3em;
@@ -49,6 +50,11 @@ p {
   width: 100%;
   height:100%;
   position: absolute;
+}
+
+.contianer .login {
+  background-image: url('./grapes.jpg');
+  background-size: cover;
 }
 
 .heroImageContainer {
@@ -236,6 +242,7 @@ button:hover {
   margin: auto;
   padding: 2em;
   border-radius: 0.3em;
+  text-align: center;
 }
 
 .flexContainer {
@@ -484,5 +491,12 @@ ol li {
   display: block;
   text-align: center;
   margin: 0 auto;
+}
+
+.heroFullPage{
+   background-image: url('./grapes.jpg');
+  background-size: cover;
+  height: 100%;
+  padding-top: 0.7em;
 }
 

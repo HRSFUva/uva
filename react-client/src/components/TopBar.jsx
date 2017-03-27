@@ -7,15 +7,18 @@ class TopBar extends React.Component {
   }
 
   render(){
+    var signup = (<button className='flexItem flexEdge' onClick={this.props.handleUserWantsSignUp} value='signup'>Sign Up</button>);
+    var home =    (<button onClick={this.props.handleUserWantsHome} className='flexItem flexEdge' value='login'>Home</button>);
+
     return(
     <div className='flexContainer'>
-      <button onClick={this.props.handleUserWantsHome} className='flexItem flexEdge' value='login'>Home</button>
-      {this.props.userLoggedIn &&
-      <h4> Hi {this.props.username}! </h4> }
+      { this.props.userWantsHomePage && !this.props.userLoggedIn ? signup : this.props.userWantsHomePage && this.props.userLoggedIn || this.props.userWantsLogin ? home : home
+        }
+
       <h2 className='flexItem flexCenter mainLogo'>Uva</h2>
-      {!this.props.userLoggedIn ?
-      !this.props.userWantsSignUp ? (<button className='flexItem flexEdge' onClick={this.props.handleUserWantsLogin} value='login'>Login</button>) : (<button className='flexItem flexEdge' onClick={this.props.handleUserWantsSignUp} value='signup'>Sign Up</button>) :
-      (<button className='flexItem flexEdge' onClick={this.props.handleUserWantsLogout} value='logout'>Logout</button>)}
+
+      {this.props.userLoggedIn ?
+       (<button className='flexItem flexEdge' onClick={this.props.handleUserWantsLogout} value='logout'>Logout</button>) : !this.props.userWantsLogin ? (<button className='flexItem flexEdge' onClick={this.props.handleUserWantsLogin} value='login'>Login</button>):(<button className='flexItem flexEdge' onClick={this.props.handleUserWantsSignUp} value='signup'>Sign Up</button>)}
     </div>
     )
   }
