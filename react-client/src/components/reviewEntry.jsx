@@ -12,6 +12,7 @@ var ReviewEntry = ({review}) => (
         </p>
       </div>
     </div>
+    <hr/>
   </div>
 )
 

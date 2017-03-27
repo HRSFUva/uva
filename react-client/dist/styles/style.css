@@ -52,7 +52,7 @@ p {
   position: absolute;
 }
 
-.contianer .login {
+.container .login {
   background-image: url('./grapes.jpg');
   background-size: cover;
 }
