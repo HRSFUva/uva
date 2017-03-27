@@ -165,7 +165,8 @@ class App extends React.Component {
         rating: rating,
         name: name,
         username: this.state.username,
-        product_id: product_id
+        product_id: product_id,
+        time: Date
       }),
       success: function(data) {
         //TODO: provide user feedback upon successful review
