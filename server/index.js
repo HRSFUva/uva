@@ -17,7 +17,7 @@ var app = express();
 
 //MIDDLEWARE
 app.use(bodyParser.json());
-app.use(cors());
+// app.use(cors())
 
 //load static files
 app.use(express.static(__dirname + '/../react-client/dist'));
@@ -29,7 +29,7 @@ app.use(express.static(__dirname + '/../react-client/dist'));
 // })
 
 //SETTING UP ALL THE ROUTES FOR THE CLIENT REQUEST
-app.get('/init', function(req, res){
+app.get('/init', cors(), function(req, res){
 
 var wines = {
   top10Reds: [],
