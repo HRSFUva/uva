@@ -341,10 +341,10 @@ class App extends React.Component {
           </div>
         <div className='topItemsWrapper'>
           <div className='trendingWineListWrapper'>
-            <TrendingWineList handleUserWantsProductList={this.handleUserWantsProductList} topReds = {this.state.topReds}/>
+            <TopRedsList handleUserWantsProductList={this.handleUserWantsProductList} topReds = {this.state.topReds}/>
           </div>
           <div className='bestValueWineListWrapper'>
-            <BestValueWineList handleUserWantsProductList={this.handleUserWantsProductList} topWhites={this.state.topWhites}/>
+            <TopWhitesList handleUserWantsProductList={this.handleUserWantsProductList} topWhites={this.state.topWhites}/>
           </div>
           <div className='UvasChoiceWineListWrapper'>
             <UvasChoiceWineList handleUserWantsProductList={this.handleUserWantsProductList} topRated={this.state.topWhites}/>
