@@ -47,7 +47,7 @@ class UvasChoiceWineList extends React.Component {
         <hr/> 
         <ol>
           {this.props.topRated.map(topRated =>
-            <li key={topRated.id}><UvasChoiceWineEntry handleClickedProductEntry={this.props.handleClickedProductEntry} topRated={topRated}/></li>
+            <li key={topRated._id}><UvasChoiceWineEntry handleClickedProductEntry={this.props.handleClickedProductEntry} topRated={topRated}/></li>
           )}
         </ol>
       </div>
