@@ -1,6 +1,6 @@
 import React from 'react';
 
-var TrendingWineEntry = ({topRed}) => (
+var TopRedsEntry = ({topRed}) => (
    <div className='productEntryFlexbox'>
     <div className='entryFlexItem' >
       <h4>{topRed.name}</h4>
@@ -14,4 +14,4 @@ var TrendingWineEntry = ({topRed}) => (
 
 );
 
-export default TrendingWineEntry;
+export default TopRedsEntry;

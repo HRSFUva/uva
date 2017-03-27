@@ -35,7 +35,6 @@ var wines = {
   top10Reds: [],
   top10Wines: [],
   topRated: [],
-  trending: []
 }
 console.log('wineswineswines', wines);
 
@@ -47,33 +46,26 @@ console.log('wineswineswines', wines);
     res.send(error);
   } else {
     wines.top10Reds = topReds;
-   //GET TOP 10 WHITE
-   var top10Whites = db.top10Whites(function(error, topWhites){
+    //GET TOP 10 WHITE
+    var top10Whites = db.top10Whites(function(error, topWhites){
       if(error){
         res.send(error)
       } else {
-        wines.top10Whites = topWhites;
+       wines.top10Whites = topWhites;
        //GET TOP 10 RATED
        var topRated = db.top10Rated(function(error, topRated){
         if(error){
           res.send(error)
-        }else {
+        } else {
           wines.topRated = topRated;
-          var trending = db.trending(function (error, trending) {
-            if (error) {
-              res.send(error);
-            } else {
-              wines.trending = trending;
-              console.log('WIIINES())()()()', wines)
-              res.send(wines.trending);
-            }
-          });
+          res.send(wines);
+          console.log('WIIINES())()()()', wines);
         }
-      });
+       });
       }
     });
-  }
- });
+    }
+  });
 });
 
 app.get('/wine', function(req, res) {
@@ -236,17 +228,6 @@ app.post('/reviews', function(req, res) {
 //     })
 //   })
 // })
-
-// get all reviews
-app.get('/allReviews', function (req, res) {
-  dbUtilities.getAllReviews(function (error, reviews) {
-    if(error){
-      res.send(error);
-    } else {
-      res.send(reviews);
-    }
-  });
-});
 
 var port = process.env.PORT;
 

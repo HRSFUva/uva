@@ -1,13 +1,13 @@
 import React from 'react';
-import TrendingWineEntry from './trendingWineEntry.jsx';
+import TopRedsEntry from './topRedsEntry.jsx';
 import _ from 'lodash';
 import $ from 'jquery';
 
-class TrendingWineList extends React.Component {
+class TopRedsList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      trendingWines: [
+      topReds: [
       { id:1,
         name: 'peter michael',
         year: 2009,
@@ -48,24 +48,24 @@ class TrendingWineList extends React.Component {
     return (
       <div className='bestCategory trendingCategory'>
         <h2>
-          Trending
+          Top Reds
         </h2>
         <hr/>
         <ol>
           {this.props.topReds.map(topRed =>
             <li key={topRed.id}>
-              <TrendingWineEntry  topRed={topRed}/>
+              <TopRedsEntry  topRed={topRed}/>
             </li>)}
         </ol>
       </div>
             // {/* <div>{this.state.maxRatingWines}</div> */}
             // <ul>
-            //   {this.state.trendingWines.map(trendingWine =>
-            //     <li key={trendingWine.id}><TrendingWineEntry trendingWine={trendingWine} onClick={this.handleUserWantsTrendingWine}/></li>
+            //   {this.state.topRedss.map(topReds =>
+            //     <li key={topReds.id}><topRedsEntry topReds={topReds} onClick={this.handleUserWantstopReds}/></li>
             //   )}
             // </ul>
           )
   }
 }
 
-export default TrendingWineList;
+export default TopRedsList;
