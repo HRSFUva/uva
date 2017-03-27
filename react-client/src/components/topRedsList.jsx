@@ -53,7 +53,7 @@ class TopRedsList extends React.Component {
         <hr/>
         <ol>
           {this.props.topReds.map(topRed =>
-            <li key={topRed.id}>
+            <li key={topRed._id}>
               <TopRedsEntry  topRed={topRed}/>
             </li>)}
         </ol>

@@ -47,7 +47,7 @@ class TopWhitesList extends React.Component {
         <hr/>
         <ol>
           {this.props.topWhites.map(topWhite =>
-            <li key={topWhite.id}><TopWhitesEntry topWhite={topWhite}/></li>
+            <li key={topWhite._id}><TopWhitesEntry topWhite={topWhite}/></li>
           )}
         </ol>
       </div>
