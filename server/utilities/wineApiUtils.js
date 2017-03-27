@@ -1,9 +1,9 @@
 var request = require('request');
 var bodyParser = require('body-parser');
-var key = require('./apikey.js');
+// var key = require('./apikey.js');
 // var key = process.env.KEY;
-key = key.apiKey;
-console.log('key', key)
+// key = key.apiKey;
+// console.log('key', key)
 
 
 module.exports = {
@@ -131,14 +131,12 @@ module.exports = {
 
 }
 
-var options = {
-  method: 'GET',
-  url: 'https://services.wine.com/api/beta/service.svc/JSON/catalog?filter=categories(490+124)&offset=10&size=5&apikey=' + key,
-  size: 25,
-};
+// var options = {
+//   method: 'GET',
+//   url: 'https://services.wine.com/api/beta/service.svc/JSON/catalog?filter=categories(490+124)&offset=10&size=5&apikey=' + key,
+//   size: 25,
+// };
 
 var pricePoints = [0, 10, 20, 30, 40, 50]
 
 var varietals = [];
-
-
