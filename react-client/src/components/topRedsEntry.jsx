@@ -8,7 +8,8 @@ var TopRedsEntry = ({topRed}) => (
       <p> Best Price: ${topRed.priceMin}</p>
     </div>
     <div className='entryFlexItem flexItemRight'>
-      <p>Avg Rating: <h4 className='entryRating'>{topRed.apiRating/20}</h4></p>
+      <p>Avg Rating: </p>
+      <h4 className='entryRating'>{topRed.apiRating/20}</h4>
     </div>
    </div>
 

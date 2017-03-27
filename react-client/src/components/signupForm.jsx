@@ -19,7 +19,6 @@ class SignupForm extends React.Component {
     this.ajaxCheckUsername = this.ajaxCheckUsername.bind(this);
     this.checkPasswordMatch = this.checkPasswordMatch.bind(this);
   }
-  // var context = this;
 
   ajaxCheckUsername(){
     this.props.checkUsername(this.state.username);
@@ -70,12 +69,6 @@ class SignupForm extends React.Component {
   render() {
     return (
       <div className='container'>
-      <span className = 'menuButton'>
-        <button value='home' onClick={this.props.userWantsHome}>Home</button>
-      </span>
-      <span className = 'loginButton'>
-        <button value='login' onClick={this.handleUserWantsLogin}>Login</button>
-      </span>
       <div className="signupFormWrapper">
         <form onSubmit={this.handleSubmit}>
           <div className='passwordInputLabel'>

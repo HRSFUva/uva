@@ -18,6 +18,7 @@ class ProductOverview extends React.Component{
 
   componentDidMount(){
     this.props.getReviews(this.props.currentWine.wine._id);
+    // this.props.handleUserWantsProductList();
   }
   handleUserWantsReview(event){
     this.setState({
@@ -40,12 +41,14 @@ class ProductOverview extends React.Component{
   handleReviewSubmit(event) {
     if (this.state.userReview.length && this.state.userRating !== '') {
       this.props.submitReview (this.state.userReview, this.state.userRating, this.props.currentWine.wine);
+
       this.setState({
         userReview: '',
         userRating: '',
         userWantsWriteReview: false,
         successfulReview: true
       })
+
       this.componentDidMount();
     }
     event.preventDefault();
@@ -82,10 +85,10 @@ class ProductOverview extends React.Component{
               <div className='productFlexbox'>
 
                 <div className='productFlexItem'>
-                  <h4>
-                    Name:
-                  </h4>
-                  <p> {this.props.currentWine.wine.name}</p><br />
+                <h4>
+                  Name:
+                </h4>
+                <p> {this.props.currentWine.wine.name} </p><br />
                   <h4>
                     Region:
                   </h4>
@@ -157,13 +160,3 @@ class ProductOverview extends React.Component{
 }
 
 export default ProductOverview;
-            {/*
-            <div className='vineyardInfo'>
-              <h4> Vineyard:</h4>
-              <p>{this.props.product.Vineyard.Name}</p>
-              <h4>Appellation:</h4>
-              <p> {this.props.product.Appellation.Name}</p>
-              <h4>Region:</h4>
-              <p> {this.props.product.Appellation.Region.Name}</p>
-
-            </div> */}

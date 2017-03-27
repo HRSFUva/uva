@@ -9,7 +9,6 @@ var returnHashedPasswordObj = function(password, salt){
   hash.update(password);
   var value = hash.digest('hex');
 
-  // console.log('value', value);
   return {
     salt: salt,
     pass: value
@@ -19,7 +18,6 @@ var returnHashedPasswordObj = function(password, salt){
 
 var saltHashPassword = function(req, res) {
   var salt = generateRandomSalt();
-  // var passObj = returnHashedPasswordObj(req.body.password, salt);
   console.log('salt from saltHashPassword', salt);
   var passObj = returnHashedPasswordObj('secretsauce', salt);
 

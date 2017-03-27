@@ -112,7 +112,7 @@ app.post('/signup', function(req, res) {
         if(error) {
           res.send('error inside addUser index.js');
         } else if (success) {
-          res.send('response from app.post /signup');
+          res.send(results);
         }
       })
     }
