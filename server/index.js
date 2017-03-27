@@ -17,7 +17,7 @@ var app = express();
 
 //MIDDLEWARE
 app.use(bodyParser.json());
-// app.use(cors())
+app.use(cors());
 
 //load static files
 app.use(express.static(__dirname + '/../react-client/dist'));
