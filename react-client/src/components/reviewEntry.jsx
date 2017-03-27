@@ -5,7 +5,7 @@ var ReviewEntry = ({review}) => (
   <div className='reviewEntryWrapper'>
     <div className='reviewEntryFlexbox'>
       <div className='reviewEntryFlexItem'>
-        <h4>Rated {(review.rating)/2} out of 5 by {(review.username === '') ? 'anonymous' : review.username} {review.time ? 'on {review.time}' : ''}
+        <h4>Rated {review.rating} out of 5 by {(review.username === '') ? 'anonymous' : review.username} {review.time ? 'on {review.time}' : ''}
         </h4>
         <p className='reviewContext'>
           {review.content}
