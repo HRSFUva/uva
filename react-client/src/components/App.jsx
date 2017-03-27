@@ -5,8 +5,8 @@ import $ from 'jquery';
 import Login from './loginForm.jsx';
 import ProductList from './productList.jsx';
 import TopBar from './TopBar.jsx';
-import TrendingWineList from './trendingWineList.jsx';
-import BestValueWineList from './bestValueWineList.jsx';
+import TopRedsList from './topRedsList.jsx';
+import TopWhitesList from './topWhitesList.jsx';
 import UvasChoiceWineList from './uvasChoiceWineList.jsx';
 
 class App extends React.Component {
@@ -19,7 +19,6 @@ class App extends React.Component {
       topWhites: [],
       topRated: [],
       uvasChoice: [],
-      trending: [],
       searchQuery: '',
       searchHistory: [],
       userHasSearched: false,
@@ -96,8 +95,6 @@ class App extends React.Component {
           topReds: data.top10Reds,
           topWhites: data.top10Whites,
           topRated: data.topRated,
-          trending: data.trending,
-          uvasChoice: data.uvasChoice
         })
       },
       error: function(error) {
@@ -267,27 +264,27 @@ class App extends React.Component {
     if(!this.state.userWantsLogin && !this.state.userHasSearched){
       return (
         <div className = 'container'>
-        <div className = 'topBackgroundImageWrapper'>
-          <TopBar username={this.state.username} userLoggedIn={this.state.userLoggedIn} handleUserWantsLogin={this.handleUserWantsLogin} handleUserWantsHome={this.handleUserWantsHome} handleUserWantsLogout={this.handleUserWantsLogout}/>
+          <div className = 'topBackgroundImageWrapper'>
+            <TopBar username={this.state.username} userLoggedIn={this.state.userLoggedIn} handleUserWantsLogin={this.handleUserWantsLogin} handleUserWantsHome={this.handleUserWantsHome} handleUserWantsLogout={this.handleUserWantsLogout}/>
 
-          <div className = 'heroImageContainer'>
-            <div className = 'heroContentWrapper'>
-              <h2>Unbiased wine reviews</h2>
-              <Search className ='SearchBar' search = {this.search}/>
+            <div className = 'heroImageContainer'>
+              <div className = 'heroContentWrapper'>
+                <h2>Unbiased wine reviews</h2>
+                <Search className ='SearchBar' search = {this.search}/>
+              </div>
             </div>
           </div>
-        </div>
-        <div className='topItemsWrapper'>
-          <div className='trendingWineListWrapper'>
-            <TrendingWineList handleUserWantsProductList={this.handleUserWantsProductList} topReds = {this.state.topReds}/>
-          </div>
+          <div className='topItemsWrapper'>
+            <div className='trendingWineListWrapper'>
+              <TopRedsList handleUserWantsProductList={this.handleUserWantsProductList} topReds = {this.state.topReds}/>
+            </div>
 
-          <div className='bestValueWineListWrapper'>
-            <BestValueWineList handleUserWantsProductList={this.handleUserWantsProductList} topWhites={this.state.topWhites}/>
-          </div>
+            <div className='bestValueWineListWrapper'>
+              <TopWhitesList handleUserWantsProductList={this.handleUserWantsProductList} topWhites={this.state.topWhites}/>
+            </div>
 
-          <div className='UvasChoiceWineListWrapper'>
-            <UvasChoiceWineList handleUserWantsProductList={this.handleUserWantsProductList} topRated={this.state.topWhites}/>
+            <div className='UvasChoiceWineListWrapper'>
+              <UvasChoiceWineList handleUserWantsProductList={this.handleUserWantsProductList} topRated={this.state.topRated}/>
           </div>
         </div>
 
@@ -306,15 +303,15 @@ class App extends React.Component {
       } else if (this.state.userHasSearched && this.state.userWantsProductList) {
         return (
           <div className="container">
-          <div className = 'topBackgroundImageWrapper'>
+            <div className = 'topBackgroundImageWrapper'>
 
-            <TopBar username={this.state.username} userLoggedIn={this.state.userLoggedIn} handleUserWantsHome={this.handleUserWantsHome} handleUserWantsLogout={this.handleUserWantsLogout} handleUserWantsLogin={this.handleUserWantsLogin}/>
-            <div className = 'heroImageContainer'>
-              <div className = 'heroContentWrapper'>
-                <h2>Unbiased wine reviews</h2>
-                <Search className ='SearchBar' handleUserWantsProductList={this.handleUserWantsProductList} userWantsProductList={this.state.userWantsProductList} search={this.search}/>
+              <TopBar username={this.state.username} userLoggedIn={this.state.userLoggedIn} handleUserWantsHome={this.handleUserWantsHome} handleUserWantsLogout={this.handleUserWantsLogout} handleUserWantsLogin={this.handleUserWantsLogin}/>
+              <div className = 'heroImageContainer'>
+                <div className = 'heroContentWrapper'>
+                  <h2>Unbiased wine reviews</h2>
+                  <Search className ='SearchBar' handleUserWantsProductList={this.handleUserWantsProductList} userWantsProductList={this.state.userWantsProductList} search={this.search}/>
+                </div>
               </div>
-            </div>
             </div>
             <ProductList handleUserWantsProductList={this.handleUserWantsProductList} searchHistory={this.state.searchHistory} reviews={this.state.reviews} getReviews={this.getReviews} products={this.state.products} submitReview={this.submitReview}/>
           </div>

@@ -73,7 +73,7 @@ class ProductOverview extends React.Component{
             <div>
               {this.props.reviews.length === 0 &&
                 <h4> Be the first to Review this Wine!</h4>
-                }
+              }
             </div>
 
 
@@ -82,10 +82,10 @@ class ProductOverview extends React.Component{
               <div className='productFlexbox'>
 
                 <div className='productFlexItem'>
-                <h4>
-                  Name:
-                </h4>
-                <p> {this.props.currentWine.wine.name}</p><br />
+                  <h4>
+                    Name:
+                  </h4>
+                  <p> {this.props.currentWine.wine.name}</p><br />
                   <h4>
                     Region:
                   </h4>

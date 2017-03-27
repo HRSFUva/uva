@@ -84,6 +84,7 @@ module.exports = {
     })
   },
 
+
   top10Reds: function(callback) { //TODO: test against populated database once forcedRequest is up, or against dummy data
     // return db.Product.find({redORwhite:'Red Wines'}).sort({rating: -1}).limit(10)
     db.Product.find({redORwhite:'Red Wines'}).limit(10).sort({apiRating: -1}).exec(function(error, results){
@@ -95,13 +96,12 @@ module.exports = {
         callback(error, results)
       }
     })
-
   },
 
   top10Whites: function(callback) { //TODO: test against populated database once forcedRequest is up, or against dummy data
 
     // return db.Product.findAsync({redORwhite:'White Wines'}).sort({rating: -1}).limit(10)
-    db.Product.find({redORwhite:'White Wines'}).limit(10).sort({rating: -1}).exec(function(error, results){
+    db.Product.find({redORwhite:'White Wines'}).limit(10).sort({apiRating: -1}).exec(function(error, results){
       if(error){
         callback(error, null)
       } else {
@@ -113,7 +113,7 @@ module.exports = {
 
   top10Rated: function(callback) { //TODO: test against populated database once forcedRequest is up, or against dummy data
     // return db.Product.findAsync({}).sort({rating:-1}).limit(10)
-    db.Product.find({}).limit(10).sort({rating:-1}).exec(function(error, results){
+    db.Product.find({}).limit(10).sort({apiRating:-1}).exec(function(error, results){
       if(error){
         callback(error, null)
       } else {
