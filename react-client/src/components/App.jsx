@@ -280,21 +280,7 @@ class App extends React.Component {
 
 
   render (){
-    if(!this.state.userWantsLogin && !this.state.userHasSearched){
-      return (
-        <div className = 'container'>
-          <div className = 'topBackgroundImageWrapper'>
-            <TopBar username={this.state.username} userLoggedIn={this.state.userLoggedIn} handleUserWantsLogin={this.handleUserWantsLogin} handleUserWantsHome={this.handleUserWantsHome} handleUserWantsLogout={this.handleUserWantsLogout}/>
-
-            <div className = 'heroImageContainer'>
-              <div className = 'heroContentWrapper'>
-                <h2>Unbiased wine reviews</h2>
-                <Search className ='SearchBar' search = {this.search}/>
-              </div>
-            </div>
-          </div>
-        {!this.state.userClickedEntry ?
-        (<div className='topItemsWrapper'>
+    var homepageWines = (<div className='topItemsWrapper'>
           <div className='trendingWineListWrapper'>
             <TopRedsList handleUserWantsProductList={this.handleUserWantsProductList} topReds = {this.state.topReds}/>
           </div>
@@ -305,9 +291,23 @@ class App extends React.Component {
           <div className='UvasChoiceWineListWrapper'>
             <UvasChoiceWineList handleClickedProductEntry={this.handleClickedProductEntry} topRated={this.state.topWhites}/>
           </div>
-        </div>) : (<ProductOverview reviews={this.state.reviews} currentWine={this.state.currentWine} getReviews={this.getReviews} submitReview={this.submitReview}/>)
-        }
+        </div>);
 
+    if(!this.state.userWantsLogin && !this.state.userHasSearched){
+      return (
+        <div className = 'container'>
+        <div className = 'topBackgroundImageWrapper'>
+          <TopBar username={this.state.username} userLoggedIn={this.state.userLoggedIn} handleUserWantsLogin={this.handleUserWantsLogin} handleUserWantsHome={this.handleUserWantsHome} handleUserWantsLogout={this.handleUserWantsLogout}/>
+          <div className = 'heroImageContainer'>
+            <div className = 'heroContentWrapper'>
+              <h2>Unbiased wine reviews</h2>
+              <Search className ='SearchBar' search = {this.search}/>
+            </div>
+          </div>
+        {!this.state.userClickedEntry ?
+          homepageWines : (<ProductOverview reviews={this.state.reviews} currentWine={this.state.currentWine} getReviews={this.getReviews} submitReview={this.submitReview}/>)
+        }
+        </div>
       </div>
     )} else if (this.state.userWantsLogin && !this.state.userHasSearched) {
         //To do: refactor handleUserWantsHome

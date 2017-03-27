@@ -11,7 +11,7 @@ class UvasChoiceWineEntry extends React.Component {
   
   render() {
     return (
-      <div className='productEntryFlexbox' onClick={() => {console.log('hi');this.props.handleClickedProductEntry(this.state.wine) }}>
+      <div className='productEntryFlexbox' onClick={() => { this.props.handleClickedProductEntry(this.state.wine) }}>
       <div className='entryFlexItem' >
         <h4>{this.props.topRated.name}</h4>
         <p>Released: {this.props.topRated.year}</p>
