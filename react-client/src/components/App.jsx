@@ -313,14 +313,14 @@ class App extends React.Component {
   render (){
     var homepageWines = (<div className='topItemsWrapper'>
           <div className='trendingWineListWrapper'>
-            <TopRedsList handleUserWantsProductList={this.handleUserWantsProductList} topReds = {this.state.topReds}/>
+            <TopRedsList handleClickedProductEntry={this.handleClickedProductEntry} topReds = {this.state.topReds}/>
           </div>
           <div className='bestValueWineListWrapper'>
-            <TopWhitesList handleUserWantsProductList={this.handleUserWantsProductList} topWhites={this.state.topWhites}/>
+            <TopWhitesList handleClickedProductEntry={this.handleClickedProductEntry} topWhites={this.state.topWhites}/>
           </div>
 
           <div className='UvasChoiceWineListWrapper'>
-            <UvasChoiceWineList handleClickedProductEntry={this.handleClickedProductEntry} topRated={this.state.topWhites}/>
+            <UvasChoiceWineList handleClickedProductEntry={this.handleClickedProductEntry} topRated={this.state.topRated}/>
           </div>
         </div>);
 

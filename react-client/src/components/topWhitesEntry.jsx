@@ -1,14 +1,14 @@
 import React from 'react';
 
-var TopWhitesEntry = ({topWhite}) => (
- <div className='productEntryFlexbox'>
+var TopWhitesEntry = (props) => (
+ <div className='productEntryFlexbox' onClick={() => { props.handleClickedProductEntry(props.topWhite)}}>
    <div className='entryFlexItem' >
-     <h4>{topWhite.name}</h4>
-     <p>Released: {topWhite.year}</p>
-     <p> Best Price: ${topWhite.priceMin}</p>
+     <h4>{props.topWhite.name}</h4>
+     <p>Released: {props.topWhite.year}</p>
+     <p> Best Price: ${props.topWhite.priceMin}</p>
    </div>
    <div className='entryFlexItem flexItemRight'>
-     <p>Avg Rating: <h4 className='entryRating'>{topWhite.apiRating/20}</h4></p>
+     <p>Avg Rating: <h4 className='entryRating'>{props.topWhite.apiRating/20}</h4></p>
    </div>
  </div>
 );
