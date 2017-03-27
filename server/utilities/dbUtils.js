@@ -121,5 +121,9 @@ module.exports = {
         callback(null, results)
       }
     })
+  },
+
+  getUserReviews(username, callback) {
+
   }
 }
