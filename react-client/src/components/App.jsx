@@ -8,6 +8,7 @@ import TopBar from './TopBar.jsx';
 import TopRedsList from './topRedsList.jsx';
 import TopWhitesList from './topWhitesList.jsx';
 import UvasChoiceWineList from './uvasChoiceWineList.jsx';
+import ProductOverview from './productOverview.jsx';
 
 class App extends React.Component {
   constructor (props) {
@@ -30,7 +31,8 @@ class App extends React.Component {
       invalidPasswordAttempt: false,
       invalidUsername: false,
       userWantsSignUp: false,
-      userWantsProductList: false
+      userWantsProductList: false,
+      userWantsProductOverview: false
     }
     this.search = this.search.bind(this);
     this.handleUserWantsLogin = this.handleUserWantsLogin.bind(this);
@@ -43,6 +45,7 @@ class App extends React.Component {
     this.getReviews = this.getReviews.bind(this);
     this.init = this.init.bind(this);
     this.handleUserWantsProductList = this.handleUserWantsProductList.bind(this);
+    this.handleUserWantsProductOverview = this.handleUserWantsProductOverview.bind(this);
   }
 
   componentDidMount(){
@@ -259,6 +262,10 @@ class App extends React.Component {
     })
   }
 
+  handleUserWantsProductOverview() {
+    
+  }
+
 
   render (){
     if(!this.state.userWantsLogin && !this.state.userHasSearched){
@@ -283,8 +290,8 @@ class App extends React.Component {
               <TopWhitesList handleUserWantsProductList={this.handleUserWantsProductList} topWhites={this.state.topWhites}/>
             </div>
 
-            <div className='UvasChoiceWineListWrapper'>
-              <UvasChoiceWineList handleUserWantsProductList={this.handleUserWantsProductList} topRated={this.state.topRated}/>
+          <div className='UvasChoiceWineListWrapper'>
+            <UvasChoiceWineList handleUserWantsProductOverview={this.handleUserWantsProductOverview} topRated={this.state.topWhites}/>
           </div>
         </div>
 
@@ -316,7 +323,13 @@ class App extends React.Component {
             <ProductList handleUserWantsProductList={this.handleUserWantsProductList} searchHistory={this.state.searchHistory} reviews={this.state.reviews} getReviews={this.getReviews} products={this.state.products} submitReview={this.submitReview}/>
           </div>
           )
-      }
+      } 
+      // else if (this.state.userWantsProductOverview) {
+      //   <TopBar/>
+      //   <Search/>
+      //   <ProductOverview/>
+      // }
+
   }
 }
 
