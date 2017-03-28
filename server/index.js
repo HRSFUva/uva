@@ -17,7 +17,7 @@ var app = express();
 
 //MIDDLEWARE
 app.use(bodyParser.json());
-// app.use(cors());
+app.use(cors());
 
 //load static files
 app.use(express.static(__dirname + '/../react-client/dist'));
@@ -29,7 +29,7 @@ app.use(express.static(__dirname + '/../react-client/dist'));
 // })
 
 //SETTING UP ALL THE ROUTES FOR THE CLIENT REQUEST
-app.get('/init', cors(), function(req, res){
+app.get('/init', function(req, res){
 
 var wines = {
   top10Reds: [],
@@ -68,21 +68,19 @@ console.log('wineswineswines', wines);
   });
 });
 
-app.options('/init', cors());
+app.options('*', cors());
 
-app.get('/wine', cors(), function(req, res) {
+app.get('/wine', function(req, res) {
   console.log('GET request to /wine received');
   res.statusCode = 200;
   res.send('response from app.get /wine');
 });
 
-app.options('/wine', cors());
-
 //This route invokes wine.com api.
 // app.get('/catalog', wineApiUtils.apiRequest);
 
 //POST request for search
-app.post('/search', cors(), function(req, res) {
+app.post('/search', function(req, res) {
   var query = req.body.search;
   var price = req.body.price || 10;
 
@@ -100,10 +98,8 @@ app.post('/search', cors(), function(req, res) {
 
 });
 
-app.options('/search', cors());
-
 //POST request for signup
-app.post('/signup', cors(), function(req, res) {
+app.post('/signup', function(req, res) {
   var user = req.body.username;
   var pass = req.body.password;
 
@@ -125,9 +121,7 @@ app.post('/signup', cors(), function(req, res) {
   })
 });
 
-app.options('/signup', cors());
-
-app.post('/users/username/', cors(), function(req, res) {
+app.post('/users/username/', function(req, res) {
   var username = req.body.username;
 
   db.checkuserName(username, function(error, valid, results){
@@ -141,10 +135,10 @@ app.post('/users/username/', cors(), function(req, res) {
   })
 })
 
-app.options('/users/username/', cors());
+app.options('/users/username/');
 
 //POST request for login
-app.post('/login', cors(), function(req, res) {
+app.post('/login', function(req, res) {
   var username = req.body.username;
   var password = req.body.password;
 
@@ -157,11 +151,8 @@ app.post('/login', cors(), function(req, res) {
   })
 });
 
-app.options('/login', cors());
-
-
 //POST request for review
-app.post('/review', cors(), function(req, res) {
+app.post('/review', function(req, res) {
   var content = req.body.review;
   var rating = req.body.rating;
   var product = req.body.product;
@@ -184,10 +175,8 @@ app.post('/review', cors(), function(req, res) {
   })
 });
 
-app.options('/review', cors());
-
 //GET ALL REVIEWS FOR RESPECTIVE PRODUCT
-app.post('/reviews', cors(), function(req, res) {
+app.post('/reviews', function(req, res) {
   var product_id = req.body.product_id;
   console.log('product inside reviews GET all', product_id);
 
@@ -202,8 +191,6 @@ app.post('/reviews', cors(), function(req, res) {
     }
   })
 })
-
-app.options('/reviews', cors());
 
 // var pricesArray = [0, 10, 20, 30, 40, 50];
 // var winesArray = ['red', 'white', 'rose', 'Cabernet Franc', 'cabernet', 'fran', 'cabernet sauvignon', 'gamay', 'grenache', 'garnacha', 'malbec', 'merlot', 'mourvedre', 'mataro', 'nebbiolo', 'pinot', 'pinot noir', 'sango', 'sangiovese', 'shiraz', 'syrah', 'zin', 'zinfandel', 'chenin', 'chenin blanc', 'blanc', 'Gewurztraminer', 'marsanne', 'muscat', 'pinot blanc', 'blanc', 'pinot gris', 'pinot grigio', 'riesling', 'roussanne', 'sauvignon blanc', 'fume blanc', 'semillon', 'viognier', 'gruner veltliner', 'brut']
