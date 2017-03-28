@@ -10,6 +10,7 @@ import TopRedsList from './topRedsList.jsx';
 import TopWhitesList from './topWhitesList.jsx';
 import UvasChoiceWineList from './uvasChoiceWineList.jsx';
 import ProductOverview from './productOverview.jsx';
+import Account from './Account.jsx';
 
 
 class App extends React.Component {
@@ -35,7 +36,8 @@ class App extends React.Component {
       userWantsSignUp: false,
       userWantsProductList: false,
       userClickedEntry: false,
-      currentWine: null
+      currentWine: null,
+      wantsAccount: false
     }
 
     this.search = this.search.bind(this);
@@ -51,11 +53,24 @@ class App extends React.Component {
     this.init = this.init.bind(this);
     this.handleUserWantsProductList = this.handleUserWantsProductList.bind(this);
     this.handleClickedProductEntry = this.handleClickedProductEntry.bind(this);
+    this.handleWantsAccount = this.handleWantsAccount.bind(this);
   }
 
   componentDidMount(){
     console.log('didmount')
     this.init();
+  }
+
+  handleWantsAccount(event){
+    this.setState({
+      userWantsHomePage: false,
+      userHasSearched: false,
+      userWantsLogin: false,
+      userWantsProductList: false,
+      userClickedEntry: false,
+      userWantsSignUp: false,
+      wantsAccount: true
+    })
   }
 
   handleUserWantsHome(event) {
@@ -65,7 +80,8 @@ class App extends React.Component {
       userWantsLogin: false,
       userWantsProductList: false,
       userClickedEntry: false,
-      userWantsSignUp: false
+      userWantsSignUp: false,
+      wantsAccount: false
     })
   }
 
@@ -97,6 +113,7 @@ class App extends React.Component {
       userWantsProductList: false,
       userWantsLogin: false,
       userWantsSignUp: false,
+      wantsAccount: false,
       username: '',
       userID: ''
     })
@@ -197,11 +214,12 @@ class App extends React.Component {
           })
          } else {
            context.setState({
-            userLoggedIn: !context.state.userLoggedIn,
+            userLoggedIn: true,
             username: data[0].name,
             userID: data[0]._id,
-            userWantsLogin: !context.state.userWantsLogin,
-            invalidPasswordAttempt: false
+            userWantsLogin: false,
+            invalidPasswordAttempt: false,
+            userWantsHomePage: true
            });
          }
        },
@@ -252,7 +270,8 @@ class App extends React.Component {
           userWantsProductList: false,
           username: data.name,
           userID: data._id,
-          userLoggedIn: true
+          userLoggedIn: true,
+          userWantsSignUp: false
         })
       },
       error: function(error) {
@@ -325,7 +344,7 @@ class App extends React.Component {
           </div>
         </div>);
 
-    var topbar =   <TopBar username={this.state.username} userLoggedIn={this.state.userLoggedIn} handleUserWantsLogin={this.handleUserWantsLogin} handleUserWantsHome={this.handleUserWantsHome} handleUserWantsLogout={this.handleUserWantsLogout} handleUserWantsSignUp={this.handleUserWantsSignUp} userWantsHomePage={this.state.userWantsHomePage} userWantsLogin={this.state.userWantsLogin} userHasSearched={this.state.userHasSearched}/>;
+    var topbar =   <TopBar username={this.state.username} userLoggedIn={this.state.userLoggedIn} handleUserWantsLogin={this.handleUserWantsLogin} handleUserWantsHome={this.handleUserWantsHome} handleUserWantsLogout={this.handleUserWantsLogout} handleUserWantsSignUp={this.handleUserWantsSignUp} userWantsHomePage={this.state.userWantsHomePage} userWantsLogin={this.state.userWantsLogin} userHasSearched={this.state.userHasSearched} handleWantsAccount={this.handleWantsAccount} wantsAccount={this.state.wantsAccount}/>;
     var search =  <div className = 'heroImageContainer'>
             <div className = 'heroContentWrapper'>
               <h2>Unbiased wine reviews</h2>
@@ -378,8 +397,20 @@ class App extends React.Component {
           <div className='heroFullPage'>
             {topbar}
             <div>
-              <Signup invalidUsername={this.props.invalidUsername} checkUsername={this.props.checkUsername} userWantsHomePage={this.handleUserWantsHome} newUser={this.props.newUser} className='signupForm' handleUserWantsSignUp={this.handleUserWantsSignUp} />
+              <Signup invalidUsername={this.props.invalidUsername} checkUsername={this.checkUsername} userWantsHomePage={this.handleUserWantsHome} newUser={this.newUser} className='signupForm' handleUserWantsSignUp={this.handleUserWantsSignUp} invalidPasswordAttempt={this.state.invalidPasswordAttempt}/>
             </div>
+          </div>
+        </div>
+      )
+    } else if (this.state.wantsAccount){
+      return(
+        <div className='container'>
+          <div className = 'topBackgroundImageWrapper'>
+            {topbar}
+            {search}
+          </div>
+          <div>
+            <Account />
           </div>
         </div>
       )
