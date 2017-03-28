@@ -15,7 +15,7 @@ class TopBar extends React.Component {
 
     return(
     <div className='flexContainer'>
-      { this.props.userWantsHomePage && !this.props.userLoggedIn ? signup : this.props.userWantsHomePage && this.props.userLoggedIn || this.props.userWantsLogin ? home : home
+      { this.props.userWantsHomePage && !this.props.userLoggedIn ? signup : this.props.userWantsHomePage && this.props.userLoggedIn || this.props.userWantsLogin ? home : this.props.userLoggedIn ? home : home
         }
 
       <h2 className='flexItem flexCenter mainLogo'>Uva</h2>

@@ -23,6 +23,8 @@ class LoginForm extends React.Component {
 
   handleSubmit(event){
     //make post request to server with username and password
+    event.preventDefault();
+    event.stopPropagation();
     if (this.state.username.length > 0 && this.state.password.length > 0){
       this.props.validate(this.state.username, this.state.password);
       this.setState({
@@ -30,7 +32,6 @@ class LoginForm extends React.Component {
         password: ''
       })
     }
-    event.preventDefault()
   }
 
   render() {

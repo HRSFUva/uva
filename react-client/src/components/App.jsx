@@ -113,6 +113,7 @@ class App extends React.Component {
       userWantsProductList: false,
       userWantsLogin: false,
       userWantsSignUp: false,
+      wantsAccount: false,
       username: '',
       userID: ''
     })
@@ -213,11 +214,12 @@ class App extends React.Component {
           })
          } else {
            context.setState({
-            userLoggedIn: !context.state.userLoggedIn,
+            userLoggedIn: true,
             username: data[0].name,
             userID: data[0]._id,
-            userWantsLogin: !context.state.userWantsLogin,
-            invalidPasswordAttempt: false
+            userWantsLogin: false,
+            invalidPasswordAttempt: false,
+            userWantsHomePage: true
            });
          }
        },
@@ -268,7 +270,8 @@ class App extends React.Component {
           userWantsProductList: false,
           username: data.name,
           userID: data._id,
-          userLoggedIn: true
+          userLoggedIn: true,
+          userWantsSignUp: false
         })
       },
       error: function(error) {
@@ -394,7 +397,7 @@ class App extends React.Component {
           <div className='heroFullPage'>
             {topbar}
             <div>
-              <Signup invalidUsername={this.props.invalidUsername} checkUsername={this.props.checkUsername} userWantsHomePage={this.handleUserWantsHome} newUser={this.props.newUser} className='signupForm' handleUserWantsSignUp={this.handleUserWantsSignUp} />
+              <Signup invalidUsername={this.props.invalidUsername} checkUsername={this.checkUsername} userWantsHomePage={this.handleUserWantsHome} newUser={this.newUser} className='signupForm' handleUserWantsSignUp={this.handleUserWantsSignUp} invalidPasswordAttempt={this.state.invalidPasswordAttempt}/>
             </div>
           </div>
         </div>
