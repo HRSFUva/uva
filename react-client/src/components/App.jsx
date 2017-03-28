@@ -113,7 +113,7 @@ class App extends React.Component {
     var context = this;
     console.log('boom');
     $.ajax({
-      url: 'http://localhost:3000/init',
+      url: '/init',
       contentType: 'application/json',
       success: function (data) {
         console.log('successful initial response', data);
@@ -133,7 +133,7 @@ class App extends React.Component {
     var context = this;
     console.log('this is the key', product_id)
     $.ajax({
-      url: 'http://localhost:3000/reviews',
+      url: '/reviews',
       type: 'POST',
       contentType: 'application/json',
       data: JSON.stringify({
@@ -157,7 +157,7 @@ class App extends React.Component {
     var product = wine.name;
 
     $.ajax({
-      url: 'http://localhost:3000/review',
+      url: '/review',
       type: 'POST',
       contentType: 'application/json',
       data: JSON.stringify({
@@ -182,7 +182,7 @@ class App extends React.Component {
     var context = this;
 
      $.ajax({
-       url: 'http://localhost:3000/login',
+       url: '/login',
        type: 'POST',
        contentType: 'application/json',
        data: JSON.stringify({
@@ -214,7 +214,7 @@ class App extends React.Component {
    checkUsername (username) {
     var context = this;
     $.ajax({
-      url: 'http://localhost:3000/users/username',
+      url: '/users/username',
       type: 'POST',
       contentType: 'application/json',
       data: JSON.stringify({
@@ -237,7 +237,7 @@ class App extends React.Component {
    newUser (username, password) {
     var context = this;
     $.ajax({
-      url: 'http://localhost:3000/signup',
+      url: '/signup',
       type: 'POST',
       contentType: 'application/json',
       data: JSON.stringify({
@@ -275,7 +275,7 @@ class App extends React.Component {
     console.log('query inside search', query);
     console.log('price inside search', price);
     $.ajax({
-      url: 'http://localhost:3000/search',
+      url: '/search',
       type: 'POST',
       contentType: 'application/json',
       data: JSON.stringify({

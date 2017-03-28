@@ -17,7 +17,7 @@ var app = express();
 
 //MIDDLEWARE
 app.use(bodyParser.json());
-// app.use(cors())
+app.use(cors());
 
 //load static files
 app.use(express.static(__dirname + '/../react-client/dist'));
@@ -67,6 +67,8 @@ console.log('wineswineswines', wines);
     }
   });
 });
+
+app.options('*', cors());
 
 app.get('/wine', function(req, res) {
   console.log('GET request to /wine received');
@@ -132,6 +134,8 @@ app.post('/users/username/', function(req, res) {
     }
   })
 })
+
+app.options('/users/username/');
 
 //POST request for login
 app.post('/login', function(req, res) {
