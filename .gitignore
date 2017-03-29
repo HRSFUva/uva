@@ -30,4 +30,4 @@ node_modules/
 bower_components/
 
 # Wine API key
-server/utilities/apikey.js
+server/utilities/config.js
