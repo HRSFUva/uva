@@ -3,9 +3,65 @@ var bodyParser = require('body-parser');
 var db = require('./utilities/dbUtils.js');
 var wineApiUtils = require('./utilities/wineApiUtils.js');
 var cors = require('cors');
-var passport = require('passport')
+var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var fb = require('./utilities/config.js');
+var User = require('../database-mongo/models/User.js');
+
+var dylan = '';
+//initializing Passport with FB OAuth
+passport.use(new FacebookStrategy({
+    clientID: fb.fbAppId,
+    clientSecret: fb.secret,
+    callbackURL: 'http://localhost:3000/login/facebook/callback',
+  },
+  function(accessToken, refreshToken, profile, done) {
+    console.log(profile.id);
+    
+    User.find({name: profile.displayName}, function(err, user) {
+      console.log(user);
+      return done(err, user);
+      if (err) {
+        console.error(err);
+        return done(err);
+      } 
+      if (!user) {
+        User.create({
+          name: profile.displayName,
+          joined: new Date(),
+          accessToken: accessToken,
+          meta: {
+            reviews: 0,
+            friends: 0,
+          }, 
+        }, function(err, user) {
+          console.log('user.create', user);
+          if (err) {
+            console.error(err);
+            return done(err);
+          } else {
+            console.log(user);
+            return done(null, user);
+          }
+        });
+      } else {
+        console.log('user found');
+        done(null, user);
+      }
+    });
+  }
+));
+
+
+passport.serializeUser((user, cb) => {
+  console.log('user in serializeUser', user);
+  cb(null, user);
+});
+
+passport.deserializeUser((obj, cb) => {
+  console.log('obj in deserializeUser', obj);
+  cb(null, obj);
+});
 
 //INSTANTIATE APP
 var app = express();
@@ -25,51 +81,26 @@ app.use(express.static(__dirname + '/../react-client/dist'));
 //   consle.log(args);
 // };
 
-//initializing Passport with FB OAuth
-passport.use(new FacebookStrategy({
-    clientID: fb.fbAppId,
-    clientSecret: fb.secret,
-    callbackURL: 'http://localhost:3000/login/facebook/return',
-  },
-  function(accessToken, refreshToken, profile, done) {
-    console.log(accessToken, refreshToken, profile);
-    
-    // User.findOrCreate(...rest, function(err, user) {
-    //   if (err) { return done(err); }
-      // done(null, user);
-      done(null);
-    // });
-  }
-));
-
-
-passport.serializeUser((user, cb) => {
-  console.log('user in serializeUser', user);
-  cb(null, user);
-});
-
-passport.deserializeUser((obj, cb) => {
-  console.log('obj in deserializeUser', obj);
-  cb(null, obj);
-});
-
-
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get('/login', (req, res) => {
-  res.render('login');
-});
+// app.get('/login', (req, res) => {
+//   res.render('login');
+// });
 
 
 app.get('/login/facebook',
   passport.authenticate('facebook'));
 
-app.get('/login/facebook/return', 
-  passport.authenticate('facebook', { failureRedirect: '/login' }),
-  function(req, res) {
-    res.redirect('/');
-});
+app.get('/login/facebook/callback', 
+  passport.authenticate('facebook', { failureRedirect: '/login',
+                                      // session: false,
+                                      successRedirect: '/'
+                                    })
+  // function(req, res) {
+  //   console.log('done with passport');
+    // res.redirect('/');
+);
 
 
 // var a = https.createServer(options, function(req, res) {
