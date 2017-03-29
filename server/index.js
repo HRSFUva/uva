@@ -15,16 +15,16 @@ passport.use(new FacebookStrategy({
     callbackURL: 'http://localhost:3000/login/facebook/callback',
   },
   function(accessToken, refreshToken, profile, done) {
-    console.log(profile.id);
+    console.log(accessToken);
     
     User.find({name: profile.displayName}, function(err, user) {
-      console.log(user);
-      return done(err, user);
+      console.log('user in find user', user.length);
       if (err) {
         console.error(err);
         return done(err);
       } 
-      if (!user) {
+      if (user.length < 1) {
+        console.log('no user found');
         User.create({
           name: profile.displayName,
           joined: new Date(),
@@ -34,12 +34,11 @@ passport.use(new FacebookStrategy({
             friends: 0,
           }, 
         }, function(err, user) {
-          console.log('user.create', user);
           if (err) {
-            console.error(err);
+            console.error('error in user.create', err);
             return done(err);
           } else {
-            console.log(user);
+            console.log('created user', user);
             return done(null, user);
           }
         });
@@ -48,6 +47,7 @@ passport.use(new FacebookStrategy({
         done(null, user);
       }
     });
+    done();
   }
 ));
 
@@ -70,16 +70,34 @@ var app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-//load static files
-app.use(express.static(__dirname + '/../react-client/dist'));
+
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(express.static(__dirname + '/../react-client/dist'));
+
+app.use(
+     passport.authenticate('facebook')
+);
+
+//load static files
+
+// let log = (args) => {
+//   consle.log(args);
+// };
 
 // app.get('/login', (req, res) => {
 //   res.render('login');
 // });
 
+
+// app.get('/', 
+//   passport.authenticate('facebook', { failureRedirect: '/login',
+//                                       // session: false,
+//                                       successRedirect: '/'
+//                                     })
+// );
 
 app.get('/login/facebook',
   passport.authenticate('facebook'));
@@ -103,7 +121,7 @@ app.get('/init', function(req, res) {
     top10Wines: [],
     topRated: [],
   };
-
+  
   db.top10Reds(function(error, topReds) {
     if (error) {
       res.send(error);
