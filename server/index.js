@@ -149,10 +149,22 @@ app.get('/login/facebook/callback',
 
 app.options('*', cors());
 
-app.get('/wine', function(req, res) {
-  console.log('GET request to /wine received');
-  res.statusCode = 200;
-  res.send('response from app.get /wine');
+app.get('/getRedWine', function(req, res) {
+
+  wineApiUtils.topRed(10, function(error, results) {
+    // Save the top 5 red wines into the database
+    res.send(results);
+  });
+
+});
+
+app.get('/getWhiteWine', function(req, res) {
+
+  wineApiUtils.topWhite(10, function(error, results) {
+    // Save the top 5 white wines into the database
+    res.send(results);
+  });
+
 });
 
 //This route invokes wine.com api.
