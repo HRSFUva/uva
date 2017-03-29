@@ -125,5 +125,29 @@ module.exports = {
 
   getUserReviews(username, callback) {
 
+  },
+
+  storeWines(wines, callback) {
+    let promises = wines.map(function(wine) {
+      return new Promise(function(res, rej) {
+        Product.create({
+          name: wine.Name,
+          year: wine.Vintage,
+          type: wine.Varietal.Name,
+          redORwhite: wine.Varietal.WineType.Name,
+          origin: wine.Appellation.Name,
+          region: wine.Appellation.Region.Name,
+          priceMin: wine.PriceMin,
+          priceMax: wine.PriceMax,
+          apiRating: wine.Ratings.HighestScore
+        }, function(err, results) {
+          res();
+        });
+      });
+    });
+    Promise.all(promises)
+    .then(function() {
+      callback();
+    });
   }
 }

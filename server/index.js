@@ -66,19 +66,12 @@ passport.deserializeUser((obj, cb) => {
 var app = express();
 
 
-
-
-
 //MIDDLEWARE
 app.use(bodyParser.json());
 app.use(cors());
 
 //load static files
 app.use(express.static(__dirname + '/../react-client/dist'));
-
-// let log = (args) => {
-//   consle.log(args);
-// };
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -101,70 +94,59 @@ app.get('/login/facebook/callback',
     // res.redirect('/');
 );
 
-
-// var a = https.createServer(options, function(req, res) {
-//   console.log('insiasjdfjasopdfijasoipdfjSERVER')
-//   res.writeHead(200);
-//   res.send('hello world')
-// })
-
 //SETTING UP ALL THE ROUTES FOR THE CLIENT REQUEST
-// app.get('/init', function(req, res){
 
-// var wines = {
-//   top10Reds: [],
-//   top10Wines: [],
-//   topRated: [],
-// };
+// initializes the red and white wines on the client
+app.get('/init', function(req, res) {
+  var wines = {
+    top10Reds: [],
+    top10Wines: [],
+    topRated: [],
+  };
 
- //GET TOP 10 RED
-//  var top10Reds = db.top10Reds(function(error, topReds){
-
-//   if(error){
-//     res.send(error);
-//   } else {
-//     wines.top10Reds = topReds;
-//     //GET TOP 10 WHITE
-//     var top10Whites = db.top10Whites(function(error, topWhites){
-//       if(error){
-//         res.send(error)
-//       } else {
-//        wines.top10Whites = topWhites;
-//        //GET TOP 10 RATED
-//        var topRated = db.top10Rated(function(error, topRated){
-//         if(error){
-//           res.send(error)
-//         } else {
-//           wines.topRated = topRated;
-//           res.send(wines);
-//           console.log('WIIINES())()()()', wines);
-//         }
-//        });
-//       }
-//     });
-//     }
-//   });
-// });
+  db.top10Reds(function(error, topReds) {
+    if (error) {
+      res.send(error);
+    } else {
+      wines.top10Reds = topReds;
+      db.top10Whites(function(error, topWhites) {
+        if(error){
+          res.send(error)
+        } else {
+          wines.top10Whites = topWhites;
+          res.send(wines);
+         //GET TOP 10 RATED
+         // var topRated = db.top10Rated(function(error, topRated){
+         //  if(error){
+         //    res.send(error)
+         //  } else {
+         //    wines.topRated = topRated;
+         //    res.send(wines);
+         //    console.log('WIIINES())()()()', wines);
+         //  }
+         // });
+        }
+      });
+    }
+  });
+});
 
 
 app.options('*', cors());
 
-app.get('/getRedWine', function(req, res) {
+app.get('/getWines', function(req, res) {
+  // can be modified to take in a price from req/res later
+  var price = 10;
 
-  wineApiUtils.topRed(10, function(error, results) {
-    // Save the top 5 red wines into the database
-    res.send(results);
+  wineApiUtils.topRed(price, function(error, results) {
+    db.storeWines(results.Products.List, function() {
+      wineApiUtils.topWhite(price, function(error, results) {
+        db.storeWines(results.Products.List, function() {
+          res.send('storage of red and white wines complete!');
+        });
+      });
+    });
   });
-
-});
-
-app.get('/getWhiteWine', function(req, res) {
-
-  wineApiUtils.topWhite(10, function(error, results) {
-    // Save the top 5 white wines into the database
-    res.send(results);
-  });
-
 });
 
 //This route invokes wine.com api.
