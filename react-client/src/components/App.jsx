@@ -54,7 +54,6 @@ class App extends React.Component {
   }
 
   componentDidMount(){
-    console.log('didmount')
     this.init();
   }
 
@@ -111,12 +110,9 @@ class App extends React.Component {
 
   init(){
     var context = this;
-    console.log('boom');
     $.ajax({
       url: '/init',
-      contentType: 'application/json',
       success: function (data) {
-        console.log('successful initial response', data);
         context.setState({
           topReds: data.top10Reds,
           topWhites: data.top10Whites,

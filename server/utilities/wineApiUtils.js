@@ -10,7 +10,7 @@ module.exports = {
       method: 'GET',
       url: 'https://services.wine.com/api/beta/service.svc/JSON/catalog',
       qs: {
-        size: 50,
+        size: '50',
         search: search,
         filter: 'rating(85|100)+price(' + price + '|' + (price * (price/10 + 1)) + ')',
         sort: 'rating|descending',
@@ -38,7 +38,7 @@ module.exports = {
       method: 'GET',
       url: 'https://services.wine.com/api/beta/service.svc/JSON/catalog',
       qs: { 
-        filter: 'categories(490+124)+rating(85|100)+price(' + price + '|' + price+10 + ')',
+        filter: 'categories(490+124)+rating(85|100)+price(' + price + '|' + (price + 10) + ')',
         size: '100',
         sort: 'popularity|descending',
         apikey: key
@@ -63,7 +63,7 @@ module.exports = {
       method: 'GET',
       url: 'https://services.wine.com/api/beta/service.svc/JSON/catalog',
       qs: {
-        filter: 'categories(490+125)+rating(85|100)+price(10|20)',
+        filter: 'categories(490+125)+rating(85|100)+price(' + price + '|' + (price + 10) + ')',
         size: '100',
         sort: 'popularity|descending',
         apikey: key
@@ -76,10 +76,8 @@ module.exports = {
 
     request(options, function(error, response, body) {
       if (error) {
-        console.error('Error from top white function', error);
         callback(error, null);
       } else {
-        console.log('Response for top white search', body);
         callback(null, body);
       }
     });
