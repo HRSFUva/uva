@@ -3,16 +3,15 @@ var bodyParser = require('body-parser');
 var db = require('./utilities/dbUtils.js');
 var wineApiUtils = require('./utilities/wineApiUtils.js');
 var cors = require('cors');
+var passport = require('passport')
+var FacebookStrategy = require('passport-facebook').Strategy;
+var fb = require('./utilities/config.js');
 
 //INSTANTIATE APP
 var app = express();
 
-//SSL CERTIFICATE
-// var options = {
-//   key: fs.readFileSync(__dirname + '/key.pem'),
-//   cert: fs.readFileSync(__dirname + '/cert.pem')
-// }
-// console.log('SSL OPTIONS', options);
+
+
 
 
 //MIDDLEWARE
@@ -22,6 +21,50 @@ app.use(cors());
 //load static files
 app.use(express.static(__dirname + '/../react-client/dist'));
 
+//initializing Passport with FB OAuth
+passport.use(new FacebookStrategy({
+    clientID: fb.fbAppId,
+    clientSecret: fb.secret,
+    callbackURL: 'http://localhost:3000/login/facebook/return',
+  },
+  function(accessToken, refreshToken, profile, done) {
+    User.findOrCreate(...rest, function(err, user) {
+      if (err) { return done(err); }
+      done(null, user);
+    });
+  }
+));
+
+
+passport.serializeUser((user, cb) => {
+  console.log('user in serializeUser', user);
+  cb(null, user);
+});
+
+passport.deserializeUser((obj, cb) => {
+  console.log('obj in deserializeUser', obj);
+  cb(null, obj);
+});
+
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.get('/login', (req, res) => {
+  res.render('login');
+});
+
+
+app.get('/login/facebook',
+  passport.authenticate('facebook'));
+
+app.get('/login/facebook/return', 
+  passport.authenticate('facebook', { failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/');
+});
+
+
 // var a = https.createServer(options, function(req, res) {
 //   console.log('insiasjdfjasopdfijasoipdfjSERVER')
 //   res.writeHead(200);
@@ -29,44 +72,43 @@ app.use(express.static(__dirname + '/../react-client/dist'));
 // })
 
 //SETTING UP ALL THE ROUTES FOR THE CLIENT REQUEST
-app.get('/init', function(req, res){
+// app.get('/init', function(req, res){
 
-var wines = {
-  top10Reds: [],
-  top10Wines: [],
-  topRated: [],
-}
-console.log('wineswineswines', wines);
+// var wines = {
+//   top10Reds: [],
+//   top10Wines: [],
+//   topRated: [],
+// };
 
  //GET TOP 10 RED
- var top10Reds = db.top10Reds(function(error, topReds){
-  console.log('WINEwineswineswines', wines);
+//  var top10Reds = db.top10Reds(function(error, topReds){
 
-  if(error){
-    res.send(error);
-  } else {
-    wines.top10Reds = topReds;
-    //GET TOP 10 WHITE
-    var top10Whites = db.top10Whites(function(error, topWhites){
-      if(error){
-        res.send(error)
-      } else {
-       wines.top10Whites = topWhites;
-       //GET TOP 10 RATED
-       var topRated = db.top10Rated(function(error, topRated){
-        if(error){
-          res.send(error)
-        } else {
-          wines.topRated = topRated;
-          res.send(wines);
-          console.log('WIIINES())()()()', wines);
-        }
-       });
-      }
-    });
-    }
-  });
-});
+//   if(error){
+//     res.send(error);
+//   } else {
+//     wines.top10Reds = topReds;
+//     //GET TOP 10 WHITE
+//     var top10Whites = db.top10Whites(function(error, topWhites){
+//       if(error){
+//         res.send(error)
+//       } else {
+//        wines.top10Whites = topWhites;
+//        //GET TOP 10 RATED
+//        var topRated = db.top10Rated(function(error, topRated){
+//         if(error){
+//           res.send(error)
+//         } else {
+//           wines.topRated = topRated;
+//           res.send(wines);
+//           console.log('WIIINES())()()()', wines);
+//         }
+//        });
+//       }
+//     });
+//     }
+//   });
+// });
+
 
 app.options('*', cors());
 
@@ -132,8 +174,8 @@ app.post('/users/username/', function(req, res) {
       console.log('results from checkuserName', results);
       res.send(results);
     }
-  })
-})
+  });
+});
 
 app.options('/users/username/');
 
@@ -190,7 +232,7 @@ app.post('/reviews', function(req, res) {
       res.send(reviews)
     }
   })
-})
+});
 
 // var pricesArray = [0, 10, 20, 30, 40, 50];
 // var winesArray = ['red', 'white', 'rose', 'Cabernet Franc', 'cabernet', 'fran', 'cabernet sauvignon', 'gamay', 'grenache', 'garnacha', 'malbec', 'merlot', 'mourvedre', 'mataro', 'nebbiolo', 'pinot', 'pinot noir', 'sango', 'sangiovese', 'shiraz', 'syrah', 'zin', 'zinfandel', 'chenin', 'chenin blanc', 'blanc', 'Gewurztraminer', 'marsanne', 'muscat', 'pinot blanc', 'blanc', 'pinot gris', 'pinot grigio', 'riesling', 'roussanne', 'sauvignon blanc', 'fume blanc', 'semillon', 'viognier', 'gruner veltliner', 'brut']
@@ -233,9 +275,9 @@ app.post('/reviews', function(req, res) {
 //   })
 // })
 
-var port = process.env.PORT;
+var port = process.env.PORT || 3000;
 
-app.listen(process.env.PORT, function() {
+app.listen(port, function() {
   console.log('listening to port ' + port);
 });
 

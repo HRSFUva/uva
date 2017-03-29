@@ -336,6 +336,7 @@ class App extends React.Component {
     if(!this.state.userWantsLogin && !this.state.userHasSearched && !this.state.userWantsSignUp){
       return (
         <div className = 'container'>
+          <a href="/login/facebook">Log In with Facebook</a>
           <div className = 'topBackgroundImageWrapper'>
             {topbar}
             {search}
@@ -354,8 +355,9 @@ class App extends React.Component {
           <div className = 'container'>
             <div className='heroFullPage'>
             {topbar}
-              <div className = 'loginWrapper'>
-                <Login checkUsername = {this.checkUsername} invalidUsername = {this.state.invalidUsername} newUser={this.newUser} invalidPasswordAttempt={this.state.invalidPasswordAttempt} validate={this.validateUser} handleUserWantsHome={this.handleUserWantsLogin} userWantsLogin={this.state.userWantsLogin} userWantsSignUp={this.state.userWantsSignUp} className = 'loginForm' />
+              <div className = 'loginWrapper' >
+                  <a href="/login/facebook">Log In with Facebook</a>
+                  <Login checkUsername = {this.checkUsername} invalidUsername = {this.state.invalidUsername} newUser={this.newUser} invalidPasswordAttempt={this.state.invalidPasswordAttempt} validate={this.validateUser} handleUserWantsHome={this.handleUserWantsLogin} userWantsLogin={this.state.userWantsLogin} userWantsSignUp={this.state.userWantsSignUp} className = 'loginForm' />
               </div>
             </div>
           </div>

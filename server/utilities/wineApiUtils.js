@@ -1,7 +1,8 @@
 var request = require('request');
 var bodyParser = require('body-parser');
-// var key = require('./apikey.js');
-// var key = process.env.KEY;
+var config = require('./config.js');
+var key = config.apiKey;
+var fbAppId = config.fbAppId;
 // key = key.apiKey;
 // console.log('key', key)
 
