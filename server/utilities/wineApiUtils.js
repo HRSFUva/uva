@@ -112,8 +112,8 @@ module.exports = {
   },
 
   forcedRequest: function (price, wine, callback) {
-    var prices = [0, 10, 20, 30, 40, 50];
-    var forcedOptions = { method: 'GET',
+    var forcedOptions = {
+      method: 'GET',
       url: 'https://services.wine.com/api/beta/service.svc/JSON/catalog',
       qs: {
         filter: 'rating(85|100)+price(' + price + '|' + price+10 + ')',
