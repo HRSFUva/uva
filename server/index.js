@@ -21,6 +21,10 @@ app.use(cors());
 //load static files
 app.use(express.static(__dirname + '/../react-client/dist'));
 
+// let log = (args) => {
+//   consle.log(args);
+// };
+
 //initializing Passport with FB OAuth
 passport.use(new FacebookStrategy({
     clientID: fb.fbAppId,
@@ -28,10 +32,13 @@ passport.use(new FacebookStrategy({
     callbackURL: 'http://localhost:3000/login/facebook/return',
   },
   function(accessToken, refreshToken, profile, done) {
-    User.findOrCreate(...rest, function(err, user) {
-      if (err) { return done(err); }
-      done(null, user);
-    });
+    console.log(accessToken, refreshToken, profile);
+    
+    // User.findOrCreate(...rest, function(err, user) {
+    //   if (err) { return done(err); }
+      // done(null, user);
+      done(null);
+    // });
   }
 ));
 
