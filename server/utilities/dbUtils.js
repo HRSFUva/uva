@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var db = require('../../database-mongo/index.js');
 var Product = require('../../database-mongo/models/Product');
 var Review = require('../../database-mongo/models/Review');
 var User = require('../../database-mongo/models/User');

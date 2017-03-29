@@ -5,38 +5,38 @@ class TopWhitesList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // topWhites: [
-      // { id:1,
-      //   name: 'peter michael',
-      //   year: 2009,
-      //   price: 30
-      //  },
-      // { id:2,
-      //   name: 'berringer',
-      //   year: 2007,
-      //   price: 20
-      //  },
-      //  { id:3,
-      //    name: 'peter michael',
-      //   year: 2012,
-      //   price: 15
-      //  },
-      //  { id:4,
-      //    name: 'joel gatt',
-      //   year: 2009,
-      //   price: 30
-      //  },
-      //  { id:5,
-      //    name: 'stella',
-      //   year: 2009,
-      //   price: 30
-      //  },
-      //  { id:6,
-      //    name: 'barefoot',
-      //   year: 2009,
-      //   price: 10
-      //  }
-      // ]
+      topWhites: [
+      { id:1,
+        name: 'peter michael',
+        year: 2009,
+        price: 30
+       },
+      { id:2,
+        name: 'berringer',
+        year: 2007,
+        price: 20
+       },
+       { id:3,
+         name: 'peter michael',
+        year: 2012,
+        price: 15
+       },
+       { id:4,
+         name: 'joel gatt',
+        year: 2009,
+        price: 30
+       },
+       { id:5,
+         name: 'stella',
+        year: 2009,
+        price: 30
+       },
+       { id:6,
+         name: 'barefoot',
+        year: 2009,
+        price: 10
+       }
+      ]
     }
   }
 
@@ -46,7 +46,7 @@ class TopWhitesList extends React.Component {
         <h2>Top Whites</h2>
         <hr/>
         <ol>
-          {this.props.topWhites.map(topWhite =>
+          {this.state.topWhites.map(topWhite =>
             <li key={topWhite._id}>
             <TopWhitesEntry  handleClickedProductEntry={this.props.handleClickedProductEntry} topWhite={topWhite}/>
             </li>
