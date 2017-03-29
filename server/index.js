@@ -8,7 +8,6 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 var fb = require('./utilities/config.js');
 var User = require('../database-mongo/models/User.js');
 
-var dylan = '';
 //initializing Passport with FB OAuth
 passport.use(new FacebookStrategy({
     clientID: fb.fbAppId,
