@@ -71,7 +71,11 @@ app.use(express.static(__dirname + '/../react-client/dist'));
 
 passport.serializeUser((user, done) => {
   // user is returned as an object within an array
-  done(null, user[0].accessToken);
+  if (user) {
+    done(null, user[0].accessToken);
+  } else {
+    done(null, 'first time user');
+  }
 });
 
 passport.deserializeUser((obj, cb) => {
