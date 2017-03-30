@@ -3,7 +3,6 @@ import Search from './searchBar.jsx';
 import TopWine from './topWines.jsx';
 import $ from 'jquery';
 import Login from './loginForm.jsx';
-import Signup from './signupForm.jsx';
 import ProductList from './productList.jsx';
 import TopBar from './TopBar.jsx';
 import TopRedsList from './topRedsList.jsx';
@@ -32,20 +31,18 @@ class App extends React.Component {
       userID: '',
       invalidPasswordAttempt: false,
       invalidUsername: false,
-      userWantsSignUp: false,
       userWantsProductList: false,
       userClickedEntry: false,
       currentWine: null
     }
 
     this.search = this.search.bind(this);
-    this.handleUserWantsLogin = this.handleUserWantsLogin.bind(this);
-    this.validateUser = this.validateUser.bind(this);
-    this.newUser = this.newUser.bind(this);
-    this.handleUserWantsLogout = this.handleUserWantsLogout.bind(this);
-    this.checkUsername = this.checkUsername.bind(this);
+    // this.handleUserWantsLogin = this.handleUserWantsLogin.bind(this);
+    // this.validateUser = this.validateUser.bind(this);
+    // this.newUser = this.newUser.bind(this);
+    // this.handleUserWantsLogout = this.handleUserWantsLogout.bind(this);
+    // this.checkUsername = this.checkUsername.bind(this);
     this.handleUserWantsHome = this.handleUserWantsHome.bind(this);
-    this.handleUserWantsSignUp = this.handleUserWantsSignUp.bind(this);
     this.submitReview = this.submitReview.bind(this);
     this.getReviews = this.getReviews.bind(this);
     this.init = this.init.bind(this);
@@ -64,19 +61,9 @@ class App extends React.Component {
       userWantsLogin: false,
       userWantsProductList: false,
       userClickedEntry: false,
-      userWantsSignUp: false
     })
   }
 
-  handleUserWantsSignUp(event) {
-    console.log('inside user wants sign up')
-    this.setState({
-      userWantsSignUp: true,
-      invalidPasswordAttempt: false,
-      userWantsHomePage: false,
-      userWantsLogin: false,
-    })
-  }
 
   handleUserWantsLogin(event) {
     this.setState({
@@ -85,21 +72,19 @@ class App extends React.Component {
       userWantsHomePage: false,
       userHasSearched: false,
       userWantsProductList: false,
-      userWantsSignUp: false
     })
   }
 
-  handleUserWantsLogout(event) {
-    this.setState({
-      userLoggedIn: false,
-      userWantsHomePage: true,
-      userWantsProductList: false,
-      userWantsLogin: false,
-      userWantsSignUp: false,
-      username: '',
-      userID: ''
-    })
-  }
+  // handleUserWantsLogout(event) {
+  //   this.setState({
+  //     userLoggedIn: false,
+  //     userWantsHomePage: true,
+  //     userWantsProductList: false,
+  //     userWantsLogin: false,
+  //     username: '',
+  //     userID: ''
+  //   })
+  // }
 
   handleUserWantsProductList(event){
     console.log('inside  product list handler')
@@ -174,88 +159,88 @@ class App extends React.Component {
     })
   }
 
-  validateUser (username, password) {
-    var context = this;
+  // validateUser (username, password) {
+  //   var context = this;
 
-     $.ajax({
-       url: '/login',
-       type: 'POST',
-       contentType: 'application/json',
-       data: JSON.stringify({
-         username: username,
-         password: password
-       }),
-       success: function(data){
-         if(data.length===0){
-          console.log('zeroData');
-          context.setState({
-            invalidPasswordAttempt: true
-          })
-         } else {
-           context.setState({
-            userLoggedIn: !context.state.userLoggedIn,
-            username: data[0].name,
-            userID: data[0]._id,
-            userWantsLogin: !context.state.userWantsLogin,
-            invalidPasswordAttempt: false
-           });
-         }
-       },
-       error: function(err){
-         console.log('error after validateUser', err);
-       }
-     })
-   }
+  //    $.ajax({
+  //      url: '/login',
+  //      type: 'POST',
+  //      contentType: 'application/json',
+  //      data: JSON.stringify({
+  //        username: username,
+  //        password: password
+  //      }),
+  //      success: function(data){
+  //        if(data.length===0){
+  //         console.log('zeroData');
+  //         context.setState({
+  //           invalidPasswordAttempt: true
+  //         })
+  //        } else {
+  //          context.setState({
+  //           userLoggedIn: !context.state.userLoggedIn,
+  //           username: data[0].name,
+  //           userID: data[0]._id,
+  //           userWantsLogin: !context.state.userWantsLogin,
+  //           invalidPasswordAttempt: false
+  //          });
+  //        }
+  //      },
+  //      error: function(err){
+  //        console.log('error after validateUser', err);
+  //      }
+  //    })
+  //  }
 
-   checkUsername (username) {
-    var context = this;
-    $.ajax({
-      url: '/users/username',
-      type: 'POST',
-      contentType: 'application/json',
-      data: JSON.stringify({
-        username: username
-      }),
-      success: function(data){
-        if(data.length > 0) {
-          context.setState({
-            invalidUsername: true
-          })
-        } else {
-          context.setState({
-            invalidUsername: false
-          })
-        }
-      }
-    })
-   }
+   // checkUsername (username) {
+   //  var context = this;
+   //  $.ajax({
+   //    url: '/users/username',
+   //    type: 'POST',
+   //    contentType: 'application/json',
+   //    data: JSON.stringify({
+   //      username: username
+   //    }),
+   //    success: function(data){
+   //      if(data.length > 0) {
+   //        context.setState({
+   //          invalidUsername: true
+   //        })
+   //      } else {
+   //        context.setState({
+   //          invalidUsername: false
+   //        })
+   //      }
+   //    }
+   //  })
+   // }
 
-   newUser (username, password) {
-    var context = this;
-    $.ajax({
-      url: '/signup',
-      type: 'POST',
-      contentType: 'application/json',
-      data: JSON.stringify({
-        username: username,
-        password: password
-      }),
-      success: function(data) {
-        console.log('success response from newUserAJAX', data)
-        context.setState({
-          userWantsHomePage: true,
-          userWantsLogin: false,
-          userWantsProductList: false,
-          username: data.name,
-          userID: data._id,
-          userLoggedIn: true
-        })
-      },
-      error: function(error) {
-        console.log('error in adding user', error);
-      }
-    })
-   }
+   // newUser (username, password) {
+   //  var context = this;
+   //  $.ajax({
+   //    url: '/signup',
+   //    type: 'POST',
+   //    contentType: 'application/json',
+   //    data: JSON.stringify({
+   //      username: username,
+   //      password: password
+   //    }),
+   //    success: function(data) {
+   //      console.log('success response from newUserAJAX', data)
+   //      context.setState({
+   //        userWantsHomePage: true,
+   //        userWantsLogin: false,
+   //        userWantsProductList: false,
+   //        username: data.name,
+   //        userID: data._id,
+   //        userLoggedIn: true
+   //      })
+   //    },
+   //    error: function(error) {
+   //      console.log('error in adding user', error);
+   //    }
+   //  })
+   // }
 
   search (query, price) {
     var context = this;
@@ -321,7 +306,7 @@ class App extends React.Component {
           </div>
         </div>);
 
-    var topbar =   <TopBar username={this.state.username} userLoggedIn={this.state.userLoggedIn} handleUserWantsLogin={this.handleUserWantsLogin} handleUserWantsHome={this.handleUserWantsHome} handleUserWantsLogout={this.handleUserWantsLogout} handleUserWantsSignUp={this.handleUserWantsSignUp} userWantsHomePage={this.state.userWantsHomePage} userWantsLogin={this.state.userWantsLogin} userHasSearched={this.state.userHasSearched}/>;
+    var topbar =   <TopBar username={this.state.username} userLoggedIn={this.state.userLoggedIn} handleUserWantsLogin={this.handleUserWantsLogin} userHasSearched={this.state.userHasSearched}/>;
     var search =  <div className = 'heroImageContainer'>
             <div className = 'heroContentWrapper'>
               <h2>Unbiased wine reviews</h2>
@@ -329,12 +314,13 @@ class App extends React.Component {
             </div>
           </div>
 
-    if(!this.state.userWantsLogin && !this.state.userHasSearched && !this.state.userWantsSignUp){
+    if(!this.state.userWantsLogin && !this.state.userHasSearched){
       return (
         <div className = 'container'>
-          <a href="/login/facebook">Log In with Facebook</a>
+
           <div className = 'topBackgroundImageWrapper'>
             {topbar}
+            <a href="/login/facebook">Sign Up or Login with Facebook</a>
             {search}
           </div>
         <div>
@@ -352,8 +338,8 @@ class App extends React.Component {
             <div className='heroFullPage'>
             {topbar}
               <div className = 'loginWrapper' >
-                  <a href="/login/facebook">Log In with Facebook</a>
-                  <Login checkUsername = {this.checkUsername} invalidUsername = {this.state.invalidUsername} newUser={this.newUser} invalidPasswordAttempt={this.state.invalidPasswordAttempt} validate={this.validateUser} handleUserWantsHome={this.handleUserWantsLogin} userWantsLogin={this.state.userWantsLogin} userWantsSignUp={this.state.userWantsSignUp} className = 'loginForm' />
+                  
+                  <Login checkUsername = {this.checkUsername} invalidUsername = {this.state.invalidUsername} newUser={this.newUser} invalidPasswordAttempt={this.state.invalidPasswordAttempt} validate={this.validateUser} handleUserWantsHome={this.handleUserWantsLogin} userWantsLogin={this.state.userWantsLogin} />
               </div>
             </div>
           </div>
@@ -370,17 +356,7 @@ class App extends React.Component {
             <ProductList handleUserWantsProductList={this.handleUserWantsProductList} searchHistory={this.state.searchHistory} reviews={this.state.reviews} getReviews={this.getReviews} products={this.state.products} submitReview={this.submitReview} userHasSearched={this.state.userHasSearched} userWantsProductList={this.state.userWantsProductList}/>
           </div>
           )
-      } else if (this.state.userWantsSignUp) {
-      return(
-        <div className='container'>
-          <div className='heroFullPage'>
-            {topbar}
-            <div>
-              <Signup invalidUsername={this.props.invalidUsername} checkUsername={this.props.checkUsername} userWantsHomePage={this.handleUserWantsHome} newUser={this.props.newUser} className='signupForm' handleUserWantsSignUp={this.handleUserWantsSignUp} />
-            </div>
-          </div>
-        </div>
-      )
+
     }
   }
 }

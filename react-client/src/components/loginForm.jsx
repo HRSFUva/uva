@@ -1,5 +1,4 @@
 import React from 'react';
-import SignupForm from './signupForm.jsx';
 import TopBar from './TopBar.jsx';
 
 class LoginForm extends React.Component {
@@ -36,21 +35,8 @@ class LoginForm extends React.Component {
   render() {
     return (
       <div className='container'>
-
         <div className="signupFormWrapper">
-          <form onSubmit={this.handleSubmit}>
-            <label>
-              <h4>Username:</h4>
-              <input placeholder='username' type="text" value={this.state.username} onChange={this.handleUsernameChange}/>
-            </label>
-            <label><br/><br/>
-              <h4>Password:</h4>
-              <input placeholder='password' type="password" value={this.state.password} onChange={this.handlePasswordChange}/>
-            </label><br/>
-            <input type="submit" value="Submit"/>
-            {this.props.invalidPasswordAttempt &&
-              <span><h4>Try Again</h4></span> }
-          </form>
+              <h4 ><a href="/login/facebook">Sign Up or Login with Facebook</a></h4>
         </div>
       </div>
     )

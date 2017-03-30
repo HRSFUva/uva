@@ -6,7 +6,9 @@ var cors = require('cors');
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var fb = require('./utilities/config.js');
+var ppUtils = require('./utilities/passportUtils.js');
 var User = require('../database-mongo/models/User.js');
+var path = require('path');
 
 //initializing Passport with FB OAuth
 passport.use(new FacebookStrategy({
@@ -15,16 +17,13 @@ passport.use(new FacebookStrategy({
     callbackURL: 'http://localhost:3000/login/facebook/callback',
   },
   function(accessToken, refreshToken, profile, done) {
-    console.log(profile.id);
     
     User.find({name: profile.displayName}, function(err, user) {
-      console.log(user);
-      return done(err, user);
       if (err) {
         console.error(err);
         return done(err);
       } 
-      if (!user) {
+      if (user.length < 1) {
         User.create({
           name: profile.displayName,
           joined: new Date(),
@@ -34,17 +33,13 @@ passport.use(new FacebookStrategy({
             friends: 0,
           }, 
         }, function(err, user) {
-          console.log('user.create', user);
           if (err) {
-            console.error(err);
             return done(err);
           } else {
-            console.log(user);
             return done(null, user);
           }
         });
       } else {
-        console.log('user found');
         done(null, user);
       }
     });
@@ -52,15 +47,6 @@ passport.use(new FacebookStrategy({
 ));
 
 
-passport.serializeUser((user, cb) => {
-  console.log('user in serializeUser', user);
-  cb(null, user);
-});
-
-passport.deserializeUser((obj, cb) => {
-  console.log('obj in deserializeUser', obj);
-  cb(null, obj);
-});
 
 //INSTANTIATE APP
 var app = express();
@@ -69,16 +55,28 @@ var app = express();
 //MIDDLEWARE
 app.use(bodyParser.json());
 app.use(cors());
-
-//load static files
-app.use(express.static(__dirname + '/../react-client/dist'));
+app.use(require('cookie-parser')());
+app.use(require('express-session')({secret: 'keyboard cat', resave: true, saveUninitialized: true}));
 
 app.use(passport.initialize());
 app.use(passport.session());
 
-// app.get('/login', (req, res) => {
-//   res.render('login');
-// });
+
+// AUTHENTICATION
+app.get('/', ppUtils.isLoggedIn, (req, res) => {
+  res.sendFile(path.join(__dirname, '/../react-client/dist'));
+});
+
+app.use(express.static(__dirname + '/../react-client/dist'));
+
+passport.serializeUser((user, done) => {
+  // user is returned as an object within an array
+  done(null, user[0].accessToken);
+});
+
+passport.deserializeUser((obj, cb) => {
+  cb(null, obj);
+});
 
 
 app.get('/login/facebook',
@@ -89,10 +87,8 @@ app.get('/login/facebook/callback',
                                       // session: false,
                                       successRedirect: '/'
                                     })
-  // function(req, res) {
-  //   console.log('done with passport');
-    // res.redirect('/');
 );
+
 
 //SETTING UP ALL THE ROUTES FOR THE CLIENT REQUEST
 
