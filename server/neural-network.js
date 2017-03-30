@@ -48,7 +48,3 @@ recs = NN.activate([1, 1, 1, 0, 1, .8]);
 console.log('.8: ', recs);
 
 
-// test to see how NN performs - pass in various inputs and see what the output is
-  // do a small amount of experimentation to maximize NN's performance 
-    // adjust number of hidden layers and number of neurons 
-
