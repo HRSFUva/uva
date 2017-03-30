@@ -1,20 +1,54 @@
 var synaptic = require("synaptic");
 
-// write a function that creates a new NN for every user 
-  // set up input layer, hidden layer, and output layer
-    // input layer has 6 neurons, price, wine type, and 4 varietals
-    // hidden layer has 3 neirons 
-    // one output neuron
-  // set up connections between them 
-    // input is connected to hidden, hidden is connected to output
+module.exports.newUserNN = () => {
+  return new synaptic.Architect.Perceptron(6, 3, 1);
+}
 
-// function that trains NN - two inputs (NN, trainingData) 
-  // make dummy data to test-train the NN
-  // set up a trainer and pass in data 
+const trainingSet = [
+  {
+    input: [0, 0, 0, 0, 0, .2],
+    output: [1]
+  },
+  {
+    input: [0, 0, 0, 0, 0, .9],
+    output: [0]
+  },
+  {
+    input: [0, 0, 0, 0, 0, .4],
+    output: [1]
+  },
+  {
+    input: [0, 0, 0, 0, 0, .1],
+    output: [1]
+  },
+  {
+    input: [0, 0, 0, 0, 0, .8],
+    output: [0]
+  },
+  {
+    input: [0, 0, 0, 0, 0, .6],
+    output: [0]
+  },
+]
 
-// function that activates NN - (NN, inputs) 
-  // return NN output
+module.exports.train = (NN, trainingSet) => {
+  const newUserTrainer = new synaptic.Trainer(NN);
+  newUserTrainer.train(trainingSet);
+  return NN;
+}
+
+let NN = module.exports.newUserNN();
+NN = module.exports.train(NN, trainingSet);
+
+let recs = NN.activate([1, 1, 1, 1, 1, .2]);
+console.log('.2: ', recs);
+recs = NN.activate([1, 0, 1, 0, 1, .4]);
+console.log('.4: ', recs);
+recs = NN.activate([1, 1, 1, 0, 1, .8]);
+console.log('.8: ', recs);
+
 
 // test to see how NN performs - pass in various inputs and see what the output is
   // do a small amount of experimentation to maximize NN's performance 
     // adjust number of hidden layers and number of neurons 
+
