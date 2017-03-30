@@ -3,77 +3,150 @@ var bodyParser = require('body-parser');
 var db = require('./utilities/dbUtils.js');
 var wineApiUtils = require('./utilities/wineApiUtils.js');
 var cors = require('cors');
+var passport = require('passport');
+var FacebookStrategy = require('passport-facebook').Strategy;
+var fb = require('./utilities/config.js');
+var ppUtils = require('./utilities/passportUtils.js');
+var User = require('../database-mongo/models/User.js');
+var path = require('path');
+
+//initializing Passport with FB OAuth
+passport.use(new FacebookStrategy({
+    clientID: fb.fbAppId,
+    clientSecret: fb.secret,
+    callbackURL: 'http://localhost:3000/login/facebook/callback',
+  },
+  function(accessToken, refreshToken, profile, done) {
+    
+    User.find({name: profile.displayName}, function(err, user) {
+      if (err) {
+        console.error(err);
+        return done(err);
+      } 
+      if (user.length < 1) {
+        User.create({
+          name: profile.displayName,
+          joined: new Date(),
+          accessToken: accessToken,
+          meta: {
+            reviews: 0,
+            friends: 0,
+          }, 
+        }, function(err, user) {
+          if (err) {
+            return done(err);
+          } else {
+            return done(null, user);
+          }
+        });
+      } else {
+        done(null, user);
+      }
+    });
+  }
+));
+
+
 
 //INSTANTIATE APP
 var app = express();
-
-//SSL CERTIFICATE
-// var options = {
-//   key: fs.readFileSync(__dirname + '/key.pem'),
-//   cert: fs.readFileSync(__dirname + '/cert.pem')
-// }
-// console.log('SSL OPTIONS', options);
 
 
 //MIDDLEWARE
 app.use(bodyParser.json());
 app.use(cors());
+app.use(require('cookie-parser')());
+app.use(require('express-session')({secret: 'keyboard cat', resave: true, saveUninitialized: true}));
 
-//load static files
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+// AUTHENTICATION
+app.get('/', ppUtils.isLoggedIn, (req, res) => {
+  res.sendFile(path.join(__dirname, '/../react-client/dist'));
+});
+
 app.use(express.static(__dirname + '/../react-client/dist'));
 
-// var a = https.createServer(options, function(req, res) {
-//   console.log('insiasjdfjasopdfijasoipdfjSERVER')
-//   res.writeHead(200);
-//   res.send('hello world')
-// })
+passport.serializeUser((user, done) => {
+  // user is returned as an object within an array
+  if (user) {
+    done(null, user[0].accessToken);
+  } else {
+    done(null, 'first time user');
+  }
+});
+
+passport.deserializeUser((obj, cb) => {
+  cb(null, obj);
+});
+
+
+app.get('/login/facebook',
+  passport.authenticate('facebook'));
+
+app.get('/login/facebook/callback', 
+  passport.authenticate('facebook', { failureRedirect: '/login',
+                                      // session: false,
+                                      successRedirect: '/'
+                                    })
+);
+
 
 //SETTING UP ALL THE ROUTES FOR THE CLIENT REQUEST
-app.get('/init', function(req, res){
 
-var wines = {
-  top10Reds: [],
-  top10Wines: [],
-  topRated: [],
-}
-console.log('wineswineswines', wines);
+// initializes the red and white wines on the client
+app.get('/init', function(req, res) {
+  var wines = {
+    top10Reds: [],
+    top10Wines: [],
+    topRated: [],
+  };
 
- //GET TOP 10 RED
- var top10Reds = db.top10Reds(function(error, topReds){
-  console.log('WINEwineswineswines', wines);
-
-  if(error){
-    res.send(error);
-  } else {
-    wines.top10Reds = topReds;
-    //GET TOP 10 WHITE
-    var top10Whites = db.top10Whites(function(error, topWhites){
-      if(error){
-        res.send(error)
-      } else {
-       wines.top10Whites = topWhites;
-       //GET TOP 10 RATED
-       var topRated = db.top10Rated(function(error, topRated){
+  db.top10Reds(function(error, topReds) {
+    if (error) {
+      res.send(error);
+    } else {
+      wines.top10Reds = topReds;
+      db.top10Whites(function(error, topWhites) {
         if(error){
           res.send(error)
         } else {
-          wines.topRated = topRated;
+          wines.top10Whites = topWhites;
           res.send(wines);
-          console.log('WIIINES())()()()', wines);
+         //GET TOP 10 RATED
+         // var topRated = db.top10Rated(function(error, topRated){
+         //  if(error){
+         //    res.send(error)
+         //  } else {
+         //    wines.topRated = topRated;
+         //    res.send(wines);
+         //    console.log('WIIINES())()()()', wines);
+         //  }
+         // });
         }
-       });
-      }
-    });
+      });
     }
   });
 });
 
+
 app.options('*', cors());
 
-app.get('/wine', function(req, res) {
-  console.log('GET request to /wine received');
-  res.statusCode = 200;
-  res.send('response from app.get /wine');
+app.get('/getWines', function(req, res) {
+  // can be modified to take in a price from req/res later
+  var price = 10;
+
+  wineApiUtils.topRed(price, function(error, results) {
+    db.storeWines(results.Products.List, function() {
+      wineApiUtils.topWhite(price, function(error, results) {
+        db.storeWines(results.Products.List, function() {
+          res.send('storage of red and white wines complete!');
+        });
+      });
+    });
+  });
 });
 
 //This route invokes wine.com api.
@@ -132,8 +205,8 @@ app.post('/users/username/', function(req, res) {
       console.log('results from checkuserName', results);
       res.send(results);
     }
-  })
-})
+  });
+});
 
 app.options('/users/username/');
 
@@ -190,7 +263,7 @@ app.post('/reviews', function(req, res) {
       res.send(reviews)
     }
   })
-})
+});
 
 // var pricesArray = [0, 10, 20, 30, 40, 50];
 // var winesArray = ['red', 'white', 'rose', 'Cabernet Franc', 'cabernet', 'fran', 'cabernet sauvignon', 'gamay', 'grenache', 'garnacha', 'malbec', 'merlot', 'mourvedre', 'mataro', 'nebbiolo', 'pinot', 'pinot noir', 'sango', 'sangiovese', 'shiraz', 'syrah', 'zin', 'zinfandel', 'chenin', 'chenin blanc', 'blanc', 'Gewurztraminer', 'marsanne', 'muscat', 'pinot blanc', 'blanc', 'pinot gris', 'pinot grigio', 'riesling', 'roussanne', 'sauvignon blanc', 'fume blanc', 'semillon', 'viognier', 'gruner veltliner', 'brut']
@@ -233,9 +306,9 @@ app.post('/reviews', function(req, res) {
 //   })
 // })
 
-var port = process.env.PORT;
+var port = process.env.PORT || 3000;
 
-app.listen(process.env.PORT, function() {
+app.listen(port, function() {
   console.log('listening to port ' + port);
 });
 
