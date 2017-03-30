@@ -1,15 +1,15 @@
-var mongo = require('mongodb');
 var mongoose = require('mongoose');
-var Promise = require('bluebird');
-var Mongoose = Promise.promisifyAll(require("mongoose"));
 var db = require('../../database-mongo/index.js');
+var Product = require('../../database-mongo/models/Product');
+var Review = require('../../database-mongo/models/Review');
+var User = require('../../database-mongo/models/User');
 
 module.exports = {
 
   searchWines: function(query, price, callback){
     console.log('searching', query);
     console.log('searching', price);
-    db.Product.find({ "name": {"$regex": query, "$options": "i"}, "priceMin": {$lt: price, $gt: price-10}}).limit(50).sort({apiRating: -1}).exec(function(error, results){
+    Product.find({ "name": {"$regex": query, "$options": "i"}, "priceMin": {$lt: price, $gt: price-10}}).limit(50).sort({apiRating: -1}).exec(function(error, results){
       if(error){
         callback(error, null)
         } else {
@@ -20,7 +20,7 @@ module.exports = {
   },
 
   checkuserName: function(username, callback){
-    db.User.find({name: username}, function(err, results) {
+    User.find({name: username}, function(err, results) {
       if(err){
         callback(error, false, null);
       }
@@ -34,7 +34,7 @@ module.exports = {
   },
 
   addUser: function(username, password, callback) {
-    db.User.create({name:username, password: password}, function(error, results) {
+    User.create({name:username, password: password}, function(error, results) {
       if(error){
         callback(error, false, null)
       } else {
@@ -44,7 +44,7 @@ module.exports = {
   },
 
   validateUser: function(username, password, callback) {
-    db.User.find({name: username, password: password}, function(error, results) {
+    User.find({name: username, password: password}, function(error, results) {
       if(error){
         callback(error, null);
       } else {
@@ -54,7 +54,7 @@ module.exports = {
   },
 
   addWine: function(wine, callback) {
-    db.Product.create(wine, function(error, results){
+    Product.create(wine, function(error, results){
       if(error){
         callback(error, null)
       } else {
@@ -64,7 +64,7 @@ module.exports = {
   },
 
   addReview: function(review, callback){
-    db.Review.create({content: review.content, rating: review.rating, product: review.product, username: review.username, product_id: review.product_id}, function(error, results){
+    Review.create({content: review.content, rating: review.rating, product: review.product, username: review.username, product_id: review.product_id}, function(error, results){
       if(error){
         callback(error, null)
       } else {
@@ -75,7 +75,7 @@ module.exports = {
 
   getReviews: function(product_id, callback){
     console.log('inside getReviews', product_id);
-    db.Review.find({product_id: product_id}, function(error, results){
+    Review.find({product_id: product_id}, function(error, results){
       if(error){
         callback(error, null);
       } else {
@@ -87,7 +87,7 @@ module.exports = {
 
   top10Reds: function(callback) { //TODO: test against populated database once forcedRequest is up, or against dummy data
     // return db.Product.find({redORwhite:'Red Wines'}).sort({rating: -1}).limit(10)
-    db.Product.find({redORwhite:'Red Wines'}).limit(10).sort({apiRating: -1}).exec(function(error, results){
+    Product.find({redORwhite:'Red Wines'}).limit(10).sort({apiRating: -1}).exec(function(error, results){
       if(error){
         console.log('DB FIND TOP 10 ERRROR')
         callback(error, results)
@@ -101,7 +101,7 @@ module.exports = {
   top10Whites: function(callback) { //TODO: test against populated database once forcedRequest is up, or against dummy data
 
     // return db.Product.findAsync({redORwhite:'White Wines'}).sort({rating: -1}).limit(10)
-    db.Product.find({redORwhite:'White Wines'}).limit(10).sort({apiRating: -1}).exec(function(error, results){
+    Product.find({redORwhite:'White Wines'}).limit(10).sort({apiRating: -1}).exec(function(error, results){
       if(error){
         callback(error, null)
       } else {
@@ -113,7 +113,7 @@ module.exports = {
 
   top10Rated: function(callback) { //TODO: test against populated database once forcedRequest is up, or against dummy data
     // return db.Product.findAsync({}).sort({rating:-1}).limit(10)
-    db.Product.find({}).limit(10).sort({apiRating:-1}).exec(function(error, results){
+    Product.find({}).limit(10).sort({apiRating:-1}).exec(function(error, results){
       if(error){
         callback(error, null)
       } else {
@@ -125,5 +125,29 @@ module.exports = {
 
   getUserReviews(username, callback) {
 
+  },
+
+  storeWines(wines, callback) {
+    let promises = wines.map(function(wine) {
+      return new Promise(function(res, rej) {
+        Product.create({
+          name: wine.Name,
+          year: wine.Vintage,
+          type: wine.Varietal.Name,
+          redORwhite: wine.Varietal.WineType.Name,
+          origin: wine.Appellation.Name,
+          region: wine.Appellation.Region.Name,
+          priceMin: wine.PriceMin,
+          priceMax: wine.PriceMax,
+          apiRating: wine.Ratings.HighestScore
+        }, function(err, results) {
+          res();
+        });
+      });
+    });
+    Promise.all(promises)
+    .then(function() {
+      callback();
+    });
   }
 }

@@ -1,142 +1,136 @@
 var request = require('request');
-var bodyParser = require('body-parser');
-// var key = require('./apikey.js');
-// var key = process.env.KEY;
-// key = key.apiKey;
-// console.log('key', key)
-
+var config = require('./config.js');
+var key = config.apiKey;
+var fbAppId = config.fbAppId;
 
 module.exports = {
 
-  apiRequest: function(search, price, callback){
-
+  apiRequest: function(search, price, callback) {
     var options = {
       method: 'GET',
-      url: 'https://services.wine.com/api/beta/service.svc/JSON/catalog?size=50&search=' + search + '&price=' + price + '|' + (price * (price/10 + 1)) + '&sort=rating&apikey=' + key,
-      headers:
-       { 'cache-control': 'no-cache' },
-       json: true
+      url: 'https://services.wine.com/api/beta/service.svc/JSON/catalog',
+      qs: {
+        size: '50',
+        search: search,
+        filter: 'rating(85|100)+price(' + price + '|' + (price * (price/10 + 1)) + ')',
+        sort: 'rating|descending',
+        apikey: key
+      },
+      headers: {
+        'cache-control': 'no-cache'
+      },
+      json: true
     };
 
-    request(options, function(error, response, fields) {
+    request(options, function(error, response, body) {
       if (error) {
         console.error('Error in API request', error);
-        callback(error, false, null)
-     } else {
-        console.log('API body', response.body.Products.List.length);
-        callback(null, true, response.body.Products.List);
+        callback(error, null)
+      } else {
+        console.log('API body', body.Products.List.length);
+        callback(null, body.Products.List);
       }
     });
   },
 
-  topRed: function(price, callback){
+  topRed: function(price, callback) {
     var options = {
       method: 'GET',
-      url: 'https://services.wine.com/api/beta/service.svc/JSON/catalog?filter=categories(490+124)&offset=10&size=5&apikey=' + key,
-      qs:
-      { filter: 'categories(490 124)',
-      offset: '10',
-      size: '5',
+      url: 'https://services.wine.com/api/beta/service.svc/JSON/catalog',
+      qs: { 
+        filter: 'categories(490+124)+rating(85|100)+price(' + price + '|' + (price + 10) + ')',
+        size: '100',
+        sort: 'popularity|descending',
+        apikey: key
       },
-        headers:
-      { 'cache-control': 'no-cache' },
+      headers: {
+        'cache-control': 'no-cache'
+      },
       json: true
     };
 
-    request(options, function(error, response, fields) {
+    request(options, function(error, response, body) {
       if (error) {
-        console.error('Error from top red function', error);
-        callback(error, false, null);
+        callback(error, null);
       } else {
-        console.log('Top rated results', response);
-        callback(error, true, response);
+        callback(null, body);
       }
-    })
+    });
   },
 
   topWhite: function(price, callback) {
     var options = {
       method: 'GET',
-      url: 'https://services.wine.com/api/beta/service.svc/JSON/catalog?filter=categories(490+124)&offset=10&size=5&apikey=' + key,
-      qs:
-        { filter: 'categories(490 124)',
-      offset: '10',
-      size: '5',
+      url: 'https://services.wine.com/api/beta/service.svc/JSON/catalog',
+      qs: {
+        filter: 'categories(490+125)+rating(85|100)+price(' + price + '|' + (price + 10) + ')',
+        size: '100',
+        sort: 'popularity|descending',
+        apikey: key
       },
-      headers:
-      { 'cache-control': 'no-cache' },
+      headers: {
+        'cache-control': 'no-cache'
+      },
       json: true
-    }
+    };
 
-    request(options, function(error, response, fields) {
+    request(options, function(error, response, body) {
       if (error) {
-        console.error('Error from top white function', error);
-        callback(error, false, null);
+        callback(error, null);
       } else {
-        console.log('Response for top white search', response);
-        callback(error, true, response);
+        callback(null, body);
       }
-    })
+    });
   },
 
   topRated: function(price, callback) {
     var options = {
       method: 'GET',
-      url: 'https://services.wine.com/api/beta/service.svc/JSON/catalog?filter=categories(490+124)&offset=10&size=5&apikey=' + key,
-      qs:
-        { filter: 'categories(490 124)',
-      offset: '10',
-      size: '5',
+      url: 'https://services.wine.com/api/beta/service.svc/JSON/catalog',
+      qs: {
+        filter: 'categories(490+124)',
+        size: '5',
+        apikey: key
       },
-      headers:
-      { 'cache-control': 'no-cache' },
+      headers: {
+        'cache-control': 'no-cache'
+      },
       json: true
     };
 
-    request(options, function(error, response, fields) {
+    request(options, function(error, response, body) {
       if (error) {
         console.error('Error from topRated function', error);
-        callback(error, false, null);
+        callback(error, null);
       } else {
         console.log('Response from topRed function');
-        callback(error, true, response);
+        callback(null, body);
       }
-    })
+    });
   },
 
   forcedRequest: function (price, wine, callback) {
-   var prices = [0, 10, 20, 30, 40, 50];
-   var forcedOptions = { method: 'GET',
-     url: 'https://services.wine.com/api/beta/service.svc/JSON/catalog',
-     qs:
-      { offset: '10',
+    var forcedOptions = {
+      method: 'GET',
+      url: 'https://services.wine.com/api/beta/service.svc/JSON/catalog',
+      qs: {
+        filter: 'rating(85|100)+price(' + price + '|' + price+10 + ')',
         size: '100',
-        apikey: '7e30469636811cfa7dd0aef5dffcddbd',
-        rating: '85|100',
-        price: price +'|'+ (price+10),
-        format: 'JSON',
-        search: wine
+        search: wine,
+        apikey: key
       },
-     headers:
-      { 'cache-control': 'no-cache' }
-      };
-    request(forcedOptions, function(error, response, fields) {
+      headers: {
+        'cache-control': 'no-cache'
+      },
+      json: true
+    };
+
+    request(forcedOptions, function(error, response, body) {
       if(error){
-        callback(error, response)
+        callback(error, null);
       } else {
-        callback(null, response)
+        callback(null, body);
       }
-    })
+    });
   }
-
 }
-
-// var options = {
-//   method: 'GET',
-//   url: 'https://services.wine.com/api/beta/service.svc/JSON/catalog?filter=categories(490+124)&offset=10&size=5&apikey=' + key,
-//   size: 25,
-// };
-
-var pricePoints = [0, 10, 20, 30, 40, 50]
-
-var varietals = [];
